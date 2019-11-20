@@ -22,6 +22,10 @@ import { PieChartComponent } from './dashboard/components/pie-chart/pie-chart.co
 import { LineChartComponent } from './dashboard/components/line-chart/line-chart.component';
 import { ToastModule } from 'primeng/toast';
 import { BarChartComponent } from './dashboard/components/bar-chart/bar-chart.component';
+import { MenuComponent } from './componentes/menu/menu.component';
+import { InicioComponent } from './componentes/inicio/inicio.component';
+import { LoginComponent } from './componentes/login/login.component';
+import { Error404Component } from './componentes/error404/error404.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +39,11 @@ import { BarChartComponent } from './dashboard/components/bar-chart/bar-chart.co
     RadarChartComponent,
     PieChartComponent,
     LineChartComponent,
-    BarChartComponent
+    BarChartComponent,
+    MenuComponent,
+    InicioComponent,
+    LoginComponent,
+    Error404Component
   ],
   imports: [
     BrowserModule,

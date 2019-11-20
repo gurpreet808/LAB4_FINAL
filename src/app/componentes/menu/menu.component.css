@@ -1,0 +1,6 @@
+:host ::ng-deep .ui-menubar {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
