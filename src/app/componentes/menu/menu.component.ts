@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 
 import { MenuItem } from 'primeng/api';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
 
 @Component({
   selector: 'app-menu',
@@ -18,4 +19,13 @@ export class MenuComponent {
       label: 'Quit', icon: 'pi pi-fw pi-times'
     }
   ];
+
+  constructor(public servUsuario: UsuarioService) {
+
+  }
+
+  desloguear(){
+    console.log("Cerrando sesión...");
+    this.servUsuario.logout();
+  }
 }

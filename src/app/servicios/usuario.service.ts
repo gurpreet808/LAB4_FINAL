@@ -25,12 +25,9 @@ export class UsuarioService {
     );
   }
 
-  async loginEmail(correo: string, clave: string) {
+  loginEmail(correo: string, clave: string) {
     try {
-      let resultado = await this.afAuth.auth.signInWithEmailAndPassword(correo, clave);
-
-      this.traerDatosDelUsuario(resultado.user.uid);
-
+      this.afAuth.auth.signInWithEmailAndPassword(correo, clave);
     } catch (error) {
       console.log(error.code);
       if (error.code == "auth/wrong-password") {
