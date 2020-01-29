@@ -32,22 +32,22 @@
         </div>
 
         <div class="ui-inputgroup">
-          <span class="ui-inputgroup-addon"><i class="pi pi-id-card"></i></span>
+          <span class="ui-inputgroup-addon"><i class="pi pi-briefcase"></i></span>
           <input type="text" pInputText placeholder="CUIL" [(ngModel)]="cuil">
         </div>
 
         <div class="ui-inputgroup">
-          <span class="ui-inputgroup-addon"><i class="pi pi-key"></i></span>
+          <span class="ui-inputgroup-addon"><i class="pi pi-users"></i></span>
           <input type="text" pInputText placeholder="Perfil" [(ngModel)]="perfil">
         </div>
 
       </div>
 
       <p-footer>
-        <button pButton type="button" label="Iniciar sesión" icon="pi pi-sign-in" class="ui-button-primary"
-          (click)="loguear()"></button>
-        <button pButton type="button" label="Registrarme" icon="pi pi-user-plus" class="ui-button-secondary"
+        <button pButton type="button" label="Registrarme" icon="pi pi-user-plus" class="ui-button-primary"
           (click)="registrar()"></button>
+        <button pButton type="button" label="Iniciar sesión" icon="pi pi-sign-in" class="ui-button-secondary"
+          (click)="loguear()"></button>
       </p-footer>
     </p-card>
 

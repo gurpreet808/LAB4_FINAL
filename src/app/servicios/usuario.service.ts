@@ -53,6 +53,10 @@ export class UsuarioService {
     }
   }
 
+  registrarUsuario(){
+
+  }
+
   logout() {
     this.afAuth.auth.signOut();
   }
