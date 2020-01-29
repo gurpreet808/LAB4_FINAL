@@ -28,6 +28,7 @@ import { MenuComponent } from './componentes/menu/menu.component';
 import { InicioComponent } from './componentes/inicio/inicio.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { Error404Component } from './componentes/error404/error404.component';
+import { RegistrarUsuarioComponent } from './componentes/registrar-usuario/registrar-usuario.component';
 
 @NgModule({
   declarations: [
@@ -45,7 +46,8 @@ import { Error404Component } from './componentes/error404/error404.component';
     MenuComponent,
     InicioComponent,
     LoginComponent,
-    Error404Component
+    Error404Component,
+    RegistrarUsuarioComponent
   ],
   imports: [
     BrowserModule,

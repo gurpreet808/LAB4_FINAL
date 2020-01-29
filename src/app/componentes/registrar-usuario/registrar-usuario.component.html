@@ -1,0 +1,55 @@
+<div class="ui-g ui-fluid ">
+  <div class="ui-g-4 caja">
+    <p-card header="Registrarme">
+      <p-header>
+      </p-header>
+
+      <div class="body-card">
+
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
+          <input type="text" pInputText placeholder="Nombre" [(ngModel)]="nombre">
+        </div>
+
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
+          <input type="text" pInputText placeholder="Apellido" [(ngModel)]="apellido">
+        </div>
+
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon"><i class="pi pi-envelope"></i></span>
+          <input type="text" pInputText placeholder="Correo" [(ngModel)]="correo">
+        </div>
+
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon"><i class="pi pi-key"></i></span>
+          <input type="password" pInputText placeholder="Clave" [(ngModel)]="clave">
+        </div>
+
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon"><i class="pi pi-key"></i></span>
+          <input type="password" pInputText placeholder="Confirmar clave" [(ngModel)]="clave2">
+        </div>
+
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon"><i class="pi pi-id-card"></i></span>
+          <input type="text" pInputText placeholder="CUIL" [(ngModel)]="cuil">
+        </div>
+
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon"><i class="pi pi-key"></i></span>
+          <input type="text" pInputText placeholder="Perfil" [(ngModel)]="perfil">
+        </div>
+
+      </div>
+
+      <p-footer>
+        <button pButton type="button" label="Iniciar sesión" icon="pi pi-sign-in" class="ui-button-primary"
+          (click)="loguear()"></button>
+        <button pButton type="button" label="Registrarme" icon="pi pi-user-plus" class="ui-button-secondary"
+          (click)="registrar()"></button>
+      </p-footer>
+    </p-card>
+
+  </div>
+</div>

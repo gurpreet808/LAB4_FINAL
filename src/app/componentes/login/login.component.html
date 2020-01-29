@@ -1,28 +1,30 @@
 <div class="ui-g ui-fluid ">
-    <div class="ui-g-4 caja">
-      <p-card header="Iniciar sesión">
-        <p-header>
-        </p-header>
-      
-        <div class="body-card">
+  <div class="ui-g-4 caja">
+    <p-card header="Iniciar sesión">
+      <p-header>
+      </p-header>
 
-          <div class="ui-inputgroup">
-            <span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
-            <input type="text" pInputText placeholder="Correo" [(ngModel)]="correo">
-          </div>
-      
-          <div class="ui-inputgroup">
-            <span class="ui-inputgroup-addon"><i class="pi pi-key"></i></span>
-            <input type="password" pInputText placeholder="Clave" [(ngModel)]="clave">
-          </div>
+      <div class="body-card">
 
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon"><i class="pi pi-envelope"></i></span>
+          <input type="text" pInputText placeholder="Correo" [(ngModel)]="correo">
         </div>
-      
-        <p-footer>
-          <button pButton type="button" label="Iniciar sesión" icon="pi pi-sign-in" class="ui-button-primary" (click)="loguear()"></button>
-          <button pButton type="button" label="Registrarme" icon="pi pi-user-plus" class="ui-button-secondary" (click)="registrar()"></button>
-        </p-footer>
-      </p-card>
-      
-    </div>
+
+        <div class="ui-inputgroup">
+          <span class="ui-inputgroup-addon"><i class="pi pi-key"></i></span>
+          <input type="password" pInputText placeholder="Clave" [(ngModel)]="clave">
+        </div>
+
+      </div>
+
+      <p-footer>
+        <button pButton type="button" label="Iniciar sesión" icon="pi pi-sign-in" class="ui-button-primary"
+          (click)="loguear()"></button>
+        <button pButton type="button" label="Registrarme" icon="pi pi-user-plus" class="ui-button-secondary"
+          (click)="registrar()"></button>
+      </p-footer>
+    </p-card>
+
+  </div>
 </div>

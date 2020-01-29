@@ -27,8 +27,7 @@ export class LoginComponent implements OnInit {
   }
 
   registrar(){
-    this.navegar("/registrarse");
-
+    this.navegar("/registrarme");
   }
 
   navegar(url: string){
