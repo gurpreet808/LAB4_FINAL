@@ -5,5 +5,5 @@ export class Usuario {
     correo?: string;
     clave?: string;
     perfil?: string;
-    foto: string;
+    foto?: string;
 }

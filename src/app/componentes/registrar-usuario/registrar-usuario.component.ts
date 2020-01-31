@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { Router } from '@angular/router';
+import { Usuario } from 'src/app/clases/usuario';
 
 @Component({
   selector: 'app-registrar-usuario',
@@ -9,14 +10,14 @@ import { Router } from '@angular/router';
 })
 export class RegistrarUsuarioComponent implements OnInit {
 
-  nombre: string;
-  apellido: string;
-  correo: string;
-  clave: string;
-  clave2: string;
-  foto: string;
+  nombre: string = "";
+  apellido: string = "";
+  correo: string = "";
+  clave: string = "";
+  clave2: string = "";
+  foto: string = "";
   cuil: number;
-  perfil: string;
+  perfil: string = "";
 
   constructor(public servUsuario: UsuarioService, public router: Router) {
 
@@ -28,12 +29,21 @@ export class RegistrarUsuarioComponent implements OnInit {
   loguear() {
     this.navegar("/login");
   }
-  
+
   registrar() {
     console.log("Usuario", this.correo);
     console.log("Clave", this.clave);
-  
-    //this.servUsuario.loginEmail(this.correo, this.clave);
+
+    let user: Usuario = {
+      nombre: this.nombre,
+      apellido: this.apellido,
+      correo: this.correo,
+      clave: this.clave,
+      foto: this.foto,
+      perfil: this.perfil
+    };
+
+    this.servUsuario.registrarUsuario(user);
   }
 
   navegar(url: string) {
