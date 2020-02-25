@@ -29,19 +29,28 @@
     <div class="ui-g ui-fluid" *ngIf="turno">
         <div class="ui-g-12">
             <div class="ui-g-4">
-                <label for="cliente">{{"cliente" | titlecase}}</label>
+                <label for="mail">Mail del cliente</label>
             </div>
             <div class="ui-g-8">
-                <input pInputText id="cliente" [(ngModel)]="turno.cliente" />
+                <input pInputText id="mail" [(ngModel)]="turno.cliente_mail" (change)="checkUsuario()"/>
             </div>
         </div>
 
         <div class="ui-g-12">
             <div class="ui-g-4">
-                <label for="especialista">{{"especialista" | titlecase}}</label>
+                <label for="cliente">Nombre del cliente</label>
             </div>
             <div class="ui-g-8">
-                <input pInputText id="especialista" [(ngModel)]="turno.especialista" />
+                <input pInputText id="cliente" [(ngModel)]="turno.cliente_nombre" [disabled]="mail_registrado"/>
+            </div>
+        </div>
+
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="especialidad">{{"especialidad" | titlecase}}</label>
+            </div>
+            <div class="ui-g-8">
+                <p-dropdown [options]="especialidades" id="especialidad" [(ngModel)]="turno.especialidad"></p-dropdown>
             </div>
         </div>
         

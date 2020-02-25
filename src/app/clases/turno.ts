@@ -1,7 +1,12 @@
 export class Turno {
     id?: string; //Fecha?
-    cliente?: string; //ID_cliente
-    especialista?: string; //ID especialista
+    cliente_uid?: string;
+    cliente_nombre?: string;
+    cliente_mail?: string;
+    especialidad?: string;
+    especialista_uid?: string;
+    especialista_nombre?: string;
+    especialista_mail?: string;
     sector?: string; //ID sector | Nombre del sector
     fecha?: string;
     estado?: string;
