@@ -9,6 +9,7 @@ import { TablaTurnosComponent } from './componentes/tabla-turnos/tabla-turnos.co
 import { TablaEspecialidadesComponent } from './componentes/tabla-especialidades/tabla-especialidades.component';
 import { TablaEmpleadosComponent } from './componentes/tabla-empleados/tabla-empleados.component';
 import { TablaUsuariosComponent } from './componentes/tabla-usuarios/tabla-usuarios.component';
+import { ConfiguracionEmpresaComponent } from './componentes/configuracion-empresa/configuracion-empresa.component';
 
 const routes: Routes = [
   { path: "", component: InicioComponent },
@@ -19,6 +20,7 @@ const routes: Routes = [
   { path: "especialidades", component: TablaEspecialidadesComponent },
   { path: "empleados", component: TablaEmpleadosComponent },
   { path: "usuarios", component: TablaUsuariosComponent },
+  { path: "configEmpresa", component: ConfiguracionEmpresaComponent },
   //{ path:"registrarme", component: RegistrarUsuarioComponent, canActivate: [AnonGuard] },
   { path: "**", component: Error404Component }
 ];

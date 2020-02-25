@@ -24,6 +24,7 @@ import { TablaEmpleadosComponent } from './componentes/tabla-empleados/tabla-emp
 import { TablaTurnosComponent } from './componentes/tabla-turnos/tabla-turnos.component';
 import { TablaEspecialidadesComponent } from './componentes/tabla-especialidades/tabla-especialidades.component';
 import { TablaUsuariosComponent } from './componentes/tabla-usuarios/tabla-usuarios.component';
+import { ConfiguracionEmpresaComponent } from './componentes/configuracion-empresa/configuracion-empresa.component';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { TablaUsuariosComponent } from './componentes/tabla-usuarios/tabla-usuar
     TablaEmpleadosComponent,
     TablaTurnosComponent,
     TablaEspecialidadesComponent,
-    TablaUsuariosComponent
+    TablaUsuariosComponent,
+    ConfiguracionEmpresaComponent
   ],
   imports: [
     BrowserModule,
