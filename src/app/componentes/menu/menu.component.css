@@ -1,6 +1,11 @@
 :host ::ng-deep .ui-menubar {
     position: -webkit-sticky;
     position: sticky;
-    top: 0;
-    z-index: 999;
+    top: 10px;
+}
+
+@media screen and (max-width: 64em) {
+    :host ::ng-deep .ui-menubar {
+        top: 10px;
+    }
 }

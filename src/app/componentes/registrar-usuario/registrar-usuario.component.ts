@@ -16,14 +16,12 @@ export class RegistrarUsuarioComponent implements OnInit {
   clave: string = "";
   clave2: string = "";
   foto: string = "";
-  cuil: number;
-  perfil: string = "";
 
   constructor(public servUsuario: UsuarioService, public router: Router) {
 
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
   }
 
   loguear() {
@@ -40,13 +38,14 @@ export class RegistrarUsuarioComponent implements OnInit {
       correo: this.correo,
       clave: this.clave,
       foto: this.foto,
-      perfil: this.perfil
+      esCliente: true
     };
-
+    
     this.servUsuario.registrarUsuario(user);
   }
 
   navegar(url: string) {
     this.router.navigateByUrl(url);
   }
+
 }

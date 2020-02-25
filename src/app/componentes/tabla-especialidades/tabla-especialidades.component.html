@@ -1,0 +1,44 @@
+<p-table [columns]="cols" [value]="servEspecialidad.especialidades" selectionMode="single" [(selection)]="selectedEspecialidad"
+    (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="20">
+    <ng-template pTemplate="caption">
+        <div style="text-align:left">
+            <button type="button" pButton icon="pi pi-plus" (click)="showDialogToAdd()" label="Nuevo"></button>
+            Lista de Especialidades
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData">
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-dialog header="Detalles de la Especialidad" [(visible)]="displayDialog" [focusOnShow]="false" showEffect="fade"
+    [modal]="true" [style]="{width: '60%'}">
+    <div class="ui-g ui-fluid" *ngIf="especialidad">
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="nombre">{{"nombre" | titlecase}}</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText id="nombre" [(ngModel)]="especialidad.nombre" />
+            </div>
+        </div>
+    </div>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="pi pi-trash" class="ui-button-danger" (click)="delete()" label="Borrar"></button>
+            <button type="button" pButton icon="pi pi-check" class="ui-button-success" (click)="save()" label="Guardar"></button>
+        </div>
+    </p-footer>
+</p-dialog>

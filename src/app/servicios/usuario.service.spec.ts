@@ -3,10 +3,14 @@ import { TestBed } from '@angular/core/testing';
 import { UsuarioService } from './usuario.service';
 
 describe('UsuarioService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  let service: UsuarioService;
+
+  beforeEach(() => {
+    TestBed.configureTestingModule({});
+    service = TestBed.inject(UsuarioService);
+  });
 
   it('should be created', () => {
-    const service: UsuarioService = TestBed.get(UsuarioService);
     expect(service).toBeTruthy();
   });
 });

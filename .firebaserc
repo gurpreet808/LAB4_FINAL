@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "final-lab-4": {
+      "hosting": {
+        "FinalLab4v2": [
+          "final-lab-4"
+        ]
+      }
+    }
+  }
+}

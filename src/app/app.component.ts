@@ -8,9 +8,8 @@ import { UsuarioService } from './servicios/usuario.service';
 })
 export class AppComponent {
   title = 'FinalLab4';
-
+  
   constructor(public servUsuario: UsuarioService) {
-
   }
 
 }

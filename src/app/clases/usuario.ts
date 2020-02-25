@@ -1,9 +1,14 @@
 export class Usuario {
-    nombre: string;
-    apellido: string;
-    cuil?: number;
+    uid?: string;
+    nombre?: string;
+    apellido?: string;
     correo?: string;
     clave?: string;
-    perfil?: string;
     foto?: string;
+    fechaAlta?: Object;
+    fechaMod?: Object;
+    esCliente?: boolean;
+    cuil?: number;
+    tipoEmpleado?: "administrador" | "recepcionista" | "especialista";
+    especialidad?: string;
 }
