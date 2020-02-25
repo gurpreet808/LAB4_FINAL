@@ -12,12 +12,23 @@
                 {{col.header}}
                 <p-sortIcon [field]="col.field"></p-sortIcon>
             </th>
+
+            <th [pSortableColumn]="'fechaAlta'">
+                Fecha Alta
+                <p-sortIcon [field]="'fechaAlta'"></p-sortIcon>
+            </th>
         </tr>
+
+
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-columns="columns">
         <tr [pSelectableRow]="rowData">
             <td *ngFor="let col of columns">
                 {{rowData[col.field]}}
+            </td>
+
+            <td>
+                {{rowData.fechaAlta | date : 'dd/MM/yyyy HH:mm:ss'}}
             </td>
         </tr>
     </ng-template>

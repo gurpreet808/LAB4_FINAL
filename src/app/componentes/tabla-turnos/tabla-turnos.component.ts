@@ -25,6 +25,16 @@ export class TablaTurnosComponent implements OnInit {
     { label: 'Seleccionar', value: null }
   ];
 
+  especialistas = [
+    { label: 'Seleccionar', value: null }
+  ];
+
+  tipos = [
+    { label: 'Seleccionar', value: null },
+    { label: 'Consulta', value: "consulta" },
+    { label: 'Tratamiento', value: "tratamiento" }
+  ];
+
   constructor(public servTurno: TurnoService, public servEspecialidad: EspecialidadService, public servusuario: UsuarioService) {
     servEspecialidad.especialidadList.valueChanges().subscribe(
       (especialidadesFire: Especialidad[]) => {

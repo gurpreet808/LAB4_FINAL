@@ -53,6 +53,24 @@
                 <p-dropdown [options]="especialidades" id="especialidad" [(ngModel)]="turno.especialidad"></p-dropdown>
             </div>
         </div>
+
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="especialista">{{"especialista" | titlecase}}</label>
+            </div>
+            <div class="ui-g-8">
+                <p-dropdown [options]="especialistas" id="especialista" [(ngModel)]="turno.especialista_nombre"></p-dropdown>
+            </div>
+        </div>
+
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="tipo">{{"tipo" | titlecase}}</label>
+            </div>
+            <div class="ui-g-8">
+                <p-dropdown [options]="tipos" id="tipo" [(ngModel)]="turno.tipo"></p-dropdown>
+            </div>
+        </div>
         
         <div class="ui-g-12">
             <div class="ui-g-4">

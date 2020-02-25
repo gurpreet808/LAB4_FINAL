@@ -53,7 +53,7 @@ export class UsuarioService {
             this.clientes.push(itemUsuario);
           }
 
-          if (itemUsuario.cuil) {
+          if (itemUsuario.tipoEmpleado) {
             //console.log("Empleado", itemUsuario.correo);
             this.empleados.push(itemUsuario);
           }
