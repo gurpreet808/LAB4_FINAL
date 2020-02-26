@@ -13,6 +13,8 @@ import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
 
 @NgModule({
   declarations: [],
@@ -29,7 +31,9 @@ import { CalendarModule } from 'primeng/calendar';
     CardModule,
     TableModule,
     DropdownModule,
-    CalendarModule
+    CalendarModule,
+    MessagesModule,
+    MessageModule
   ],
   exports: [
     PanelModule,
@@ -43,7 +47,9 @@ import { CalendarModule } from 'primeng/calendar';
     CardModule,
     TableModule,
     DropdownModule,
-    CalendarModule
+    CalendarModule,
+    MessagesModule,
+    MessageModule
   ]
 })
 export class PrimeNGModule { }

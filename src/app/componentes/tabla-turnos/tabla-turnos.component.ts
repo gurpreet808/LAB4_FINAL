@@ -88,6 +88,7 @@ export class TablaTurnosComponent implements OnInit {
   }
 
   save() {
+    //(this.turno.fecha as Date).setSeconds(0,0);
     this.turno.fecha = this.turno.fecha.toString();
     //console.log("B4 save", this.turno);
 
@@ -128,7 +129,6 @@ export class TablaTurnosComponent implements OnInit {
   }
 
   checkUsuario() {
-
     for (let i = 0; i < this.servusuario.clientes.length; i++) {
       let cliente = this.servusuario.clientes[i];
 
@@ -143,19 +143,6 @@ export class TablaTurnosComponent implements OnInit {
       }
 
     }
-
-    /* this.servusuario.clientes.forEach(
-      (cliente: Usuario) => {
-        if (cliente.correo == this.turno.cliente_mail) {
-          this.mail_registrado = true;
-          this.turno.cliente_uid = cliente.uid;
-          this.turno.cliente_nombre = cliente.nombre + " " + cliente.apellido;
-        } else {
-          this.mail_registrado = false;
-          delete this.turno.cliente_uid;
-        }
-      }
-    ); */
   }
 
   change_especialidad() {
@@ -163,9 +150,12 @@ export class TablaTurnosComponent implements OnInit {
       { label: 'Seleccionar', value: null }
     ];
 
+    let hay: boolean = false;
+
     this.servusuario.empleados.forEach(
       (empleado: Usuario) => {
         if (empleado.especialidad == this.turno.especialidad) {
+          hay = true;
           this.especialistas.push({
             label: empleado.nombre + ", " + empleado.apellido,
             value: empleado.uid
@@ -173,6 +163,12 @@ export class TablaTurnosComponent implements OnInit {
         }
       }
     );
+
+    if (!hay) {
+      this.especialistas = [
+        { label: 'No hay especialistas disponibles', value: null }
+      ];
+    }
 
   }
 
@@ -187,11 +183,10 @@ export class TablaTurnosComponent implements OnInit {
   }
 
   change_fecha() {
-
+    (this.turno.fecha as Date).setSeconds(0,0);
   }
 
   change_especialista() {
-
     this.servusuario.empleados.forEach(
       (empleado: Usuario) => {
         if (empleado.uid == this.turno.especialista_uid) {
@@ -200,7 +195,6 @@ export class TablaTurnosComponent implements OnInit {
         }
       }
     );
-
   }
 
 }

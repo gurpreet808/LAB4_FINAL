@@ -39,7 +39,7 @@
                 <label for="mail">Mail del cliente</label>
             </div>
             <div class="ui-g-8">
-                <input pInputText id="mail" [(ngModel)]="turno.cliente_mail" (change)="checkUsuario()" />
+                <input pInputText id="mail" (change)="checkUsuario()" [(ngModel)]="turno.cliente_mail" />
             </div>
         </div>
 
@@ -75,8 +75,8 @@
                 <label for="fecha">{{"fecha" | titlecase}}</label>
             </div>
             <div class="ui-g-8">
-                <p-calendar (change)="change_fecha()" [(ngModel)]="turno.fecha" [minDate]="minDateValue"
-                    [disabledDays]="[0]" [readonlyInput]="true" showTime="true" hourFormat="24" appendTo="body"
+                <p-calendar (onClose)="change_fecha()" [(ngModel)]="turno.fecha" [minDate]="minDateValue"
+                    [disabledDays]="[0]" [stepMinute]="15" [readonlyInput]="true" showTime="true" hourFormat="24" appendTo="body"
                     [locale]="es"></p-calendar>
             </div>
         </div>

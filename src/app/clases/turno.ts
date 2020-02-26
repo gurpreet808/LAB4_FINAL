@@ -1,18 +1,18 @@
 export class Turno {
-    id?: string; //Fecha?
+    id?: string;
     cliente_uid?: string;
-    cliente_nombre?: string;
+    cliente_nombre?: string; //Obligatorio
     cliente_mail?: string;
-    tipo?: "consulta" | "tratamiento";
-    duracion?: number;
-    fecha?: string | Date;
-    especialidad?: string;
-    especialista_uid?: string;
-    especialista_nombre?: string;
-    especialista_mail?: string;
-    sector?: string; //Esto lo va a seleccionar el especialista
+    tipo?: "consulta" | "tratamiento"; //Obligatorio
+    duracion?: number; //Obligatorio
+    fecha?: string | Date; //Obligatorio
+    especialidad?: string; //Obligatorio
+    especialista_uid?: string; //Obligatorio
+    especialista_nombre?: string; //Obligatorio
+    especialista_mail?: string; //Obligatorio
+    sector?: string; //Lo llena el Especialista
     estado?: string;
-    resenia?: string;
+    resenia?: string; //Lo llena el Especialista
     encuesta?: {
         clinica: number,
         especialista: number,
