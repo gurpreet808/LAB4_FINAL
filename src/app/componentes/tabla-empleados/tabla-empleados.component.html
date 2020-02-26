@@ -36,10 +36,11 @@
     </ng-template>
 </p-table>
 
-<p-dialog [closeOnEscape]="true"  header="Detalles del Empleado" [(visible)]="displayDialog" [focusOnShow]="false" showEffect="fade"
-    [modal]="true" [resizable]="true" [maximizable]="true" [style]="{width: '60%'}" [contentStyle]="{'overflow':'auto','max-height':'50vw'}">
+<p-dialog [closeOnEscape]="true" header="Detalles del Empleado" [(visible)]="displayDialog" [focusOnShow]="false"
+    showEffect="fade" [modal]="true" [resizable]="true" [maximizable]="true" [style]="{width: '60%'}"
+    [contentStyle]="{'overflow':'auto','max-height':'50vw'}">
 
-    <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit(usuarioForm.value)">
+    <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
         <div class="ui-g ui-fluid">
 
             <div class="ui-g-12">
@@ -64,7 +65,8 @@
                 </div>
                 <div class="ui-g-12">
                     <p-message severity="error" [text]="texto_error_apellido()"
-                        *ngIf="!usuarioForm.controls['apellido'].valid&&usuarioForm.controls['apellido'].dirty"></p-message>
+                        *ngIf="!usuarioForm.controls['apellido'].valid&&usuarioForm.controls['apellido'].dirty">
+                    </p-message>
                 </div>
             </div>
 
@@ -130,7 +132,8 @@
                 </div>
                 <div class="ui-g-12">
                     <p-message severity="error" [text]="texto_error_tipoEmpleado()"
-                        *ngIf="!usuarioForm.controls['tipoEmpleado'].valid&&usuarioForm.controls['tipoEmpleado'].dirty"></p-message>
+                        *ngIf="!usuarioForm.controls['tipoEmpleado'].valid&&usuarioForm.controls['tipoEmpleado'].dirty">
+                    </p-message>
                 </div>
             </div>
 
@@ -144,10 +147,11 @@
                 </div>
                 <div class="ui-g-12">
                     <p-message severity="error" [text]="texto_error_especialidad()"
-                        *ngIf="!usuarioForm.controls['especialidad'].valid&&usuarioForm.controls['especialidad'].dirty"></p-message>
+                        *ngIf="!usuarioForm.controls['especialidad'].valid&&usuarioForm.controls['especialidad'].dirty">
+                    </p-message>
                 </div>
             </div>
-
+            
         </div>
     </form>
 
@@ -155,8 +159,8 @@
         <div class="ui-dialog-buttonpane ui-helper-clearfix">
             <button type="button" pButton icon="pi pi-trash" class="ui-button-danger" (click)="delete()"
                 label="Borrar"></button>
-            <button type="button" pButton icon="pi pi-check" class="ui-button-success" (click)="save()"
-                label="Guardar"></button>
+            <button type="button" pButton icon="pi pi-check" class="ui-button-success" [disabled]="!usuarioForm.valid"
+                (click)="onSubmit()" label="Guardar"></button>
         </div>
     </p-footer>
 </p-dialog>

@@ -82,10 +82,13 @@ export class TablaEmpleadosComponent implements OnInit {
     ];
   }
 
-  onSubmit(value: string) {
+  onSubmit() {
     this.submitted = true;
-    console.log(value);
+    
+    this.usuario = this.usuarioForm.value;
+
     this.messageService.add({ severity: 'info', summary: '¡Bien!', detail: 'Se enviaron los datos' });
+    this.save();
   }
 
   save() {
@@ -109,6 +112,8 @@ export class TablaEmpleadosComponent implements OnInit {
     });
 
     this.usuario = {};
+    this.usuarioForm.reset();
+
     this.displayDialog = false;
   }
 
