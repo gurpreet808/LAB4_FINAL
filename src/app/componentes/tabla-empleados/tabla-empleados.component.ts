@@ -132,6 +132,7 @@ export class TablaEmpleadosComponent implements OnInit {
   onRowSelect(event) {
     this.newUsuario = false;
     this.usuario = this.cloneUsuario(event.data);
+    this.change_tipoEmpleado();
     this.displayDialog = true;
   }
 
