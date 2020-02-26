@@ -1,5 +1,7 @@
-<p-table [columns]="cols" [value]="servUsuario.empleados" columnResizeMode="expand" selectionMode="single" [(selection)]="selectedUsuario"
-    (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="20">
+<p-toast [style]="{marginTop: '10px'}"></p-toast>
+
+<p-table [columns]="cols" [value]="servUsuario.empleados" columnResizeMode="expand" selectionMode="single"
+    [(selection)]="selectedUsuario" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="20">
     <ng-template pTemplate="caption">
         <div style="text-align:left">
             <button type="button" pButton icon="pi pi-plus" (click)="showDialogToAdd()" label="Nuevo"></button>
@@ -36,6 +38,24 @@
 
 <p-dialog header="Detalles del Empleado" [(visible)]="displayDialog" [focusOnShow]="false" showEffect="fade"
     [modal]="true" [style]="{width: '60%'}">
+
+    <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit(usuarioForm.value)">
+
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
+            <div class="ui-grid-row">
+                <div class="ui-grid-col-2">
+                    Nombre*:
+                </div>
+                <div class="ui-grid-col-6">
+                    <input pInputText type="text" formControlName="nombre" placeholder="Required" />
+                </div>
+                <div class="ui-grid-col-4">
+                    <p-message severity="error" text="Se requiere el nombre"
+                        *ngIf="!usuarioForm.controls['nombre'].valid&&usuarioForm.controls['nombre'].dirty"></p-message>
+                </div>
+            </div>
+        </div>
+    </form>
 
     <div class="ui-g ui-fluid" *ngIf="usuario">
         <div class="ui-g-12">
@@ -97,7 +117,8 @@
                 <label for="tipoEmpleado">{{"tipoEmpleado" | titlecase}}</label>
             </div>
             <div class="ui-g-8">
-                <p-dropdown [options]="tiposEmpleados" id="tipoEmpleado" [(ngModel)]="usuario.tipoEmpleado"></p-dropdown>
+                <p-dropdown [options]="tiposEmpleados" id="tipoEmpleado" [(ngModel)]="usuario.tipoEmpleado">
+                </p-dropdown>
             </div>
         </div>
 
@@ -106,15 +127,18 @@
                 <label for="especialidad">{{"especialidad" | titlecase}}</label>
             </div>
             <div class="ui-g-8">
-                <p-dropdown [options]="especialidades" id="especialidad" [(ngModel)]="usuario.especialidad"></p-dropdown>
+                <p-dropdown [options]="especialidades" id="especialidad" [(ngModel)]="usuario.especialidad">
+                </p-dropdown>
             </div>
         </div>
 
     </div>
     <p-footer>
         <div class="ui-dialog-buttonpane ui-helper-clearfix">
-            <button type="button" pButton icon="pi pi-trash" class="ui-button-danger" (click)="delete()" label="Borrar"></button>
-            <button type="button" pButton icon="pi pi-check" class="ui-button-success" (click)="save()" label="Guardar"></button>
+            <button type="button" pButton icon="pi pi-trash" class="ui-button-danger" (click)="delete()"
+                label="Borrar"></button>
+            <button type="button" pButton icon="pi pi-check" class="ui-button-success" (click)="save()"
+                label="Guardar"></button>
         </div>
     </p-footer>
 </p-dialog>

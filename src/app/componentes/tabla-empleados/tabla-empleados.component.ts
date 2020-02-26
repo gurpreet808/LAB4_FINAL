@@ -3,13 +3,19 @@ import { Usuario } from 'src/app/clases/usuario';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { EspecialidadService } from 'src/app/servicios/especialidad.service';
 import { Especialidad } from 'src/app/clases/especialidad';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-tabla-empleados',
   templateUrl: './tabla-empleados.component.html',
-  styleUrls: ['./tabla-empleados.component.css']
+  styleUrls: ['./tabla-empleados.component.css'],
+  providers: [MessageService]
 })
 export class TablaEmpleadosComponent implements OnInit {
+
+  usuarioForm: FormGroup;
+  submitted: boolean;
 
   displayDialog: boolean;
   newUsuario: boolean;
@@ -33,7 +39,7 @@ export class TablaEmpleadosComponent implements OnInit {
     { label: 'Endodoncia', value: "endodoncia" }
   ];
 
-  constructor(public servUsuario: UsuarioService, public servEspecialidad: EspecialidadService) {
+  constructor(public servUsuario: UsuarioService, public servEspecialidad: EspecialidadService, public fb: FormBuilder, public messageService: MessageService) {
     servEspecialidad.especialidadList.valueChanges().subscribe(
       (especialidadesFire: Especialidad[]) => {
         this.especialidades = [
@@ -52,6 +58,10 @@ export class TablaEmpleadosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.usuarioForm = this.fb.group({
+      'nombre': new FormControl('', Validators.required)
+    });
+
     this.cols = [
       { field: 'uid', header: 'UID' },
       { field: 'nombre', header: 'Nombre' },
@@ -63,6 +73,12 @@ export class TablaEmpleadosComponent implements OnInit {
       { field: 'foto', header: 'Foto' },
       { field: 'cuil', header: 'CUIL' }
     ];
+  }
+
+  onSubmit(value: string) {
+    this.submitted = true;
+    console.log(value);
+    this.messageService.add({ severity: 'info', summary: '¡Bien!', detail: 'Se enviaron los datos' });
   }
 
   showDialogToAdd() {
