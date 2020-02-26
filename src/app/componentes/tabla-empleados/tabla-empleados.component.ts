@@ -121,6 +121,10 @@ export class TablaEmpleadosComponent implements OnInit {
     this.newUsuario = true;
     this.usuario = {};
     this.usuarioForm.reset();
+
+    //this.usuarioForm.controls["clave"].enable();
+    //this.usuarioForm.controls["correo"].enable();
+
     //console.log(this.usuarioForm.value);
     this.displayDialog = true;
   }
@@ -134,6 +138,9 @@ export class TablaEmpleadosComponent implements OnInit {
   cloneUsuario(c: Usuario): Usuario {
     let usuario = {};
     this.usuarioForm.reset();
+
+    //this.usuarioForm.controls["clave"].disable();
+    //this.usuarioForm.controls["correo"].disable();
 
     //console.log(this.usuarioForm.controls);
 

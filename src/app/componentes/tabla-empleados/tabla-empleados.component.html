@@ -70,7 +70,7 @@
                 </div>
             </div>
 
-            <div class="ui-g-12">
+            <div class="ui-g-12" *ngIf="newUsuario">
                 <div class="ui-g-4">
                     <label for="correo">{{"correo" | titlecase}}</label>
                 </div>
@@ -83,7 +83,7 @@
                 </div>
             </div>
 
-            <div class="ui-g-12">
+            <div class="ui-g-12" *ngIf="newUsuario">
                 <div class="ui-g-4">
                     <label for="clave">{{"clave" | titlecase}}</label>
                 </div>
