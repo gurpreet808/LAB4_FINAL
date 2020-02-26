@@ -45,7 +45,7 @@ export class TurnosComponent implements OnInit {
       { field: 'id', header: 'ID' },
       { field: 'cliente', header: 'Cliente' },
       { field: 'especialista', header: 'Especialista' },
-      { field: 'sector', header: 'Sector' },
+      { field: 'sala', header: 'Sala' },
       { field: 'fecha', header: 'Fecha' },
       { field: 'estado', header: 'Estado' },
       { field: 'reseña', header: 'Reseña' },

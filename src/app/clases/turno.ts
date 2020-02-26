@@ -10,7 +10,7 @@ export class Turno {
     especialista_uid?: string; //Obligatorio
     especialista_nombre?: string; //Obligatorio
     especialista_mail?: string; //Obligatorio
-    sector?: string; //Lo llena el Especialista
+    sala?: string; //Lo llena el Especialista
     estado?: string;
     resenia?: string; //Lo llena el Especialista
     encuesta?: {

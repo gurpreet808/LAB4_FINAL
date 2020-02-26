@@ -74,7 +74,7 @@ export class TablaTurnosComponent implements OnInit {
       { field: 'cliente_nombre', header: 'Cliente' },
       { field: 'especialista_nombre', header: 'Especialista' },
       { field: 'especialidad', header: 'Especialidad' },
-      { field: 'sector', header: 'Sector' },
+      { field: 'sala', header: 'Sala' },
       { field: 'estado', header: 'Estado' },
       { field: 'resenia', header: 'Reseña' },
       { field: 'encuesta', header: 'Encuesta' }

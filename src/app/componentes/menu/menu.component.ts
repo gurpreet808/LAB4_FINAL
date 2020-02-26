@@ -11,9 +11,9 @@ export class MenuComponent implements OnInit {
 
   items: MenuItem[] = [
     {
-      label: 'Sectores',
+      label: 'Salas',
       icon: 'pi pi-fw pi-home',
-      routerLink: 'sectores'
+      routerLink: 'salas'
     },
     {
       label: 'Especialidades',

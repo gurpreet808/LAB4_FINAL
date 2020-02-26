@@ -4,7 +4,7 @@ import { InicioComponent } from './componentes/inicio/inicio.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { Error404Component } from './componentes/error404/error404.component';
 import { RegistrarUsuarioComponent } from './componentes/registrar-usuario/registrar-usuario.component';
-import { SectoresComponent } from './componentes/sectores/sectores.component';
+import { SalasComponent } from './componentes/salas/salas.component';
 import { TablaTurnosComponent } from './componentes/tabla-turnos/tabla-turnos.component';
 import { TablaEspecialidadesComponent } from './componentes/tabla-especialidades/tabla-especialidades.component';
 import { TablaEmpleadosComponent } from './componentes/tabla-empleados/tabla-empleados.component';
@@ -15,7 +15,7 @@ const routes: Routes = [
   { path: "", component: InicioComponent },
   { path: "login", component: LoginComponent },
   { path: "registrarme", component: RegistrarUsuarioComponent },
-  { path: "sectores", component: SectoresComponent },
+  { path: "salas", component: SalasComponent },
   { path: "turnos", component: TablaTurnosComponent },
   { path: "especialidades", component: TablaEspecialidadesComponent },
   { path: "empleados", component: TablaEmpleadosComponent },

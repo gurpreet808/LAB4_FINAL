@@ -7,10 +7,10 @@ import { AngularFireDatabase, AngularFireObject } from '@angular/fire/database';
 export class ConfiguracionEmpresaService {
 
   configEmpresa;
-  sectorList: AngularFireObject<any>;
+  salaList: AngularFireObject<any>;
 
   constructor(public db: AngularFireDatabase) {
-    this.sectorList = this.db.object<any>('/configEmpresa');
+    this.salaList = this.db.object<any>('/configEmpresa');
 
     this.TraerTodo().subscribe(
       (config: any) => {
@@ -21,11 +21,11 @@ export class ConfiguracionEmpresaService {
   }
 
   TraerTodo() {
-    return this.sectorList.valueChanges();
+    return this.salaList.valueChanges();
   }
 
   Modificar() {
     //Limpiar el objeto de datos undefined
-    return this.sectorList.update(this.configEmpresa);
+    return this.salaList.update(this.configEmpresa);
   }
 }

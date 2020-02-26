@@ -1,9 +1,9 @@
-<p-table [columns]="cols" [value]="servSector.sectores" selectionMode="single" [(selection)]="selectedSector"
+<p-table [columns]="cols" [value]="servSala.salas" selectionMode="single" [(selection)]="selectedSala"
     (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="20">
     <ng-template pTemplate="caption">
         <div style="text-align:left">
             <button type="button" pButton icon="pi pi-plus" (click)="showDialogToAdd()" label="Nuevo"></button>
-            Lista de Sectores
+            Lista de Salas
         </div>
     </ng-template>
     <ng-template pTemplate="header" let-columns>
@@ -23,15 +23,15 @@
     </ng-template>
 </p-table>
 
-<p-dialog [closeOnEscape]="true"  header="Detalles del Sector" [(visible)]="displayDialog" [focusOnShow]="false" showEffect="fade"
+<p-dialog [closeOnEscape]="true"  header="Detalles del Sala" [(visible)]="displayDialog" [focusOnShow]="false" showEffect="fade"
     [modal]="true" [style]="{width: '60%'}">
-    <div class="ui-g ui-fluid" *ngIf="sector">
+    <div class="ui-g ui-fluid" *ngIf="sala">
         <div class="ui-g-12">
             <div class="ui-g-4">
                 <label for="nombre">{{"nombre" | titlecase}}</label>
             </div>
             <div class="ui-g-8">
-                <input pInputText id="nombre" [(ngModel)]="sector.nombre" />
+                <input pInputText id="nombre" [(ngModel)]="sala.nombre" />
             </div>
         </div>
         <div class="ui-g-12">
@@ -39,7 +39,7 @@
                 <label for="tipo">{{"tipo" | titlecase}}</label>
             </div>
             <div class="ui-g-8">
-                <p-dropdown [options]="tipos" id="tipo" [(ngModel)]="sector.tipo"></p-dropdown>
+                <p-dropdown [options]="tipos" id="tipo" [(ngModel)]="sala.tipo"></p-dropdown>
             </div>
         </div>
         <div class="ui-g-12">
@@ -47,7 +47,7 @@
                 <label for="estado">{{"estado" | titlecase}}</label>
             </div>
             <div class="ui-g-8">
-                <p-dropdown [options]="estados" id="estado" [(ngModel)]="sector.estado"></p-dropdown>
+                <p-dropdown [options]="estados" id="estado" [(ngModel)]="sala.estado"></p-dropdown>
             </div>
         </div>
     </div>

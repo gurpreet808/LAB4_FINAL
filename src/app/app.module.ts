@@ -18,7 +18,7 @@ import { Error404Component } from './componentes/error404/error404.component';
 import { RegistrarUsuarioComponent } from './componentes/registrar-usuario/registrar-usuario.component';
 import { InicioComponent } from './componentes/inicio/inicio.component';
 import { TurnosComponent } from './componentes/turnos/turnos.component';
-import { SectoresComponent } from './componentes/sectores/sectores.component';
+import { SalasComponent } from './componentes/salas/salas.component';
 import { PedirTurnoComponent } from './componentes/pedir-turno/pedir-turno.component';
 import { TablaEmpleadosComponent } from './componentes/tabla-empleados/tabla-empleados.component';
 import { TablaTurnosComponent } from './componentes/tabla-turnos/tabla-turnos.component';
@@ -35,7 +35,7 @@ import { ConfiguracionEmpresaComponent } from './componentes/configuracion-empre
     RegistrarUsuarioComponent,
     InicioComponent,
     TurnosComponent,
-    SectoresComponent,
+    SalasComponent,
     PedirTurnoComponent,
     TablaEmpleadosComponent,
     TablaTurnosComponent,

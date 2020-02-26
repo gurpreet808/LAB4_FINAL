@@ -1,4 +1,4 @@
-export class Sector {
+export class Sala {
     id?: string;
     nombre?: string;
     tipo?: string;

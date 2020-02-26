@@ -1,20 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { Sector } from 'src/app/clases/sector';
-import { SectorService } from 'src/app/servicios/sector.service';
+import { Sala } from 'src/app/clases/sala';
+import { SalaService } from 'src/app/servicios/sala.service';
 
 @Component({
-  selector: 'app-sectores',
-  templateUrl: './sectores.component.html',
-  styleUrls: ['./sectores.component.css']
+  selector: 'app-salas',
+  templateUrl: './salas.component.html',
+  styleUrls: ['./salas.component.css']
 })
-export class SectoresComponent implements OnInit {
+export class SalasComponent implements OnInit {
 
   displayDialog: boolean;
-  newSector: boolean;
-  selectedSector: Sector;
+  newSala: boolean;
+  selectedSala: Sala;
   cols: any[];
 
-  sector: Sector = {};
+  sala: Sala = {};
 
   tipos = [
     { label: 'Seleccionar', value: null },
@@ -30,7 +30,7 @@ export class SectoresComponent implements OnInit {
     { label: 'En construcción', value: "en_construccion" }
   ];
 
-  constructor(public servSector: SectorService) {
+  constructor(public servSala: SalaService) {
 
   }
 
@@ -43,21 +43,21 @@ export class SectoresComponent implements OnInit {
   }
 
   showDialogToAdd() {
-    this.newSector = true;
-    this.sector = {};
+    this.newSala = true;
+    this.sala = {};
     this.displayDialog = true;
   }
 
   save() {
-    if (this.newSector) {
-      this.servSector.AgregarUno(this.sector).then(() => {
+    if (this.newSala) {
+      this.servSala.AgregarUno(this.sala).then(() => {
         console.log('Documento creado exitósamente!');
       }, (error) => {
         console.error(error);
       });
     }
     else {
-      this.servSector.ModificarUno(this.sector.id, this.sector).then(() => {
+      this.servSala.ModificarUno(this.sala.id, this.sala).then(() => {
         console.log('Documento editado exitósamente');
       }, (error) => {
         console.log(error);
@@ -65,32 +65,32 @@ export class SectoresComponent implements OnInit {
     }
 
     this.displayDialog = false;
-    this.sector = {};
+    this.sala = {};
   }
 
   delete() {
-    this.servSector.BorrarUno(this.sector.id).then(() => {
+    this.servSala.BorrarUno(this.sala.id).then(() => {
       console.log('Documento eliminado!');
     }, (error) => {
       console.error(error);
     });
 
-    this.sector = {};
+    this.sala = {};
     this.displayDialog = false;
   }
 
   onRowSelect(event) {
-    this.newSector = false;
-    this.sector = this.cloneSector(event.data);
+    this.newSala = false;
+    this.sala = this.cloneSala(event.data);
     this.displayDialog = true;
   }
 
-  cloneSector(c: Sector): Sector {
-    let sector = {};
+  cloneSala(c: Sala): Sala {
+    let sala = {};
     for (let prop in c) {
-      sector[prop] = c[prop];
+      sala[prop] = c[prop];
     }
-    return sector;
+    return sala;
   }
 
 }
