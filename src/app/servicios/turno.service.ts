@@ -22,6 +22,7 @@ export class TurnoService {
           //console.log(turnoData);
           let itemTurno: Turno = turnoData.payload.toJSON();
           itemTurno.id = turnoData.key;
+          itemTurno.fecha = new Date(itemTurno.fecha);
           //console.log(itemTurno);
 
           this.turnos.push(itemTurno);

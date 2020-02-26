@@ -4,8 +4,8 @@ export class Turno {
     cliente_nombre?: string;
     cliente_mail?: string;
     tipo?: "consulta" | "tratamiento";
-    duracion?: any;
-    fecha?: string;
+    duracion?: number;
+    fecha?: string | Date;
     especialidad?: string;
     especialista_uid?: string;
     especialista_nombre?: string;

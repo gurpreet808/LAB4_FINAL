@@ -12,6 +12,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
+import { CalendarModule } from 'primeng/calendar';
 
 @NgModule({
   declarations: [],
@@ -27,7 +28,8 @@ import { DropdownModule } from 'primeng/dropdown';
     InputTextareaModule,
     CardModule,
     TableModule,
-    DropdownModule
+    DropdownModule,
+    CalendarModule
   ],
   exports: [
     PanelModule,
@@ -40,7 +42,8 @@ import { DropdownModule } from 'primeng/dropdown';
     InputTextareaModule,
     CardModule,
     TableModule,
-    DropdownModule
+    DropdownModule,
+    CalendarModule
   ]
 })
 export class PrimeNGModule { }

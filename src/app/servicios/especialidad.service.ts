@@ -26,7 +26,7 @@ export class EspecialidadService {
 
           this.especialidades.push(itemEspecialidad);
         });
-        console.log(this.especialidades);
+        //console.log(this.especialidades);
       }
     );
   }

@@ -18,8 +18,23 @@ export class TablaTurnosComponent implements OnInit {
   newTurno: boolean;
   selectedTurno: Turno;
   cols: any[];
+  minDateValue = new Date(Date.now());
+  fecha: Date;
 
   turno: Turno = {};
+
+  es = {
+    firstDayOfWeek: 0,
+    dayNames: ["Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado"],
+    dayNamesShort: ["Dom", "Lun", "Mar", "Mié", "Jue", "Vie", "Sáb"],
+    dayNamesMin: ["Do", "Lu", "Ma", "Mi", "Ju", "Vi", "Sá"],
+    monthNames: ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"],
+    monthNamesShort: ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"],
+    today: 'Hoy',
+    clear: 'Vaciar',
+    dateFormat: 'mm/dd/yy',
+    weekHeader: 'Sem'
+  };
 
   especialidades = [
     { label: 'Seleccionar', value: null }
@@ -58,8 +73,8 @@ export class TablaTurnosComponent implements OnInit {
       { field: 'id', header: 'ID' },
       { field: 'cliente_nombre', header: 'Cliente' },
       { field: 'especialista_nombre', header: 'Especialista' },
+      { field: 'especialidad', header: 'Especialidad' },
       { field: 'sector', header: 'Sector' },
-      { field: 'fecha', header: 'Fecha' },
       { field: 'estado', header: 'Estado' },
       { field: 'resenia', header: 'Reseña' },
       { field: 'encuesta', header: 'Encuesta' }
@@ -73,6 +88,9 @@ export class TablaTurnosComponent implements OnInit {
   }
 
   save() {
+    this.turno.fecha = this.turno.fecha.toString();
+    //console.log("B4 save", this.turno);
+
     if (this.newTurno) {
       this.servTurno.AgregarUno(this.turno);
     }
@@ -117,15 +135,15 @@ export class TablaTurnosComponent implements OnInit {
       if (cliente.correo == this.turno.cliente_mail) {
         this.mail_registrado = true;
         this.turno.cliente_uid = cliente.uid;
-        this.turno.cliente_nombre = cliente.nombre + " " + cliente.apellido;
+        this.turno.cliente_nombre = cliente.nombre + ", " + cliente.apellido;
         break;
       } else {
         this.mail_registrado = false;
         delete this.turno.cliente_uid;
       }
-      
+
     }
-    
+
     /* this.servusuario.clientes.forEach(
       (cliente: Usuario) => {
         if (cliente.correo == this.turno.cliente_mail) {
@@ -138,6 +156,51 @@ export class TablaTurnosComponent implements OnInit {
         }
       }
     ); */
+  }
+
+  change_especialidad() {
+    this.especialistas = [
+      { label: 'Seleccionar', value: null }
+    ];
+
+    this.servusuario.empleados.forEach(
+      (empleado: Usuario) => {
+        if (empleado.especialidad == this.turno.especialidad) {
+          this.especialistas.push({
+            label: empleado.nombre + ", " + empleado.apellido,
+            value: empleado.uid
+          });
+        }
+      }
+    );
+
+  }
+
+  change_tipo() {
+    if (this.turno.tipo == "consulta") {
+      this.turno.duracion = 15;
+    } else if (this.turno.tipo == "tratamiento") {
+      this.turno.duracion = 60;
+    } else {
+      this.turno.duracion = 0;
+    }
+  }
+
+  change_fecha() {
+
+  }
+
+  change_especialista() {
+
+    this.servusuario.empleados.forEach(
+      (empleado: Usuario) => {
+        if (empleado.uid == this.turno.especialista_uid) {
+          this.turno.especialista_mail = empleado.correo;
+          this.turno.especialista_nombre = empleado.nombre + ", " + empleado.apellido;
+        }
+      }
+    );
+
   }
 
 }

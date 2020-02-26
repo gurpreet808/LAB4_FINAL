@@ -1,5 +1,5 @@
-<p-table [columns]="cols" [value]="servTurno.turnos" columnResizeMode="expand" selectionMode="single" [(selection)]="selectedTurno"
-    (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="20">
+<p-table [columns]="cols" [value]="servTurno.turnos" columnResizeMode="expand" selectionMode="single"
+    [(selection)]="selectedTurno" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="20">
     <ng-template pTemplate="caption">
         <div style="text-align:left">
             <button type="button" pButton icon="pi pi-plus" (click)="showDialogToAdd()" label="Nuevo"></button>
@@ -12,6 +12,10 @@
                 {{col.header}}
                 <p-sortIcon [field]="col.field"></p-sortIcon>
             </th>
+            <th [pSortableColumn]="'fecha'">
+                Fecha
+                <p-sortIcon [field]="'fecha'"></p-sortIcon>
+            </th>
         </tr>
     </ng-template>
     <ng-template pTemplate="body" let-rowData let-columns="columns">
@@ -19,12 +23,15 @@
             <td *ngFor="let col of columns">
                 {{rowData[col.field]}}
             </td>
+            <td>
+                {{rowData.fecha | date : 'dd/MM/yyyy HH:mm'}}
+            </td>
         </tr>
     </ng-template>
 </p-table>
 
-<p-dialog header="Detalles del Turno" [(visible)]="displayDialog" [focusOnShow]="false" showEffect="fade"
-    [modal]="true" [style]="{width: '60%'}">
+<p-dialog header="Detalles del Turno" [(visible)]="displayDialog" [focusOnShow]="false" showEffect="fade" [modal]="true"
+    [style]="{width: '60%'}">
 
     <div class="ui-g ui-fluid" *ngIf="turno">
         <div class="ui-g-12">
@@ -32,7 +39,7 @@
                 <label for="mail">Mail del cliente</label>
             </div>
             <div class="ui-g-8">
-                <input pInputText id="mail" [(ngModel)]="turno.cliente_mail" (change)="checkUsuario()"/>
+                <input pInputText id="mail" [(ngModel)]="turno.cliente_mail" (change)="checkUsuario()" />
             </div>
         </div>
 
@@ -41,7 +48,7 @@
                 <label for="cliente">Nombre del cliente</label>
             </div>
             <div class="ui-g-8">
-                <input pInputText id="cliente" [(ngModel)]="turno.cliente_nombre" [disabled]="mail_registrado"/>
+                <input pInputText id="cliente" [(ngModel)]="turno.cliente_nombre" [disabled]="mail_registrado" />
             </div>
         </div>
 
@@ -50,34 +57,16 @@
                 <label for="especialidad">{{"especialidad" | titlecase}}</label>
             </div>
             <div class="ui-g-8">
-                <p-dropdown [options]="especialidades" id="especialidad" [(ngModel)]="turno.especialidad"></p-dropdown>
-            </div>
-        </div>
-
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="especialista">{{"especialista" | titlecase}}</label>
-            </div>
-            <div class="ui-g-8">
-                <p-dropdown [options]="especialistas" id="especialista" [(ngModel)]="turno.especialista_nombre"></p-dropdown>
-            </div>
-        </div>
-
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="tipo">{{"tipo" | titlecase}}</label>
-            </div>
-            <div class="ui-g-8">
-                <p-dropdown [options]="tipos" id="tipo" [(ngModel)]="turno.tipo"></p-dropdown>
+                <p-dropdown (onChange)="change_especialidad()" [options]="especialidades" id="especialidad" [(ngModel)]="turno.especialidad"></p-dropdown>
             </div>
         </div>
         
         <div class="ui-g-12">
             <div class="ui-g-4">
-                <label for="sector">{{"sector" | titlecase}}</label>
+                <label for="tipo">{{"tipo" | titlecase}}</label>
             </div>
             <div class="ui-g-8">
-                <input pInputText id="sector" [(ngModel)]="turno.sector" />
+                <p-dropdown (onChange)="change_tipo()" [options]="tipos" id="tipo" [(ngModel)]="turno.tipo"></p-dropdown>
             </div>
         </div>
 
@@ -86,7 +75,37 @@
                 <label for="fecha">{{"fecha" | titlecase}}</label>
             </div>
             <div class="ui-g-8">
-                <input pInputText id="fecha" [(ngModel)]="turno.fecha" />
+                <p-calendar (change)="change_fecha()" [(ngModel)]="turno.fecha" [minDate]="minDateValue"
+                    [disabledDays]="[0]" [readonlyInput]="true" showTime="true" hourFormat="24" appendTo="body"
+                    [locale]="es"></p-calendar>
+            </div>
+        </div>
+
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="duracion">Duración (minutos)</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText id="duracion" [(ngModel)]="turno.duracion" />
+            </div>
+        </div>
+
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="especialista">{{"especialista" | titlecase}}</label>
+            </div>
+            <div class="ui-g-8">
+                <p-dropdown (onChange)="change_especialista()" [options]="especialistas" id="especialista" [(ngModel)]="turno.especialista_uid">
+                </p-dropdown>
+            </div>
+        </div>
+
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="sector">{{"sector" | titlecase}}</label>
+            </div>
+            <div class="ui-g-8">
+                <input pInputText id="sector" [(ngModel)]="turno.sector" />
             </div>
         </div>
 
@@ -111,8 +130,10 @@
     </div>
     <p-footer>
         <div class="ui-dialog-buttonpane ui-helper-clearfix">
-            <button type="button" pButton icon="pi pi-trash" class="ui-button-danger" (click)="delete()" label="Borrar"></button>
-            <button type="button" pButton icon="pi pi-check" class="ui-button-success" (click)="save()" label="Guardar"></button>
+            <button type="button" pButton icon="pi pi-trash" class="ui-button-danger" (click)="delete()"
+                label="Borrar"></button>
+            <button type="button" pButton icon="pi pi-check" class="ui-button-success" (click)="save()"
+                label="Guardar"></button>
         </div>
     </p-footer>
 </p-dialog>
