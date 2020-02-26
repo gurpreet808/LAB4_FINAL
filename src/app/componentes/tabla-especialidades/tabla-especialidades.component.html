@@ -23,7 +23,7 @@
     </ng-template>
 </p-table>
 
-<p-dialog header="Detalles de la Especialidad" [(visible)]="displayDialog" [focusOnShow]="false" showEffect="fade"
+<p-dialog [closeOnEscape]="true"  header="Detalles de la Especialidad" [(visible)]="displayDialog" [focusOnShow]="false" showEffect="fade"
     [modal]="true" [style]="{width: '60%'}">
     <div class="ui-g ui-fluid" *ngIf="especialidad">
         <div class="ui-g-12">

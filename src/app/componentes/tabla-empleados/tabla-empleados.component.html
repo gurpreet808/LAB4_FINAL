@@ -36,103 +36,121 @@
     </ng-template>
 </p-table>
 
-<p-dialog header="Detalles del Empleado" [(visible)]="displayDialog" [focusOnShow]="false" showEffect="fade"
-    [modal]="true" [style]="{width: '60%'}">
+<p-dialog [closeOnEscape]="true"  header="Detalles del Empleado" [(visible)]="displayDialog" [focusOnShow]="false" showEffect="fade"
+    [modal]="true" [resizable]="true" [maximizable]="true" [style]="{width: '60%'}" [contentStyle]="{'overflow':'auto','max-height':'50vw'}">
 
     <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit(usuarioForm.value)">
+        <div class="ui-g ui-fluid">
 
-        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid" style="margin: 10px 0px">
-            <div class="ui-grid-row">
-                <div class="ui-grid-col-2">
-                    Nombre*:
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="nombre">{{"nombre" | titlecase}}</label>
                 </div>
-                <div class="ui-grid-col-6">
+                <div class="ui-g-8">
                     <input pInputText type="text" formControlName="nombre" placeholder="Obligatorio" />
                 </div>
-                <div class="ui-grid-col-4">
+                <div class="ui-g-12">
                     <p-message severity="error" [text]="texto_error_nombre()"
                         *ngIf="!usuarioForm.controls['nombre'].valid&&usuarioForm.controls['nombre'].dirty"></p-message>
                 </div>
             </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="apellido">{{"apellido" | titlecase}}</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText type="text" formControlName="apellido" placeholder="Obligatorio" />
+                </div>
+                <div class="ui-g-12">
+                    <p-message severity="error" [text]="texto_error_apellido()"
+                        *ngIf="!usuarioForm.controls['apellido'].valid&&usuarioForm.controls['apellido'].dirty"></p-message>
+                </div>
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="correo">{{"correo" | titlecase}}</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText type="text" formControlName="correo" placeholder="Obligatorio" />
+                </div>
+                <div class="ui-g-12">
+                    <p-message severity="error" [text]="texto_error_correo()"
+                        *ngIf="!usuarioForm.controls['correo'].valid&&usuarioForm.controls['correo'].dirty"></p-message>
+                </div>
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="clave">{{"clave" | titlecase}}</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText type="text" formControlName="clave" placeholder="Obligatorio" />
+                </div>
+                <div class="ui-g-12">
+                    <p-message severity="error" [text]="texto_error_clave()"
+                        *ngIf="!usuarioForm.controls['clave'].valid&&usuarioForm.controls['clave'].dirty"></p-message>
+                </div>
+            </div>
+
+            <!-- <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="foto">{{"foto" | titlecase}}</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText type="text" formControlName="foto" placeholder="Obligatorio" />
+                </div>
+                <div class="ui-g-12">
+                    <p-message severity="error" [text]="texto_error_foto()"
+                        *ngIf="!usuarioForm.controls['foto'].valid&&usuarioForm.controls['foto'].dirty"></p-message>
+                </div>
+            </div> -->
+
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="cuil">{{"cuil" | titlecase}}</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText type="text" formControlName="cuil" placeholder="Obligatorio" />
+                </div>
+                <div class="ui-g-12">
+                    <p-message severity="error" [text]="texto_error_cuil()"
+                        *ngIf="!usuarioForm.controls['cuil'].valid&&usuarioForm.controls['cuil'].dirty"></p-message>
+                </div>
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="tipoEmpleado">{{"tipoEmpleado" | titlecase}}</label>
+                </div>
+                <div class="ui-g-8">
+                    <p-dropdown [options]="tiposEmpleados" formControlName="tipoEmpleado" placeholder="Obligatorio">
+                    </p-dropdown>
+                </div>
+                <div class="ui-g-12">
+                    <p-message severity="error" [text]="texto_error_tipoEmpleado()"
+                        *ngIf="!usuarioForm.controls['tipoEmpleado'].valid&&usuarioForm.controls['tipoEmpleado'].dirty"></p-message>
+                </div>
+            </div>
+
+            <div class="ui-g-12" *ngIf="usuario.tipoEmpleado == 'especialista'">
+                <div class="ui-g-4">
+                    <label for="especialidad">{{"especialidad" | titlecase}}</label>
+                </div>
+                <div class="ui-g-8">
+                    <p-dropdown [options]="especialidades" formControlName="especialidad" placeholder="Obligatorio">
+                    </p-dropdown>
+                </div>
+                <div class="ui-g-12">
+                    <p-message severity="error" [text]="texto_error_especialidad()"
+                        *ngIf="!usuarioForm.controls['especialidad'].valid&&usuarioForm.controls['especialidad'].dirty"></p-message>
+                </div>
+            </div>
+
         </div>
     </form>
 
-    <div class="ui-g ui-fluid">
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="nombre">{{"nombre" | titlecase}}</label>
-            </div>
-            <div class="ui-g-8">
-                <input pInputText id="nombre" [(ngModel)]="usuario.nombre" />
-            </div>
-        </div>
-
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="apellido">{{"apellido" | titlecase}}</label>
-            </div>
-            <div class="ui-g-8">
-                <input pInputText id="apellido" [(ngModel)]="usuario.apellido" />
-            </div>
-        </div>
-
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="correo">{{"correo" | titlecase}}</label>
-            </div>
-            <div class="ui-g-8">
-                <input pInputText id="correo" [(ngModel)]="usuario.correo" />
-            </div>
-        </div>
-
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="clave">{{"clave" | titlecase}}</label>
-            </div>
-            <div class="ui-g-8">
-                <input pInputText id="clave" [(ngModel)]="usuario.clave" />
-            </div>
-        </div>
-
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="foto">{{"foto" | titlecase}}</label>
-            </div>
-            <div class="ui-g-8">
-                <input pInputText id="foto" [(ngModel)]="usuario.foto" />
-            </div>
-        </div>
-
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="cuil">{{"cuil" | titlecase}}</label>
-            </div>
-            <div class="ui-g-8">
-                <input pInputText id="cuil" [(ngModel)]="usuario.cuil" />
-            </div>
-        </div>
-
-        <div class="ui-g-12">
-            <div class="ui-g-4">
-                <label for="tipoEmpleado">{{"tipoEmpleado" | titlecase}}</label>
-            </div>
-            <div class="ui-g-8">
-                <p-dropdown [options]="tiposEmpleados" id="tipoEmpleado" [(ngModel)]="usuario.tipoEmpleado">
-                </p-dropdown>
-            </div>
-        </div>
-
-        <div class="ui-g-12" *ngIf="usuario.tipoEmpleado == 'especialista'">
-            <div class="ui-g-4">
-                <label for="especialidad">{{"especialidad" | titlecase}}</label>
-            </div>
-            <div class="ui-g-8">
-                <p-dropdown [options]="especialidades" id="especialidad" [(ngModel)]="usuario.especialidad">
-                </p-dropdown>
-            </div>
-        </div>
-
-    </div>
     <p-footer>
         <div class="ui-dialog-buttonpane ui-helper-clearfix">
             <button type="button" pButton icon="pi pi-trash" class="ui-button-danger" (click)="delete()"

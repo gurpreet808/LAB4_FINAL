@@ -23,7 +23,7 @@
     </ng-template>
 </p-table>
 
-<p-dialog header="Detalles del Sector" [(visible)]="displayDialog" [focusOnShow]="false" showEffect="fade"
+<p-dialog [closeOnEscape]="true"  header="Detalles del Sector" [(visible)]="displayDialog" [focusOnShow]="false" showEffect="fade"
     [modal]="true" [style]="{width: '60%'}">
     <div class="ui-g ui-fluid" *ngIf="sector">
         <div class="ui-g-12">

@@ -59,7 +59,14 @@ export class TablaEmpleadosComponent implements OnInit {
 
   ngOnInit(): void {
     this.usuarioForm = this.fb.group({
-      'nombre': new FormControl('', Validators.required)
+      'nombre': new FormControl('', Validators.required),
+      'apellido': new FormControl('', Validators.required),
+      'correo': new FormControl('', Validators.required),
+      'clave': new FormControl('', Validators.required),
+      //'foto': new FormControl('', Validators.required),
+      'cuil': new FormControl('', Validators.required),
+      'tipoEmpleado': new FormControl('', Validators.required),
+      'especialidad': new FormControl('', Validators.required)
     });
 
     this.cols = [
@@ -121,6 +128,7 @@ export class TablaEmpleadosComponent implements OnInit {
 
   cloneUsuario(c: Usuario): Usuario {
     let usuario = {};
+    this.usuarioForm.reset();
 
     //console.log(this.usuarioForm.controls);
 
@@ -139,6 +147,30 @@ export class TablaEmpleadosComponent implements OnInit {
 
   texto_error_nombre(): string{
     return "Se requiere el nombre";
+  }
+
+  texto_error_apellido(): string{
+    return "Se requiere el apellido";
+  }
+
+  texto_error_correo(): string{
+    return "Se requiere el correo";
+  }
+
+  texto_error_clave(): string{
+    return "Se requiere la clave";
+  }
+
+  texto_error_cuil(): string{
+    return "Se requiere el cuil";
+  }
+
+  texto_error_tipoEmpleado(): string{
+    return "Se requiere el tipo de empleado";
+  }
+
+  texto_error_especialidad(): string{
+    return "Se requiere la especialidad";
   }
 
 }
