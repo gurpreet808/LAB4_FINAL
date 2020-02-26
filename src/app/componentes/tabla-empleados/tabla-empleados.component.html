@@ -47,17 +47,17 @@
                     Nombre*:
                 </div>
                 <div class="ui-grid-col-6">
-                    <input pInputText type="text" formControlName="nombre" placeholder="Required" />
+                    <input pInputText type="text" formControlName="nombre" placeholder="Obligatorio" />
                 </div>
                 <div class="ui-grid-col-4">
-                    <p-message severity="error" text="Se requiere el nombre"
+                    <p-message severity="error" [text]="texto_error_nombre()"
                         *ngIf="!usuarioForm.controls['nombre'].valid&&usuarioForm.controls['nombre'].dirty"></p-message>
                 </div>
             </div>
         </div>
     </form>
 
-    <div class="ui-g ui-fluid" *ngIf="usuario">
+    <div class="ui-g ui-fluid">
         <div class="ui-g-12">
             <div class="ui-g-4">
                 <label for="nombre">{{"nombre" | titlecase}}</label>

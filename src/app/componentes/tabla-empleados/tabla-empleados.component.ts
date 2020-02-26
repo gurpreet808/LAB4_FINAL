@@ -81,12 +81,6 @@ export class TablaEmpleadosComponent implements OnInit {
     this.messageService.add({ severity: 'info', summary: '¡Bien!', detail: 'Se enviaron los datos' });
   }
 
-  showDialogToAdd() {
-    this.newUsuario = true;
-    this.usuario = {};
-    this.displayDialog = true;
-  }
-
   save() {
     if (this.newUsuario) {
       this.usuario.esCliente = false;
@@ -111,6 +105,14 @@ export class TablaEmpleadosComponent implements OnInit {
     this.displayDialog = false;
   }
 
+  showDialogToAdd() {
+    this.newUsuario = true;
+    this.usuario = {};
+    this.usuarioForm.reset();
+    console.log(this.usuarioForm.value);
+    this.displayDialog = true;
+  }
+
   onRowSelect(event) {
     this.newUsuario = false;
     this.usuario = this.cloneUsuario(event.data);
@@ -119,10 +121,24 @@ export class TablaEmpleadosComponent implements OnInit {
 
   cloneUsuario(c: Usuario): Usuario {
     let usuario = {};
+
+    //console.log(this.usuarioForm.controls);
+
     for (let prop in c) {
       usuario[prop] = c[prop];
+      
+      //console.log(prop, c[prop]);
+
+      if (this.usuarioForm.controls[prop]) {
+        this.usuarioForm.controls[prop].setValue(c[prop]);
+      }
     }
+
     return usuario;
+  }
+
+  texto_error_nombre(): string{
+    return "Se requiere el nombre";
   }
 
 }
