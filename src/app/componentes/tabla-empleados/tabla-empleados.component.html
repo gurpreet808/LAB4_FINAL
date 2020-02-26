@@ -52,7 +52,7 @@
                 </div>
                 <div class="ui-g-12">
                     <p-message severity="error" [text]="texto_error_nombre()"
-                        *ngIf="!usuarioForm.controls['nombre'].valid&&usuarioForm.controls['nombre'].dirty"></p-message>
+                        *ngIf="!usuarioForm.controls['nombre'].valid"></p-message>
                 </div>
             </div>
 
@@ -65,7 +65,7 @@
                 </div>
                 <div class="ui-g-12">
                     <p-message severity="error" [text]="texto_error_apellido()"
-                        *ngIf="!usuarioForm.controls['apellido'].valid&&usuarioForm.controls['apellido'].dirty">
+                        *ngIf="!usuarioForm.controls['apellido'].valid">
                     </p-message>
                 </div>
             </div>
@@ -79,7 +79,7 @@
                 </div>
                 <div class="ui-g-12">
                     <p-message severity="error" [text]="texto_error_correo()"
-                        *ngIf="!usuarioForm.controls['correo'].valid&&usuarioForm.controls['correo'].dirty"></p-message>
+                        *ngIf="!usuarioForm.controls['correo'].valid"></p-message>
                 </div>
             </div>
 
@@ -92,7 +92,7 @@
                 </div>
                 <div class="ui-g-12">
                     <p-message severity="error" [text]="texto_error_clave()"
-                        *ngIf="!usuarioForm.controls['clave'].valid&&usuarioForm.controls['clave'].dirty"></p-message>
+                        *ngIf="!usuarioForm.controls['clave'].valid"></p-message>
                 </div>
             </div>
 
@@ -114,11 +114,11 @@
                     <label for="cuil">{{"cuil" | titlecase}}</label>
                 </div>
                 <div class="ui-g-8">
-                    <input pInputText type="text" formControlName="cuil" placeholder="Obligatorio" />
+                    <input pInputText type="text" formControlName="cuil" placeholder="" />
                 </div>
                 <div class="ui-g-12">
                     <p-message severity="error" [text]="texto_error_cuil()"
-                        *ngIf="!usuarioForm.controls['cuil'].valid&&usuarioForm.controls['cuil'].dirty"></p-message>
+                        *ngIf="!usuarioForm.controls['cuil'].valid"></p-message>
                 </div>
             </div>
 
@@ -127,17 +127,17 @@
                     <label for="tipoEmpleado">{{"tipoEmpleado" | titlecase}}</label>
                 </div>
                 <div class="ui-g-8">
-                    <p-dropdown [options]="tiposEmpleados" formControlName="tipoEmpleado" placeholder="Obligatorio">
+                    <p-dropdown (onChange)="change_tipoEmpleado()" [options]="tiposEmpleados" formControlName="tipoEmpleado" placeholder="Obligatorio">
                     </p-dropdown>
                 </div>
                 <div class="ui-g-12">
                     <p-message severity="error" [text]="texto_error_tipoEmpleado()"
-                        *ngIf="!usuarioForm.controls['tipoEmpleado'].valid&&usuarioForm.controls['tipoEmpleado'].dirty">
+                        *ngIf="!usuarioForm.controls['tipoEmpleado'].valid">
                     </p-message>
                 </div>
             </div>
 
-            <div class="ui-g-12" *ngIf="usuario.tipoEmpleado == 'especialista'">
+            <div class="ui-g-12" *ngIf="tipo_especialista">
                 <div class="ui-g-4">
                     <label for="especialidad">{{"especialidad" | titlecase}}</label>
                 </div>
@@ -147,7 +147,7 @@
                 </div>
                 <div class="ui-g-12">
                     <p-message severity="error" [text]="texto_error_especialidad()"
-                        *ngIf="!usuarioForm.controls['especialidad'].valid&&usuarioForm.controls['especialidad'].dirty">
+                        *ngIf="!usuarioForm.controls['especialidad'].valid">
                     </p-message>
                 </div>
             </div>

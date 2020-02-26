@@ -24,7 +24,7 @@ export class TablaEmpleadosComponent implements OnInit {
 
   usuario: Usuario = {};
 
-  tipoSelecccionado: any;
+  tipo_especialista: boolean = false;
 
   tiposEmpleados = [
     { label: 'Seleccionar', value: null },
@@ -49,7 +49,7 @@ export class TablaEmpleadosComponent implements OnInit {
         especialidadesFire.forEach(
           (especialidadData: Especialidad) => {
             let label = especialidadData.nombre[0].toUpperCase() + especialidadData.nombre.slice(1);
-            this.especialidades.push({ value: especialidadData.nombre, label: label});
+            this.especialidades.push({ value: especialidadData.nombre, label: label });
           });
         console.log(this.especialidades);
       }
@@ -61,10 +61,10 @@ export class TablaEmpleadosComponent implements OnInit {
     this.usuarioForm = this.fb.group({
       'nombre': new FormControl('', Validators.required),
       'apellido': new FormControl('', Validators.required),
-      'correo': new FormControl('', Validators.required),
+      'correo': new FormControl('', Validators.compose([Validators.required, Validators.email])),
       'clave': new FormControl('', Validators.required),
       //'foto': new FormControl('', Validators.required),
-      'cuil': new FormControl('', Validators.required),
+      'cuil': new FormControl(''),
       'tipoEmpleado': new FormControl('', Validators.required),
       'especialidad': new FormControl('', Validators.required)
     });
@@ -84,24 +84,24 @@ export class TablaEmpleadosComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    
-    this.usuario = this.usuarioForm.value;
 
     this.messageService.add({ severity: 'info', summary: '¡Bien!', detail: 'Se enviaron los datos' });
     this.save();
   }
 
   save() {
+
     if (this.newUsuario) {
       this.usuario.esCliente = false;
-      this.servUsuario.AgregarUno(this.usuario);
+      this.servUsuario.AgregarUno(this.usuarioForm.value);
     }
     else {
-      this.servUsuario.ModificarUno(this.usuario.uid, this.usuario);
+      this.servUsuario.ModificarUno(this.usuario.uid, Object.assign(this.usuario, this.usuarioForm.value));
     }
 
     this.displayDialog = false;
     this.usuario = {};
+    this.usuarioForm.reset();
   }
 
   delete() {
@@ -121,7 +121,7 @@ export class TablaEmpleadosComponent implements OnInit {
     this.newUsuario = true;
     this.usuario = {};
     this.usuarioForm.reset();
-    console.log(this.usuarioForm.value);
+    //console.log(this.usuarioForm.value);
     this.displayDialog = true;
   }
 
@@ -139,42 +139,56 @@ export class TablaEmpleadosComponent implements OnInit {
 
     for (let prop in c) {
       usuario[prop] = c[prop];
-      
+
       //console.log(prop, c[prop]);
 
       if (this.usuarioForm.controls[prop]) {
         this.usuarioForm.controls[prop].setValue(c[prop]);
       }
+
     }
 
     return usuario;
   }
 
-  texto_error_nombre(): string{
+  change_tipoEmpleado() {
+    //Revisar esto que puede estar generando error de It seems like the view has been created after its parent and its children have been dirty checked. Has it been created in a change detection hook?
+    
+    if (this.usuarioForm.controls["tipoEmpleado"].value == "especialista") {
+      this.tipo_especialista = true;
+      //this.usuarioForm.controls["tipoEmpleado"]
+      this.usuarioForm.controls["especialidad"].enable();
+    } else {
+      this.tipo_especialista = false;
+      this.usuarioForm.controls["especialidad"].disable();
+    }
+  }
+
+  texto_error_nombre(): string {
     return "Se requiere el nombre";
   }
 
-  texto_error_apellido(): string{
+  texto_error_apellido(): string {
     return "Se requiere el apellido";
   }
 
-  texto_error_correo(): string{
-    return "Se requiere el correo";
+  texto_error_correo(): string {
+    return "Se requiere el correo con el formato usuario@dominio.com";
   }
 
-  texto_error_clave(): string{
+  texto_error_clave(): string {
     return "Se requiere la clave";
   }
 
-  texto_error_cuil(): string{
+  texto_error_cuil(): string {
     return "Se requiere el cuil";
   }
 
-  texto_error_tipoEmpleado(): string{
+  texto_error_tipoEmpleado(): string {
     return "Se requiere el tipo de empleado";
   }
 
-  texto_error_especialidad(): string{
+  texto_error_especialidad(): string {
     return "Se requiere la especialidad";
   }
 
