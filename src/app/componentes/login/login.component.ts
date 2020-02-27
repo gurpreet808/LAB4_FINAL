@@ -24,8 +24,8 @@ export class LoginComponent implements OnInit {
     {correo: "especialista3@especialista.com", clave: "especialista"},
     {correo: "especialista4@especialista.com", clave: "especialista"},
     {correo: "cliente1@cliente.com", clave: "cliente"},
-    {correo: "cliente1@cliente.com", clave: "cliente"},
-    {correo: "cliente1@cliente.com", clave: "cliente"}
+    {correo: "cliente2@cliente.com", clave: "cliente"},
+    {correo: "cliente3@cliente.com", clave: "cliente"}
   ];
 
   constructor(public servUsuario: UsuarioService, public router: Router, public fb: FormBuilder, public messageService: MessageService) {

@@ -1,0 +1,78 @@
+<p-toast [style]="{marginTop: '10px'}"></p-toast>
+
+<p-table [columns]="cols" [value]="servTurno.misTurnos" columnResizeMode="expand" selectionMode="single"
+    [(selection)]="selectedTurno" (onRowSelect)="onRowSelect($event)" [paginator]="true" [rows]="20">
+    <ng-template pTemplate="caption">
+        <div style="text-align:left">
+            Lista de Turnos
+        </div>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+        <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field">
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+            </th>
+            <th [pSortableColumn]="'fecha'">
+                Fecha
+                <p-sortIcon [field]="'fecha'"></p-sortIcon>
+            </th>
+        </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+        <tr [pSelectableRow]="rowData">
+            <td *ngFor="let col of columns">
+                {{rowData[col.field]}}
+            </td>
+            <td>
+                {{rowData.fecha | date : 'dd/MM/yyyy'}}
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-dialog [closeOnEscape]="true" header="Detalles del Turno" [(visible)]="displayDialog" [focusOnShow]="false"
+    showEffect="fade" [modal]="true" [resizable]="true" [maximizable]="true" [style]="{width: '60%'}"
+    [contentStyle]="{'overflow':'auto','max-height':'50vw'}">
+
+    <form [formGroup]="encuestaForm" (ngSubmit)="onSubmit()">
+        <div class="ui-g ui-fluid">
+
+            <div class="ui-g-12" *ngIf="puedo_encuesta">
+                <div class="ui-g-4">
+                    <label for="clinica">Puntaje clínica</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText id="clinica" formControlName="clinica" />
+                </div>
+            </div>
+
+            <div class="ui-g-12" *ngIf="puedo_encuesta">
+                <div class="ui-g-4">
+                    <label for="especialista">Puntaje especialista</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText id="especialista" formControlName="especialista" />
+                </div>
+            </div>
+
+            <div class="ui-g-12" *ngIf="puedo_encuesta">
+                <div class="ui-g-4">
+                    <label for="experiencia">Contanos como fué tu experiencia</label>
+                </div>
+                <div class="ui-g-8">
+                    <input pInputText id="experiencia" formControlName="experiencia" />
+                </div>
+            </div>
+
+        </div>
+    </form>
+    <p-footer>
+        <div class="ui-dialog-buttonpane ui-helper-clearfix">
+            <button type="button" pButton icon="pi pi-trash" class="ui-button-danger" (click)="delete()"
+                label="Borrar"></button>
+            <button type="button" pButton icon="pi pi-check" class="ui-button-success" [disabled]="!encuestaForm.valid"
+                (click)="onSubmit()" label="Guardar"></button>
+        </div>
+    </p-footer>
+</p-dialog>

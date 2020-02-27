@@ -76,7 +76,7 @@ export class MenuComponent implements OnInit {
               this.items.push({
                 label: 'Mis turnos',
                 icon: 'pi pi-fw pi-calendar',
-                routerLink: 'turnos'
+                routerLink: 'mis-turnos'
               });
             }
           }
