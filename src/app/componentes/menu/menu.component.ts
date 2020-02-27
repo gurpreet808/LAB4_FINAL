@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { MenuItem } from 'primeng/api/menuitem';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -77,6 +77,11 @@ export class MenuComponent implements OnInit {
                 label: 'Mis turnos',
                 icon: 'pi pi-fw pi-calendar',
                 routerLink: 'mis-turnos'
+              });
+              this.items.push({
+                label: 'Nuevo turno',
+                icon: 'pi pi-fw pi-calendar-plus',
+                routerLink: 'solicitar-turno'
               });
             }
           }

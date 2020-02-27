@@ -10,22 +10,25 @@ import { TablaEspecialidadesComponent } from './componentes/tabla-especialidades
 import { TablaEmpleadosComponent } from './componentes/tabla-empleados/tabla-empleados.component';
 import { TablaUsuariosComponent } from './componentes/tabla-usuarios/tabla-usuarios.component';
 import { ConfiguracionEmpresaComponent } from './componentes/configuracion-empresa/configuracion-empresa.component';
+import { SolicitarTurnoComponent } from './componentes/solicitar-turno/solicitar-turno.component';
+import { TurnosComponent } from './componentes/turnos/turnos.component';
+import { MisTurnosComponent } from './componentes/mis-turnos/mis-turnos.component';
 import { AdminGuard } from './guards/admin.guard';
 import { RecepcionistaGuard } from './guards/recepcionista.guard';
-import { TurnosComponent } from './componentes/turnos/turnos.component';
 import { EspecialistaGuard } from './guards/especialista.guard';
-import { MisTurnosComponent } from './componentes/mis-turnos/mis-turnos.component';
 import { AuthGuard } from './guards/auth.guard';
 
 const routes: Routes = [
   { path: "", component: InicioComponent },
   { path: "login", component: LoginComponent },
   { path: "registrarme", component: RegistrarUsuarioComponent },
+  { path: "registrar-usuario", component: RegistrarUsuarioComponent },
   { path: "salas", component: SalasComponent, canActivate: [AdminGuard] },
   { path: "especialidades", component: TablaEspecialidadesComponent, canActivate: [AdminGuard] },
   { path: "empleados", component: TablaEmpleadosComponent, canActivate: [AdminGuard] },
   { path: "turnos", component: TablaTurnosComponent, canActivate: [RecepcionistaGuard] },
   { path: "mis-turnos", component: MisTurnosComponent, canActivate: [AuthGuard] },
+  { path: "solicitar-turno", component: SolicitarTurnoComponent, canActivate: [AuthGuard] },
   { path: "atender-turnos", component: TurnosComponent, canActivate: [EspecialistaGuard] },
   { path: "configEmpresa", component: ConfiguracionEmpresaComponent, canActivate: [AdminGuard] },
   { path: "usuarios", component: TablaUsuariosComponent },

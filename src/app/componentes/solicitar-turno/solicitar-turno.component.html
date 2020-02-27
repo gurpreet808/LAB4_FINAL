@@ -1,0 +1,91 @@
+<p-toast [style]="{marginTop: '10px'}"></p-toast>
+
+<form [formGroup]="turnoForm" (ngSubmit)="onSubmit()">
+    <p-panel header="Nuevo turno">
+        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
+
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="especialidad">{{"especialidad" | titlecase}}</label>
+                </div>
+                <div class="ui-g-8">
+                    <p-dropdown (onChange)="change_especialidad()" [options]="especialidades"
+                        formControlName="especialidad" placeholder="Obligatorio">
+                    </p-dropdown>
+                </div>
+                <div class="ui-g-12">
+                    <p-message severity="error" [text]="texto_error_especialidad()"
+                        *ngIf="!turnoForm.controls['especialidad'].valid">
+                    </p-message>
+                </div>
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="tipo">{{"tipo" | titlecase}}</label>
+                </div>
+                <div class="ui-g-8">
+                    <p-dropdown (onChange)="change_tipo()" [options]="tipos" formControlName="tipo"
+                        placeholder="Obligatorio">
+                    </p-dropdown>
+                </div>
+                <div class="ui-g-12">
+                    <p-message severity="error" [text]="texto_error_tipo()" *ngIf="!turnoForm.controls['tipo'].valid">
+                    </p-message>
+                </div>
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-12">
+                    <label for="duracion">Duración estimada:
+                        {{this.turnoForm.controls["duracion"].value | turnoFormMinutos}}</label>
+                </div>
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="fecha">{{"fecha" | titlecase}}</label>
+                </div>
+                <div class="ui-g-8">
+                    <p-calendar (onClose)="change_fecha()" formControlName="fecha" [minDate]="minDateValue"
+                        [disabledDays]="[0]" [readonlyInput]="true" appendTo="body" [locale]="es"></p-calendar>
+                </div>
+                <div class="ui-g-12">
+                    <p-message severity="error" [text]="texto_error_fecha()" *ngIf="!turnoForm.controls['fecha'].valid">
+                    </p-message>
+                </div>
+            </div>
+
+            <div class="ui-g-12">
+                <div class="ui-g-4">
+                    <label for="especialista">{{"especialista" | titlecase}}</label>
+                </div>
+                <div class="ui-g-8">
+                    <p-dropdown (onChange)="change_especialista()" [options]="especialistas"
+                        formControlName="especialista_uid" placeholder="Obligatorio">
+                    </p-dropdown>
+                </div>
+                <div class="ui-g-12">
+                    <p-message severity="error" [text]="texto_error_especialista_uid()"
+                        *ngIf="!turnoForm.controls['especialista_uid'].valid">
+                    </p-message>
+                </div>
+            </div>
+
+            <div class="ui-g-12" *ngIf="turnoForm.controls['especialista_uid'].valid">
+                Cantidad turnos disponibles para {{turno.especialista_nombre}}:
+                <br>
+                <br>
+                Para consultas: {{(disponibilidadTotal - cantidadMinutosOcupado) / 15 | cantidadTurnosDisponibles}}
+                <br>
+                Para tratamientos: {{(disponibilidadTotal - cantidadMinutosOcupado) / 60 | cantidadTurnosDisponibles}}
+            </div>
+
+            <div class="ui-g-12">
+                <button type="button" pButton icon="pi pi-check" class="ui-button-success" [disabled]="!turnoForm.valid"
+                    (click)="onSubmit()" label="Pedir turno"></button>
+            </div>
+
+        </div>
+    </p-panel>
+</form>
