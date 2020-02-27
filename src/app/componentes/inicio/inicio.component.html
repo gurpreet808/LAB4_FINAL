@@ -1,2 +1,8 @@
-<p>inicio works!</p>
-<button pButton type="button" label="Loguear" icon="pi pi-user-plus" class="ui-button-primary" (click)="navegar('/login')"></button>
+<div *ngIf="!servUsuario.logueado.value">
+    <p>Debe iniciar sesión</p>
+    <button pButton type="button" label="Loguear" icon="pi pi-user-plus" class="ui-button-primary" (click)="navegar('/login')"></button>
+</div>
+
+<div *ngIf="servUsuario.logueado.value">
+    <h1>¡Hola! Elija una opción del menú para continuar</h1>
+</div>

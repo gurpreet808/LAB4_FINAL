@@ -16,6 +16,18 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   submitted: boolean;
 
+  usuariosTest = [
+    {correo: "administrador@administrador.com", clave: "administrador"},
+    {correo: "recepcionista@recepcionista.com", clave: "recepcionista"},
+    {correo: "especialista1@especialista.com", clave: "especialista"},
+    {correo: "especialista2@especialista.com", clave: "especialista"},
+    {correo: "especialista3@especialista.com", clave: "especialista"},
+    {correo: "especialista4@especialista.com", clave: "especialista"},
+    {correo: "cliente1@cliente.com", clave: "cliente"},
+    {correo: "cliente1@cliente.com", clave: "cliente"},
+    {correo: "cliente1@cliente.com", clave: "cliente"}
+  ];
+
   constructor(public servUsuario: UsuarioService, public router: Router, public fb: FormBuilder, public messageService: MessageService) {
 
   }
@@ -47,6 +59,12 @@ export class LoginComponent implements OnInit {
     console.log("Clave", this.loginForm.controls["clave"].value);
 
     this.servUsuario.loginEmail(this.loginForm.controls["usuario"].value, this.loginForm.controls["clave"].value);
+    this.navegar("/");
+  }
+
+  elegirTest(id:number){
+    this.loginForm.controls['usuario'].setValue(this.usuariosTest[id].correo);
+    this.loginForm.controls['clave'].setValue(this.usuariosTest[id].clave);
   }
 
   registrar() {

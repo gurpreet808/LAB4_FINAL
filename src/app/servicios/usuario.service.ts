@@ -141,6 +141,7 @@ export class UsuarioService {
   }
 
   logout() {
+    this.logueado.next(false);
     this.afAuth.auth.signOut();
   }
 

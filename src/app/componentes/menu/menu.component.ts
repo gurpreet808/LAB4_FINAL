@@ -10,31 +10,80 @@ import { Router } from '@angular/router';
 })
 export class MenuComponent implements OnInit {
 
-  items: MenuItem[] = [
-    {
-      label: 'Salas',
-      icon: 'pi pi-fw pi-home',
-      routerLink: 'salas'
-    },
-    {
-      label: 'Especialidades',
-      icon: 'pi pi-fw pi-briefcase',
-      routerLink: 'especialidades'
-    },
-    {
-      label: 'Empleados',
-      icon: 'pi pi-fw pi-users',
-      routerLink: 'empleados'
-    },
-    {
-      label: 'Turnos',
-      icon: 'pi pi-fw pi-calendar',
-      routerLink: 'turnos'
-    }
-  ];
+  items: MenuItem[] = [];
 
   constructor(public servUsuario: UsuarioService, public router: Router) {
+    servUsuario.logueado.subscribe(
+      (logged_in) => {
 
+        this.items = [];
+
+        setTimeout(() => {
+          if (logged_in == true) {
+            if (servUsuario.el_usuario.tipoEmpleado != undefined) {
+              switch (servUsuario.el_usuario.tipoEmpleado) {
+                case "administrador":
+                  this.items = [
+                    {
+                      label: 'Salas',
+                      icon: 'pi pi-fw pi-home',
+                      routerLink: 'salas'
+                    },
+                    {
+                      label: 'Especialidades',
+                      icon: 'pi pi-fw pi-briefcase',
+                      routerLink: 'especialidades'
+                    },
+                    {
+                      label: 'Empleados',
+                      icon: 'pi pi-fw pi-users',
+                      routerLink: 'empleados'
+                    },
+                    {
+                      label: 'Turnos',
+                      icon: 'pi pi-fw pi-calendar',
+                      routerLink: 'turnos'
+                    }
+                  ];
+                  break;
+  
+                case "recepcionista":
+                  this.items = [
+                    {
+                      label: 'Turnos',
+                      icon: 'pi pi-fw pi-calendar',
+                      routerLink: 'turnos'
+                    }
+                  ];
+                  break;
+  
+                case "especialista":
+                  this.items = [
+                    {
+                      label: 'Turnos a atender',
+                      icon: 'pi pi-fw pi-calendar',
+                      routerLink: 'turnos'
+                    }
+                  ];
+                  break;
+  
+                default:
+                  break;
+              }
+            }
+  
+            if (servUsuario.el_usuario.esCliente == true) {
+              this.items.push({
+                label: 'Mis turnos',
+                icon: 'pi pi-fw pi-calendar',
+                routerLink: 'turnos'
+              });
+            }
+          }
+        }, 800);
+
+      }
+    );
   }
 
   ngOnInit(): void {

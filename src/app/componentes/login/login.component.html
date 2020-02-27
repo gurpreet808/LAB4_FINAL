@@ -35,5 +35,12 @@
       </p-footer>
     </p-card>
 
+    <p-card header="Usuarios de prueba">
+      <div class="body-card">
+        <div *ngFor="let item of usuariosTest; let i=index" style="margin-top: 5px;">
+          <button pButton type="button" class="ui-button-success" [label]="item.correo" (click)="elegirTest(i)"></button>
+        </div>
+      </div>
+    </p-card>
   </div>
 </div>
