@@ -13,10 +13,7 @@ import { MessageService } from 'primeng/api';
 })
 export class LoginComponent implements OnInit {
 
-  correo: string;
-  clave: string;
-
-  userform: FormGroup;
+  loginForm: FormGroup;
   submitted: boolean;
   description: string;
 
@@ -25,23 +22,31 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.userform = this.fb.group({
+    this.loginForm = this.fb.group({
       'usuario': new FormControl('', Validators.required),
       'clave': new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
     });
   }
 
-  onSubmit(value: string) {
+  onSubmit() {
     this.submitted = true;
-    console.log(value);
+    
     this.messageService.add({ severity: 'info', summary: '¡Bien!', detail: 'Se enviaron los datos' });
   }
 
-  loguear() {
-    console.log("Usuario", this.correo);
-    console.log("Clave", this.clave);
+  texto_error_usuario(){
+    return "Se requiere su correo con el formato usuario@dominio.com";
+  }
 
-    this.servUsuario.loginEmail(this.correo, this.clave);
+  texto_error_clave(){
+    return "Se requiere su clave";
+  }
+
+  loguear() {
+    console.log("Usuario", this.loginForm.controls["usuario"].value);
+    console.log("Clave", this.loginForm.controls["clave"].value);
+
+    this.servUsuario.loginEmail(this.loginForm.controls["usuario"].value, this.loginForm.controls["clave"].value);
   }
 
   registrar() {
