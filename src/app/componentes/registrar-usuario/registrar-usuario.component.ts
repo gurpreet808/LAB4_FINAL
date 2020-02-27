@@ -46,6 +46,7 @@ export class RegistrarUsuarioComponent implements OnInit {
     user.esCliente = true;
     
     this.servUsuario.registrarUsuario(user);
+    this.loguear();
   }
 
   navegar(url: string) {
