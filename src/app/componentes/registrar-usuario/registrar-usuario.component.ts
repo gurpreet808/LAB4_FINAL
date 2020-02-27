@@ -46,7 +46,12 @@ export class RegistrarUsuarioComponent implements OnInit {
     user.esCliente = true;
     
     this.servUsuario.registrarUsuario(user);
-    this.loguear();
+
+    this.clienteForm.reset();
+
+    if (this.servUsuario.logueado.value == false) {
+      this.loguear();
+    }
   }
 
   navegar(url: string) {
@@ -54,19 +59,19 @@ export class RegistrarUsuarioComponent implements OnInit {
   }
 
   texto_error_apellido() {
-    return "Se requiere su apellido";
+    return "Se requiere el apellido";
   }
 
   texto_error_nombre() {
-    return "Se requiere su nombre";
+    return "Se requiere el nombre";
   }
 
   texto_error_correo() {
-    return "Se requiere su correo con el formato usuario@dominio.com";
+    return "Se requiere el correo con el formato usuario@dominio.com";
   }
 
   texto_error_clave() {
-    return "Se requiere su clave";
+    return "Se requiere la clave";
   }
 
 }

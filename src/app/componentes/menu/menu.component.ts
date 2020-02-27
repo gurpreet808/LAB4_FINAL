@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { MenuItem } from 'primeng/api/menuitem';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-menu',
@@ -31,16 +32,18 @@ export class MenuComponent implements OnInit {
       routerLink: 'turnos'
     }
   ];
-  
-  constructor(public servUsuario: UsuarioService) {
+
+  constructor(public servUsuario: UsuarioService, public router: Router) {
 
   }
 
   ngOnInit(): void {
   }
-  
+
   desloguear() {
     console.log("Cerrando sesión...");
+
+    this.router.navigateByUrl("/");
     this.servUsuario.logout();
   }
 
