@@ -25,6 +25,7 @@ import { TablaTurnosComponent } from './componentes/tabla-turnos/tabla-turnos.co
 import { TablaEspecialidadesComponent } from './componentes/tabla-especialidades/tabla-especialidades.component';
 import { TablaUsuariosComponent } from './componentes/tabla-usuarios/tabla-usuarios.component';
 import { ConfiguracionEmpresaComponent } from './componentes/configuracion-empresa/configuracion-empresa.component';
+import { TurnoFormMinutosPipe } from './pipes/turno-form-minutos.pipe';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import { ConfiguracionEmpresaComponent } from './componentes/configuracion-empre
     TablaTurnosComponent,
     TablaEspecialidadesComponent,
     TablaUsuariosComponent,
-    ConfiguracionEmpresaComponent
+    ConfiguracionEmpresaComponent,
+    TurnoFormMinutosPipe
   ],
   imports: [
     BrowserModule,

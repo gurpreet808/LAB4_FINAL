@@ -26,7 +26,7 @@ export class SalaService {
 
           this.salas.push(itemSala);
         });
-        console.log(this.salas);
+        //console.log(this.salas);
       }
     );
   }
