@@ -1,3 +1,5 @@
+<p-toast [style]="{marginTop: '10px'}"></p-toast>
+
 <div class="ui-g ui-fluid ">
     <div class="ui-g-4 caja">
         <p-card header="Registrar Cliente">
@@ -5,36 +7,45 @@
             </p-header>
 
             <div class="body-card">
+                <form [formGroup]="clienteForm" (ngSubmit)="onSubmit()">
 
-                <div class="ui-inputgroup">
-                    <span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
-                    <input type="text" pInputText placeholder="Nombre" [(ngModel)]="nombre">
-                </div>
+                    <div class="ui-inputgroup">
+                        <span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
+                        <input type="text" pInputText placeholder="Nombre" formControlName="nombre">
+                    </div>
+                    <div *ngIf="!clienteForm.controls['nombre'].valid&&clienteForm.controls['nombre'].dirty">
+                        {{texto_error_nombre()}}
+                    </div>
 
-                <div class="ui-inputgroup">
-                    <span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
-                    <input type="text" pInputText placeholder="Apellido" [(ngModel)]="apellido">
-                </div>
+                    <div class="ui-inputgroup">
+                        <span class="ui-inputgroup-addon"><i class="pi pi-user"></i></span>
+                        <input type="text" pInputText placeholder="Apellido" formControlName="apellido">
+                    </div>
+                    <div *ngIf="!clienteForm.controls['apellido'].valid&&clienteForm.controls['apellido'].dirty">
+                        {{texto_error_apellido()}}
+                    </div>
 
-                <div class="ui-inputgroup">
-                    <span class="ui-inputgroup-addon"><i class="pi pi-envelope"></i></span>
-                    <input type="text" pInputText placeholder="Correo" [(ngModel)]="correo">
-                </div>
+                    <div class="ui-inputgroup">
+                        <span class="ui-inputgroup-addon"><i class="pi pi-envelope"></i></span>
+                        <input type="text" pInputText placeholder="Correo" formControlName="correo">
+                    </div>
+                    <div *ngIf="!clienteForm.controls['correo'].valid&&clienteForm.controls['correo'].dirty">
+                        {{texto_error_correo()}}
+                    </div>
 
-                <div class="ui-inputgroup">
-                    <span class="ui-inputgroup-addon"><i class="pi pi-key"></i></span>
-                    <input type="password" pInputText placeholder="Clave" [(ngModel)]="clave">
-                </div>
-
-                <div class="ui-inputgroup">
-                    <span class="ui-inputgroup-addon"><i class="pi pi-key"></i></span>
-                    <input type="password" pInputText placeholder="Confirmar clave" [(ngModel)]="clave2">
-                </div>
+                    <div class="ui-inputgroup">
+                        <span class="ui-inputgroup-addon"><i class="pi pi-key"></i></span>
+                        <input type="password" pInputText placeholder="Clave" formControlName="clave">
+                    </div>
+                    <div *ngIf="!clienteForm.controls['clave'].valid&&clienteForm.controls['clave'].dirty">
+                        {{texto_error_clave()}}
+                    </div>
+                </form>
             </div>
 
             <p-footer>
                 <button pButton type="button" label="Registrarme" icon="pi pi-user-plus" class="ui-button-primary"
-                    (click)="registrar()"></button>
+                    (click)="onSubmit()" [disabled]="!clienteForm.valid"></button>
                 <button pButton type="button" label="Iniciar sesión" icon="pi pi-sign-in" class="ui-button-secondary"
                     (click)="loguear()"></button>
             </p-footer>

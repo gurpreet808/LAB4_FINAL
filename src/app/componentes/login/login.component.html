@@ -29,7 +29,7 @@
 
       <p-footer>
         <button pButton type="button" label="Iniciar sesión" icon="pi pi-sign-in" class="ui-button-primary"
-          (click)="loguear()" [disabled]="!loginForm.valid"></button>
+          (click)="onSubmit()" [disabled]="!loginForm.valid"></button>
         <button pButton type="button" label="Registrarme" icon="pi pi-user-plus" class="ui-button-secondary"
           (click)="registrar()"></button>
       </p-footer>

@@ -15,7 +15,6 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
   submitted: boolean;
-  description: string;
 
   constructor(public servUsuario: UsuarioService, public router: Router, public fb: FormBuilder, public messageService: MessageService) {
 
@@ -32,6 +31,7 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
     
     this.messageService.add({ severity: 'info', summary: '¡Bien!', detail: 'Se enviaron los datos' });
+    this.loguear();
   }
 
   texto_error_usuario(){
