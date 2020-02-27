@@ -29,6 +29,7 @@ export class MisTurnosComponent implements OnInit {
   turno: Turno = {};
 
   puedo_encuesta: boolean = false;
+  puedo_cancelar: boolean = false;
 
   constructor(public servTurno: TurnoService, public servEspecialidad: EspecialidadService,
     public servSala: SalaService, public servUsuario: UsuarioService, public fb: FormBuilder, public messageService: MessageService) {
@@ -59,16 +60,16 @@ export class MisTurnosComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    this.messageService.add({ severity: 'info', summary: '¡Bien!', detail: 'Se enviaron los datos' });
     this.save();
+    
+    this.messageService.add({ severity: 'info', summary: '¡Bien!', detail: 'Se enviaron los datos' });
   }
-
+  
   save() {
-
+    
     console.clear();
-
+    
     this.turno.encuesta = this.encuestaForm.value;
-
     delete this.turno.fecha;
 
     console.log("B4 save this.turno", this.turno);
@@ -107,20 +108,39 @@ export class MisTurnosComponent implements OnInit {
     this.displayDialog = true;
   }
 
+  cancelar(){
+    this.turno.estado = "cancelado";
+
+    console.log(this.turno);
+
+    delete this.turno.fecha;
+
+    this.servTurno.ModificarUno(this.turno.id, this.turno);
+
+    this.displayDialog = false;
+    this.turno = {};
+    this.encuestaForm.reset();
+    
+    this.messageService.add({ severity: 'info', summary: '¡Bien!', detail: 'Se enviaron los datos' });
+  }
+
   onRowSelect(event) {
     this.newTurno = false;
     this.turno = this.cloneTurno(event.data);
 
     if (this.turno.estado == "finalizado") {
-      this.displayDialog = true;
       this.puedo_encuesta = true;
+      this.puedo_cancelar = false;
     } else {
       this.puedo_encuesta = false;
-      this.displayDialog = false;
-      this.turno = {};
-      this.encuestaForm.reset();
+      this.puedo_cancelar = true;
+
+      if (this.turno.estado == "atendiendo" || this.turno.estado == "cancelado") {
+        this.puedo_cancelar = false;
+      }
     }
 
+    this.displayDialog = true;
   }
 
   cloneTurno(c: Turno): Turno {

@@ -38,6 +38,15 @@
     <form [formGroup]="encuestaForm" (ngSubmit)="onSubmit()">
         <div class="ui-g ui-fluid">
 
+            <div class="ui-g-12" *ngIf="puedo_cancelar">
+                <div class="ui-g-4">
+                    <label for="clinica">Cancelar turno</label>
+                </div>
+                <div class="ui-g-8">
+                    <button type="button" pButton icon="pi pi-check" class="ui-button-danger" (click)="cancelar()" label="Cancelar"></button>
+                </div>
+            </div>
+
             <div class="ui-g-12" *ngIf="puedo_encuesta">
                 <div class="ui-g-4">
                     <label for="clinica">Puntaje clínica</label>
@@ -67,10 +76,9 @@
 
         </div>
     </form>
+
     <p-footer>
         <div class="ui-dialog-buttonpane ui-helper-clearfix">
-            <button type="button" pButton icon="pi pi-trash" class="ui-button-danger" (click)="delete()"
-                label="Borrar"></button>
             <button type="button" pButton icon="pi pi-check" class="ui-button-success" [disabled]="!encuestaForm.valid"
                 (click)="onSubmit()" label="Guardar"></button>
         </div>

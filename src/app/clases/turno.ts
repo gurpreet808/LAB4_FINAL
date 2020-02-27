@@ -16,7 +16,7 @@ export class Turno {
 
     sala_id?: string; //Lo llena el Especialista
     sala_nombre?: string;
-    estado?: "confirmado" | "cancelado" | "esperando" | "atendiendo" | "finalizado" | "cancelado";
+    estado?: "confirmado" | "cancelado" | "esperando" | "atendiendo" | "finalizado";
     resenia?: string; //Lo llena el Especialista
     encuesta?: {
         clinica: number,
