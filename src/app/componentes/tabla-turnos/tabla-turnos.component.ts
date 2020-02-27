@@ -29,6 +29,11 @@ export class TablaTurnosComponent implements OnInit {
   minDateValue = new Date(Date.now());
   fecha: Date;
 
+  cantidadMinutosOcupado: number = 0;
+  disponibilidadTotal: number = 0;
+
+  puedePedirTurno: boolean = false;
+
   turno: Turno = {};
 
   es = {
@@ -60,7 +65,7 @@ export class TablaTurnosComponent implements OnInit {
 
   salas: SelectItem[] = [
     { label: 'Seleccionar', value: null },
-    { label: 'Consultorio 1', value: 'Consultorio 1' }
+    { label: 'Consultorio X', value: 'Consultorio X' }
   ];
 
   constructor(public servTurno: TurnoService, public servEspecialidad: EspecialidadService,
@@ -93,7 +98,7 @@ export class TablaTurnosComponent implements OnInit {
       'fecha': new FormControl('', Validators.required),
       'especialista_uid': new FormControl('', Validators.required),
       'duracion': new FormControl(''),
-      'sala_uid': new FormControl('')
+      //'sala_uid': new FormControl('')
     });
 
     this.cols = [
@@ -101,6 +106,7 @@ export class TablaTurnosComponent implements OnInit {
       { field: 'cliente_nombre', header: 'Cliente' },
       { field: 'especialista_nombre', header: 'Especialista' },
       { field: 'especialidad', header: 'Especialidad' },
+      { field: 'tipo', header: 'Tipo de turno' },
       { field: 'sala', header: 'Sala' },
       { field: 'estado', header: 'Estado' },
       { field: 'resenia', header: 'Reseña' },
@@ -112,12 +118,17 @@ export class TablaTurnosComponent implements OnInit {
   onSubmit() {
     this.submitted = true;
 
-    this.messageService.add({ severity: 'info', summary: '¡Bien!', detail: 'Se enviaron los datos' });
-    this.save();
+    if (this.puedePedirTurno) {
+      this.messageService.add({ severity: 'info', summary: '¡Bien!', detail: 'Se enviaron los datos' });
+      this.save();
+    } else {
+      this.messageService.add({ severity: 'error', summary: '¡Uhhh!', detail: 'El especialista no dispone más turnos para ' + this.turnoForm.controls["tipo"].value });
+    }
+
   }
 
   save() {
-    
+
     console.clear();
 
     Object.assign(this.turno, this.turnoForm.value);
@@ -126,6 +137,7 @@ export class TablaTurnosComponent implements OnInit {
     console.log("B4 save this.turno", this.turno);
 
     if (this.newTurno) {
+      this.turno.estado = "confirmado";
       this.servTurno.AgregarUno(this.turno);
       //this.servTurno.AgregarUno(this.turnoForm.value);
     }
@@ -164,6 +176,8 @@ export class TablaTurnosComponent implements OnInit {
   onRowSelect(event) {
     this.newTurno = false;
     this.turno = this.cloneTurno(event.data);
+    this.change_especialidad();
+
     this.displayDialog = true;
   }
 
@@ -177,6 +191,7 @@ export class TablaTurnosComponent implements OnInit {
         this.turnoForm.controls[prop].setValue(c[prop]);
       }
     }
+
     return turno;
   }
 
@@ -237,6 +252,8 @@ export class TablaTurnosComponent implements OnInit {
       ];
     }
 
+    this.checkSiHayTurnos();
+
   }
 
   change_tipo() {
@@ -251,10 +268,13 @@ export class TablaTurnosComponent implements OnInit {
     } else {
       this.turnoForm.controls["duracion"].patchValue(15);
     }
+
+    this.checkSiHayTurnos();
   }
 
   change_fecha() {
-    (this.turnoForm.controls["fecha"].value as Date).setSeconds(0, 0);
+    (this.turnoForm.controls["fecha"].value as Date).setHours(0, 0, 0);
+    this.checkSiHayTurnos();
   }
 
   change_especialista() {
@@ -266,6 +286,69 @@ export class TablaTurnosComponent implements OnInit {
         }
       }
     );
+
+    this.checkSiHayTurnos();
+  }
+
+  checkSiHayTurnos() {
+
+    try {
+      this.calcularMinutosOcupado();
+    } catch (error) {
+      //console.log(error);
+    }
+
+    try {
+      this.calcularDisponibilidadTotal();
+    } catch (error) {
+      //console.log(error);
+    }
+
+    try {
+      if ((this.disponibilidadTotal - this.cantidadMinutosOcupado - this.turnoForm.controls["duracion"].value) < 1) {
+        this.puedePedirTurno = false;
+      } else {
+        this.puedePedirTurno = true;
+      }
+    } catch (error) {
+      //console.log(error);
+    }
+
+  }
+
+  calcularMinutosOcupado() {
+    this.cantidadMinutosOcupado = 0;
+
+    this.servTurno.turnos.forEach(
+      (turnoItem: Turno) => {
+        //console.log("turno analisis", turnoItem);
+
+        if (turnoItem.especialista_uid == this.turnoForm.controls["especialista_uid"].value) {
+          //console.log("mismo UID");
+          if (turnoItem.fecha == (this.turnoForm.controls["fecha"].value as Date).toString()) {
+            //console.log("misma fecha");
+            if (turnoItem.estado == "confirmado") {
+              //console.log("es confirmado");
+              this.cantidadMinutosOcupado = this.cantidadMinutosOcupado + turnoItem.duracion;
+            }
+          }
+        }
+      }
+    );
+  }
+
+  calcularDisponibilidadTotal() {
+    if ((this.turnoForm.controls["fecha"].value as Date).getDay() == 6) {
+      this.disponibilidadTotal = (14 - 8) * 60;
+      console.log("es sábado", this.disponibilidadTotal);
+    } else {
+      this.disponibilidadTotal = (19 - 8) * 60;
+      console.log("NO es sábado", this.disponibilidadTotal);
+    }
+  }
+
+  calcularCantidadTurnos(duracion: number): number {
+    return Math.floor((this.disponibilidadTotal - this.cantidadMinutosOcupado) / duracion);
   }
 
   change_sala() {

@@ -26,7 +26,7 @@
                 {{rowData[col.field]}}
             </td>
             <td>
-                {{rowData.fecha | date : 'dd/MM/yyyy HH:mm'}}
+                {{rowData.fecha | date : 'dd/MM/yyyy'}}
             </td>
         </tr>
     </ng-template>
@@ -44,7 +44,8 @@
                     <label for="mail">Mail del cliente</label>
                 </div>
                 <div class="ui-g-8">
-                    <input pInputText type="text" (change)="checkUsuario()" formControlName="cliente_mail" placeholder="" />
+                    <input pInputText type="text" (change)="checkUsuario()" formControlName="cliente_mail"
+                        placeholder="" />
                 </div>
                 <div class="ui-g-12">
                     <p-message severity="error" [text]="texto_error_cliente_mail()"
@@ -57,7 +58,7 @@
                     <label for="cliente">Nombre del cliente</label>
                 </div>
                 <div class="ui-g-8">
-                    <input pInputText type="text" formControlName="cliente_nombre" placeholder="Obligatorio"/>
+                    <input pInputText type="text" formControlName="cliente_nombre" placeholder="Obligatorio" />
                 </div>
                 <div class="ui-g-12">
                     <p-message severity="error" [text]="texto_error_cliente_nombre()"
@@ -70,7 +71,8 @@
                     <label for="especialidad">{{"especialidad" | titlecase}}</label>
                 </div>
                 <div class="ui-g-8">
-                    <p-dropdown (onChange)="change_especialidad()" [options]="especialidades" formControlName="especialidad" placeholder="Obligatorio">
+                    <p-dropdown (onChange)="change_especialidad()" [options]="especialidades"
+                        formControlName="especialidad" placeholder="Obligatorio">
                     </p-dropdown>
                 </div>
                 <div class="ui-g-12">
@@ -85,19 +87,20 @@
                     <label for="tipo">{{"tipo" | titlecase}}</label>
                 </div>
                 <div class="ui-g-8">
-                    <p-dropdown (onChange)="change_tipo()" [options]="tipos" formControlName="tipo" placeholder="Obligatorio">
+                    <p-dropdown (onChange)="change_tipo()" [options]="tipos" formControlName="tipo"
+                        placeholder="Obligatorio">
                     </p-dropdown>
                 </div>
                 <div class="ui-g-12">
-                    <p-message severity="error" [text]="texto_error_tipo()"
-                        *ngIf="!turnoForm.controls['tipo'].valid">
+                    <p-message severity="error" [text]="texto_error_tipo()" *ngIf="!turnoForm.controls['tipo'].valid">
                     </p-message>
                 </div>
             </div>
 
             <div class="ui-g-12">
                 <div class="ui-g-12">
-                    <label for="duracion">Duración estimada: {{this.turnoForm.controls["duracion"].value | turnoFormMinutos}}</label>
+                    <label for="duracion">Duración estimada:
+                        {{this.turnoForm.controls["duracion"].value | turnoFormMinutos}}</label>
                 </div>
             </div>
 
@@ -107,12 +110,10 @@
                 </div>
                 <div class="ui-g-8">
                     <p-calendar (onClose)="change_fecha()" formControlName="fecha" [minDate]="minDateValue"
-                        [disabledDays]="[0]" [readonlyInput]="true" [stepMinute]="15" showTime="true"
-                        appendTo="body" [locale]="es"></p-calendar>
+                        [disabledDays]="[0]" [readonlyInput]="true" appendTo="body" [locale]="es"></p-calendar>
                 </div>
                 <div class="ui-g-12">
-                    <p-message severity="error" [text]="texto_error_fecha()"
-                        *ngIf="!turnoForm.controls['fecha'].valid">
+                    <p-message severity="error" [text]="texto_error_fecha()" *ngIf="!turnoForm.controls['fecha'].valid">
                     </p-message>
                 </div>
             </div>
@@ -122,7 +123,8 @@
                     <label for="especialista">{{"especialista" | titlecase}}</label>
                 </div>
                 <div class="ui-g-8">
-                    <p-dropdown (onChange)="change_especialista()" [options]="especialistas" formControlName="especialista_uid" placeholder="Obligatorio">
+                    <p-dropdown (onChange)="change_especialista()" [options]="especialistas"
+                        formControlName="especialista_uid" placeholder="Obligatorio">
                     </p-dropdown>
                 </div>
                 <div class="ui-g-12">
@@ -132,12 +134,24 @@
                 </div>
             </div>
 
-            <div class="ui-g-12">
+            <div class="ui-g-12" *ngIf="turnoForm.controls['especialista_uid'].valid">
+                Cantidad turnos disponibles para {{turno.especialista_nombre}}:
+                <br>
+                <br>
+                Para consultas: {{(disponibilidadTotal - cantidadMinutosOcupado) / 15 | cantidadTurnosDisponibles}}
+                <br>
+                Para tratamientos: {{(disponibilidadTotal - cantidadMinutosOcupado) / 60 | cantidadTurnosDisponibles}}
+            </div>
+
+
+
+            <!--  <div class="ui-g-12">
                 <div class="ui-g-4">
                     <label for="sala">{{"sala" | titlecase}}</label>
                 </div>
                 <div class="ui-g-8">
-                    <p-dropdown (onChange)="change_sala()" [options]="salas" formControlName="sala_uid" placeholder="Obligatorio">
+                    <p-dropdown (onChange)="change_sala()" [options]="salas" formControlName="sala_uid"
+                        placeholder="Obligatorio">
                     </p-dropdown>
                 </div>
                 <div class="ui-g-12">
@@ -147,7 +161,7 @@
                 </div>
             </div>
 
-            <!--  <div class="ui-g-12">
+            <div class="ui-g-12">
                 <div class="ui-g-4">
                     <label for="estado">{{"estado" | titlecase}}</label>
                 </div>

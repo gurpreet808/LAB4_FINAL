@@ -30,6 +30,12 @@ export class SalasComponent implements OnInit {
     { label: 'En construcción', value: "en_construccion" }
   ];
 
+  en_usos = [
+    { label: 'Seleccionar', value: null },
+    { label: 'Si', value: "true" },
+    { label: 'No', value: "false" }
+  ];
+
   constructor(public servSala: SalaService) {
 
   }
@@ -38,7 +44,8 @@ export class SalasComponent implements OnInit {
     this.cols = [
       { field: 'nombre', header: 'Nombre' },
       { field: 'tipo', header: 'Tipo' },
-      { field: 'estado', header: 'Estado' }
+      { field: 'estado', header: 'Estado' },
+      { field: 'en_uso', header: '¿En uso?' }
     ];
   }
 

@@ -50,6 +50,15 @@
                 <p-dropdown [options]="estados" id="estado" [(ngModel)]="sala.estado"></p-dropdown>
             </div>
         </div>
+
+        <div class="ui-g-12">
+            <div class="ui-g-4">
+                <label for="en_uso">{{"en_uso" | titlecase}}</label>
+            </div>
+            <div class="ui-g-8">
+                <p-dropdown [options]="en_usos" id="en_uso" [(ngModel)]="sala.en_uso"></p-dropdown>
+            </div>
+        </div>
     </div>
     <p-footer>
         <div class="ui-dialog-buttonpane ui-helper-clearfix">

@@ -3,4 +3,5 @@ export class Sala {
     nombre?: string;
     tipo?: string;
     estado?: string;
+    en_uso?: boolean;
 }
