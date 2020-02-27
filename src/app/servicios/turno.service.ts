@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Turno } from '../clases/turno';
 import { AngularFireList, AngularFireDatabase, AngularFireAction, DatabaseSnapshot } from '@angular/fire/database';
+import { UsuarioService } from './usuario.service';
 
 @Injectable({
   providedIn: 'root'
@@ -8,14 +9,19 @@ import { AngularFireList, AngularFireDatabase, AngularFireAction, DatabaseSnapsh
 export class TurnoService {
 
   turnos: Turno[] = [];
+  turnosParaAtender: Turno[] = [];
+  misTurnos: Turno[] = [];
+
   turnoList: AngularFireList<Turno>;
 
-  constructor(public db: AngularFireDatabase) {
+  constructor(public db: AngularFireDatabase, public servUsuario: UsuarioService) {
     this.turnoList = this.db.list<Turno>('/turnos');
 
     this.TraerTodos().subscribe(
       (turnosSnapshot: AngularFireAction<DatabaseSnapshot<Turno>>[]) => {
         this.turnos = [];
+        this.turnosParaAtender = [];
+        this.misTurnos = [];
 
         turnosSnapshot.forEach((turnoData: AngularFireAction<DatabaseSnapshot<Turno>>) => {
 
@@ -26,6 +32,16 @@ export class TurnoService {
           //console.log(itemTurno);
 
           this.turnos.push(itemTurno);
+
+          if (this.servUsuario.el_usuario) {
+            if (itemTurno.especialista_uid == this.servUsuario.afAuth.auth.currentUser.uid) {
+              this.turnosParaAtender.push(itemTurno);
+            }
+
+            if (itemTurno.cliente_uid == this.servUsuario.afAuth.auth.currentUser.uid) {
+              this.misTurnos.push(itemTurno);
+            }
+          }
         });
         console.log(this.turnos);
       }

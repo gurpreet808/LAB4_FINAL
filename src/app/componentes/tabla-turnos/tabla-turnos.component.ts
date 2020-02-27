@@ -355,7 +355,7 @@ export class TablaTurnosComponent implements OnInit {
     this.servSala.salas.forEach(
       (sala: Sala) => {
         if (sala.id == this.turnoForm.controls["sala_uid"].value) {
-          this.turno.sala = sala.nombre;
+          this.turno.sala_nombre = sala.nombre;
         }
       }
     );

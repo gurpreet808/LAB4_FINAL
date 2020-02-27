@@ -62,7 +62,7 @@ export class MenuComponent implements OnInit {
                     {
                       label: 'Turnos a atender',
                       icon: 'pi pi-fw pi-calendar',
-                      routerLink: 'turnos'
+                      routerLink: 'atender-turnos'
                     }
                   ];
                   break;

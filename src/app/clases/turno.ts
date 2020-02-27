@@ -14,7 +14,8 @@ export class Turno {
     especialista_nombre?: string; //Obligatorio
     especialista_mail?: string; //Obligatorio
 
-    sala?: string; //Lo llena el Especialista
+    sala_id?: string; //Lo llena el Especialista
+    sala_nombre?: string;
     estado?: "confirmado" | "cancelado" | "esperando" | "atendiendo" | "finalizado" | "cancelado";
     resenia?: string; //Lo llena el Especialista
     encuesta?: {

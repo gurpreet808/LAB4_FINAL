@@ -12,6 +12,8 @@ import { TablaUsuariosComponent } from './componentes/tabla-usuarios/tabla-usuar
 import { ConfiguracionEmpresaComponent } from './componentes/configuracion-empresa/configuracion-empresa.component';
 import { AdminGuard } from './guards/admin.guard';
 import { RecepcionistaGuard } from './guards/recepcionista.guard';
+import { TurnosComponent } from './componentes/turnos/turnos.component';
+import { EspecialistaGuard } from './guards/especialista.guard';
 
 const routes: Routes = [
   { path: "", component: InicioComponent },
@@ -21,6 +23,7 @@ const routes: Routes = [
   { path: "especialidades", component: TablaEspecialidadesComponent, canActivate: [AdminGuard] },
   { path: "empleados", component: TablaEmpleadosComponent, canActivate: [AdminGuard] },
   { path: "turnos", component: TablaTurnosComponent, canActivate: [RecepcionistaGuard] },
+  { path: "atender-turnos", component: TurnosComponent, canActivate: [EspecialistaGuard] },
   { path: "configEmpresa", component: ConfiguracionEmpresaComponent, canActivate: [AdminGuard] },
   { path: "usuarios", component: TablaUsuariosComponent },
   //{ path:"registrarme", component: RegistrarUsuarioComponent, canActivate: [AnonGuard] },
