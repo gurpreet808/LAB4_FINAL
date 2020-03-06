@@ -40,6 +40,15 @@
                     <div *ngIf="!clienteForm.controls['clave'].valid&&clienteForm.controls['clave'].dirty">
                         {{texto_error_clave()}}
                     </div>
+
+                    <div class="ui-inputgroup">
+                        <span class="ui-inputgroup-addon"><i class="pi pi-image"></i></span>
+                        <input type="file" id="customFile" accept=".png, .jpg"
+                            (change)="ImagenCargada($event)">
+                    </div>
+                    <div *ngIf="!clienteForm.controls['clave'].valid&&clienteForm.controls['clave'].dirty">
+                        {{texto_error_clave()}}
+                    </div>
                 </form>
             </div>
 

@@ -29,6 +29,7 @@ import { TurnoFormMinutosPipe } from './pipes/turno-form-minutos.pipe';
 import { CantidadTurnosDisponiblesPipe } from './pipes/cantidad-turnos-disponibles.pipe';
 import { MisTurnosComponent } from './componentes/mis-turnos/mis-turnos.component';
 import { SolicitarTurnoComponent } from './componentes/solicitar-turno/solicitar-turno.component';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 
 @NgModule({
   declarations: [
@@ -61,6 +62,7 @@ import { SolicitarTurnoComponent } from './componentes/solicitar-turno/solicitar
     //AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireDatabaseModule,
+    AngularFireStorageModule,
     HttpClientModule,
     PrimeNGModule
   ],

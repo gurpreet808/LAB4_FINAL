@@ -40,7 +40,7 @@ export class MisTurnosComponent implements OnInit {
     this.encuestaForm = this.fb.group({
       'clinica': new FormControl('', Validators.required),
       'especialista': new FormControl('', Validators.required),
-      'experiencia': new FormControl('')
+      'experiencia': new FormControl('', Validators.required)
     });
 
     this.cols = [
@@ -74,11 +74,13 @@ export class MisTurnosComponent implements OnInit {
 
     console.log("B4 save this.turno", this.turno);
 
-    if (this.encuestaForm.controls["estado"].value == "esperando" || this.encuestaForm.controls["estado"].value == "atendiendo") {
+    if (this.turno.estado == "esperando" || this.turno.estado == "atendiendo") {
       this.servSala.ModificarUno(this.turno.sala_id, { en_uso: true });
     } else {
       this.servSala.ModificarUno(this.turno.sala_id, { en_uso: false });
     }
+
+    this.turno.estado = "cerrado";
 
     this.servTurno.ModificarUno(this.turno.id, this.turno);
 
@@ -135,7 +137,7 @@ export class MisTurnosComponent implements OnInit {
       this.puedo_encuesta = false;
       this.puedo_cancelar = true;
 
-      if (this.turno.estado == "atendiendo" || this.turno.estado == "cancelado") {
+      if (this.turno.estado == "atendiendo" || this.turno.estado == "cancelado" || this.turno.estado == "cerrado") {
         this.puedo_cancelar = false;
       }
     }

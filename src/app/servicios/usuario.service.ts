@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Usuario } from '../clases/usuario';
 import { AngularFireDatabase, AngularFireList, AngularFireAction, DatabaseSnapshot } from '@angular/fire/database';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -25,44 +25,26 @@ export class UsuarioService {
     this.afAuth.authState.subscribe(
       (authState) => {
         if (authState) {
-          this.logueado.next(true);
-          this.traerDatosDelUsuario(authState.uid);
+          try {
+            let suscription = this.traerDatosDelUsuario(authState.uid).subscribe(
+              (data) => {
+                this.el_usuario = data;
+                suscription.unsubscribe();
+                this.logueado.next(true);
+              }
+            );
+            
+          } catch (error) {
+            console.log(error);
+            this.logueado.next(false);
+          }
         } else {
           this.logueado.next(false);
         }
       }
     );
 
-    this.TraerTodos().subscribe(
-      (usuariosSnapshot: AngularFireAction<DatabaseSnapshot<Usuario>>[]) => {
-        this.usuarios = [];
-        this.empleados = [];
-        this.clientes = [];
-
-        usuariosSnapshot.forEach((usuarioData: AngularFireAction<DatabaseSnapshot<Usuario>>) => {
-
-          //console.log(usuarioData);
-          let itemUsuario: Usuario = usuarioData.payload.toJSON();
-          itemUsuario.uid = usuarioData.key;
-          //console.log(itemUsuario);
-
-          this.usuarios.push(itemUsuario);
-
-          if (itemUsuario.esCliente) {
-            //console.log("Cliente", itemUsuario.correo);
-            this.clientes.push(itemUsuario);
-          }
-
-          if (itemUsuario.tipoEmpleado) {
-            //console.log("Empleado", itemUsuario.correo);
-            this.empleados.push(itemUsuario);
-          }
-
-        });
-
-        //console.log(this.usuarios);
-      }
-    );
+    this.CargarUsuarios();
   }
 
   //FALTA Alerts para avisar errores
@@ -81,18 +63,8 @@ export class UsuarioService {
     }
   }
 
-  traerDatosDelUsuario(uid: string) {
-    try {
-      let usuarioQuery = this.db.object('/usuarios/' + uid).valueChanges().subscribe(
-        (usuario: Usuario) => {
-          this.el_usuario = usuario;
-          console.log(this.el_usuario);
-          usuarioQuery.unsubscribe();
-        }
-      );
-    } catch (error) {
-      console.log(error);
-    }
+  traerDatosDelUsuario(uid: string): Observable<Usuario> {
+    return this.db.object<Usuario>('/usuarios/' + uid).valueChanges();
   }
 
   //FALTA Alerts para informar errores
@@ -158,13 +130,45 @@ export class UsuarioService {
   }
 
   ModificarUno(refKey: string, data: Usuario) {
-    //Limpiar el objeto de datos undefined
     this.modificarUsuario(data, refKey);
   }
 
   BorrarUno(refKey: string) {
     //Borrado virtual para consistencia de datos
     return this.usuarioList.remove(refKey);
+  }
+
+  CargarUsuarios(){
+    this.TraerTodos().subscribe(
+      (usuariosSnapshot: AngularFireAction<DatabaseSnapshot<Usuario>>[]) => {
+        this.usuarios = [];
+        this.empleados = [];
+        this.clientes = [];
+
+        usuariosSnapshot.forEach((usuarioData: AngularFireAction<DatabaseSnapshot<Usuario>>) => {
+
+          //console.log(usuarioData);
+          let itemUsuario: Usuario = usuarioData.payload.toJSON();
+          itemUsuario.uid = usuarioData.key;
+          //console.log(itemUsuario);
+
+          this.usuarios.push(itemUsuario);
+
+          if (itemUsuario.esCliente) {
+            //console.log("Cliente", itemUsuario.correo);
+            this.clientes.push(itemUsuario);
+          }
+
+          if (itemUsuario.tipoEmpleado) {
+            //console.log("Empleado", itemUsuario.correo);
+            this.empleados.push(itemUsuario);
+          }
+
+        });
+
+        //console.log(this.usuarios);
+      }
+    );
   }
 
   IntegridadDeClase(usuario: Usuario): Usuario {
