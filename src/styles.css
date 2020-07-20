@@ -1,6 +1,11 @@
 /* You can add global styles to this file, and also import other style files */
-@import "~primeng/resources/themes/luna-blue/theme.css";
 
-body{
+@import "~primeng/resources/themes/luna-blue/theme.css";
+body {
     background-color: #828282;
+    background: url("./assets/imagenes/background.jpg") no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
