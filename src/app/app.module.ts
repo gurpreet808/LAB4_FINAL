@@ -4,7 +4,7 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FIREBASE_CONFIG } from './app.firebase.config';
+import { firebaseConfig } from './app.firebase.config';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
@@ -58,7 +58,7 @@ import { AngularFireStorageModule } from '@angular/fire/storage';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    AngularFireModule.initializeApp(FIREBASE_CONFIG),
+    AngularFireModule.initializeApp(firebaseConfig),
     //AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireDatabaseModule,
