@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { UsuarioService } from 'src/app/servicios/usuario.service';
 
 @Component({
   selector: 'app-inicio',
@@ -7,9 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InicioComponent implements OnInit {
 
-  constructor() { }
+  constructor(public router: Router, public servUsuario: UsuarioService) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
+  }
+
+  navegar(url: string){
+    this.router.navigateByUrl(url);
   }
 
 }

@@ -1,0 +1,19 @@
+{
+  "hosting": [
+    {
+      "target": "FinalLab4v2",
+      "public": "dist/FinalLab4v2",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}

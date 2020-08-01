@@ -1,0 +1,7 @@
+:host ::ng-deep td {
+    word-break: break-all;
+}
+
+#contenido {
+    opacity: 0.9;
+}
