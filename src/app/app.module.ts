@@ -8,6 +8,7 @@ import { firebaseConfig } from './app.firebase.config';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
+import { AngularFireStorageModule } from '@angular/fire/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { PrimeNGModule } from './modulos/prime-ng/prime-ng.module';
 
@@ -29,7 +30,6 @@ import { TurnoFormMinutosPipe } from './pipes/turno-form-minutos.pipe';
 import { CantidadTurnosDisponiblesPipe } from './pipes/cantidad-turnos-disponibles.pipe';
 import { MisTurnosComponent } from './componentes/mis-turnos/mis-turnos.component';
 import { SolicitarTurnoComponent } from './componentes/solicitar-turno/solicitar-turno.component';
-import { AngularFireStorageModule } from '@angular/fire/storage';
 
 @NgModule({
   declarations: [

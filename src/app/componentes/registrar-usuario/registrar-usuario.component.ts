@@ -5,6 +5,8 @@ import { Usuario } from 'src/app/clases/usuario';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { AngularFireStorage } from '@angular/fire/storage';
+import { Observable } from 'rxjs';
+import { finalize } from 'rxjs/operators';
 
 @Component({
   selector: 'app-registrar-usuario',
@@ -16,10 +18,11 @@ export class RegistrarUsuarioComponent implements OnInit {
 
   clienteForm: FormGroup;
   submitted: boolean;
-  imagen: string;
   horaActual: string;
+  uploadPercent: Observable<number>;
+  downloadURL: Observable<string>;
 
-  constructor(public servUsuario: UsuarioService, public router: Router, public fb: FormBuilder, 
+  constructor(public servUsuario: UsuarioService, public router: Router, public fb: FormBuilder,
     public messageService: MessageService, private afs: AngularFireStorage) {
 
   }
@@ -78,36 +81,35 @@ export class RegistrarUsuarioComponent implements OnInit {
     return "Se requiere la clave";
   }
 
-  ahora(){        
+  ahoraString() {
     var tzoffset = (new Date()).getTimezoneOffset() * 60000;
-    this.horaActual = (new Date(Date.now() - tzoffset)).toISOString().slice(0, 19).replace('T', ' ');
+    return (new Date(Date.now() - tzoffset)).toISOString().slice(0, 19).replace('T', ' ');
   }
 
-  ImagenCargada(e) {
-
-    const img = e.target.files[0];
-
-    try {
-      let storageRef = this.afs.storage.ref();
-      this.ahora();
-      const ext = img.name.substr(img.name.lastIndexOf('.') + 1);
-      const nombreArchivo = this.clienteForm.controls["correo"].value + " " + this.horaActual + ext;
-      const filePath = "imagenes/usuarios/" + nombreArchivo;
-      const imageRef = this.afs.ref(filePath);
-
-
-      this.afs.upload(filePath, img).then(
-        (snapshot) => {
-          imageRef.getDownloadURL().toPromise().then(
-            (datos) => {
-              this.clienteForm.controls["foto"].setValue(datos);
-            }
-          )
-          this.messageService.add({ severity: 'info', summary: '¡Bien!', detail: 'Se subió tu foto!' });
-        }
-      );
-    } catch (error) {
-      console.log(error);
+  subirImagen(event) {
+    let file = event.target.files[0];
+    let type: string = event.target.files[0].type;
+    type = type.replace("image/", ".");
+    let folder = "imagenes/usuarios/";
+    let filePath = this.ahoraString() + type;
+    if (this.clienteForm.controls['nombre'].value) {
+      filePath = this.clienteForm.controls['nombre'].value + " " + filePath;
     }
+
+    filePath = folder + filePath;
+    
+    let fileRef = this.afs.ref(filePath);
+    let task = this.afs.upload(filePath, file);
+
+    // observe percentage changes
+    this.uploadPercent = task.percentageChanges();
+    // get notified when the download URL is available
+    task.snapshotChanges().pipe(
+      finalize(
+        () => {
+          this.downloadURL = fileRef.getDownloadURL();
+        }
+      )
+    ).subscribe();
   }
 }
