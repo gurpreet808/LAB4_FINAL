@@ -22,7 +22,7 @@ export class RegistrarUsuarioComponent implements OnInit {
   uploadPercent: Observable<number>;
   downloadURL: Observable<string>;
   
-  uploadedFiles: any[] = [];
+  imageFile: any;
 
   constructor(public servUsuario: UsuarioService, public router: Router, public fb: FormBuilder,
     public messageService: MessageService, private afs: AngularFireStorage) {
@@ -35,7 +35,7 @@ export class RegistrarUsuarioComponent implements OnInit {
       'apellido': new FormControl('', Validators.required),
       'correo': new FormControl('', Validators.compose([Validators.required, Validators.email])),
       'clave': new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
-      //'foto': new FormControl('', Validators.required),
+      'foto': new FormControl('', Validators.required),
     });
   }
 
@@ -115,11 +115,9 @@ export class RegistrarUsuarioComponent implements OnInit {
     ).subscribe();
   }
 
-  onUpload(event) {
-    for (let file of event.files) {
-      this.uploadedFiles.push(file);
-    }
-
+  onPreUpload(event) {
+    console.log(event);
+    this.imageFile = event.files;
     this.messageService.add({ severity: 'info', summary: 'File Uploaded', detail: '' });
   }
 }
