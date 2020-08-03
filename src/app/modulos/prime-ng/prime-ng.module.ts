@@ -15,6 +15,7 @@ import { DropdownModule } from 'primeng/dropdown';
 import { CalendarModule } from 'primeng/calendar';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
+import { FileUploadModule } from 'primeng/fileupload';
 
 @NgModule({
   declarations: [],
@@ -33,7 +34,8 @@ import { MessageModule } from 'primeng/message';
     DropdownModule,
     CalendarModule,
     MessagesModule,
-    MessageModule
+    MessageModule,
+    FileUploadModule
   ],
   exports: [
     PanelModule,
@@ -49,7 +51,8 @@ import { MessageModule } from 'primeng/message';
     DropdownModule,
     CalendarModule,
     MessagesModule,
-    MessageModule
+    MessageModule,
+    FileUploadModule
   ]
 })
 export class PrimeNGModule { }

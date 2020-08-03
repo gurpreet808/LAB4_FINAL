@@ -1,10 +1,8 @@
 <p-toast [style]="{marginTop: '10px'}"></p-toast>
 
 <div class="ui-g ui-fluid ">
-    <div class="ui-g-4 caja">
-        <p-card header="Registrar Cliente">
-            <p-header>
-            </p-header>
+    <div class="ui-g-6 caja">
+        <p-card header="Registrar cliente">
 
             <div class="body-card">
                 <form [formGroup]="clienteForm" (ngSubmit)="onSubmit()">
@@ -43,7 +41,18 @@
 
                     <div class="ui-inputgroup">
                         <span class="ui-inputgroup-addon"><i class="pi pi-image"></i></span>
-                        <input type="file" id="customFile" accept='image/*' (change)="subirImagen($event)">
+                        <!-- <input type="file" id="customFile" accept='image/*' (change)="subirImagen($event)"> -->
+
+                        <p-fileUpload (onUpload)="onUpload($event)" [multiple]="false" accept="image/*" maxFileSize="1000000"
+                        invalidFileSizeMessageSummary="{0} El archivo es muy grande, " invalidFileSizeMessageDetail="el tamaño permitido es {0}."
+                        invalidFileTypeMessageSummary="{0} El tipo de archivo no es admitido, " invalidFileTypeMessageDetail="sólo se permiten imágenes."
+                        chooseLabel="Seleccionar imagen de perfil" [showUploadButton]="false" [showCancelButton]="false">
+                            <ng-template pTemplate="content">
+                                <ul *ngIf="uploadedFiles.length">
+                                    <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                                </ul>
+                            </ng-template>
+                        </p-fileUpload>
                         <div>{{uploadPercent | async}}</div>
                     </div>
                     <div *ngIf="!clienteForm.controls['clave'].valid&&clienteForm.controls['clave'].dirty">

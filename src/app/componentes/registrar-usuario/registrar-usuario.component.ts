@@ -21,6 +21,8 @@ export class RegistrarUsuarioComponent implements OnInit {
   horaActual: string;
   uploadPercent: Observable<number>;
   downloadURL: Observable<string>;
+  
+  uploadedFiles: any[] = [];
 
   constructor(public servUsuario: UsuarioService, public router: Router, public fb: FormBuilder,
     public messageService: MessageService, private afs: AngularFireStorage) {
@@ -97,7 +99,7 @@ export class RegistrarUsuarioComponent implements OnInit {
     }
 
     filePath = folder + filePath;
-    
+
     let fileRef = this.afs.ref(filePath);
     let task = this.afs.upload(filePath, file);
 
@@ -111,5 +113,13 @@ export class RegistrarUsuarioComponent implements OnInit {
         }
       )
     ).subscribe();
+  }
+
+  onUpload(event) {
+    for (let file of event.files) {
+      this.uploadedFiles.push(file);
+    }
+
+    this.messageService.add({ severity: 'info', summary: 'File Uploaded', detail: '' });
   }
 }
