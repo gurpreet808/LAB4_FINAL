@@ -5,7 +5,7 @@ import { Usuario } from 'src/app/clases/usuario';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MessageService } from 'primeng/api';
 import { AngularFireStorage } from '@angular/fire/storage';
-import { Observable } from 'rxjs';
+import { Observable, BehaviorSubject } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 
 @Component({
@@ -20,8 +20,8 @@ export class RegistrarUsuarioComponent implements OnInit {
   submitted: boolean;
   horaActual: string;
   uploadPercent: Observable<number>;
-  downloadURL: Observable<string>;
-  
+  downloadURL = new BehaviorSubject<string>("");
+
   imageFile: any;
 
   constructor(public servUsuario: UsuarioService, public router: Router, public fb: FormBuilder,
@@ -35,13 +35,13 @@ export class RegistrarUsuarioComponent implements OnInit {
       'apellido': new FormControl('', Validators.required),
       'correo': new FormControl('', Validators.compose([Validators.required, Validators.email])),
       'clave': new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
-      'foto': new FormControl('', Validators.required),
+      //'foto': new FormControl('', Validators.required),
     });
   }
 
   onSubmit() {
-    this.submitted = true;
     this.registrar();
+    this.submitted = true;
     this.messageService.add({ severity: 'info', summary: '¡Bien!', detail: 'Se enviaron los datos' });
   }
 
@@ -54,13 +54,38 @@ export class RegistrarUsuarioComponent implements OnInit {
 
     user.esCliente = true;
 
-    this.servUsuario.registrarUsuario(user);
+    if (this.imageFile) {
+      try {
+        this.subirImagen(this.imageFile);
+        this.downloadURL.subscribe(
+          (rutaFoto: string) => {
+            console.log(rutaFoto);
+            if (rutaFoto != "") {
 
-    this.clienteForm.reset();
+              user.foto = rutaFoto;
+              this.servUsuario.registrarUsuario(user);
 
-    if (this.servUsuario.logueado.value == false) {
-      this.loguear();
+              this.clienteForm.reset();
+
+              if (this.servUsuario.logueado.value == false) {
+                this.loguear();
+              }
+            }
+          }
+        )
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      this.servUsuario.registrarUsuario(user);
+
+      this.clienteForm.reset();
+
+      if (this.servUsuario.logueado.value == false) {
+        this.loguear();
+      }
     }
+
   }
 
   navegar(url: string) {
@@ -88,14 +113,13 @@ export class RegistrarUsuarioComponent implements OnInit {
     return (new Date(Date.now() - tzoffset)).toISOString().slice(0, 19).replace('T', ' ');
   }
 
-  subirImagen(event) {
-    let file = event.target.files[0];
-    let type: string = event.target.files[0].type;
+  subirImagen(file) {
+    let type: string = file.type;
     type = type.replace("image/", ".");
     let folder = "imagenes/usuarios/";
     let filePath = this.ahoraString() + type;
     if (this.clienteForm.controls['nombre'].value) {
-      filePath = this.clienteForm.controls['nombre'].value + " " + filePath;
+      filePath = this.clienteForm.controls['nombre'].value + " " + this.clienteForm.controls['apellido'].value + " " + filePath;
     }
 
     filePath = folder + filePath;
@@ -109,15 +133,15 @@ export class RegistrarUsuarioComponent implements OnInit {
     task.snapshotChanges().pipe(
       finalize(
         () => {
-          this.downloadURL = fileRef.getDownloadURL();
+          fileRef.getDownloadURL().subscribe(this.downloadURL);
         }
       )
     ).subscribe();
   }
 
   onPreUpload(event) {
-    console.log(event);
-    this.imageFile = event.files;
+    this.imageFile = event.files[0];
+    console.log(this.imageFile);
     this.messageService.add({ severity: 'info', summary: 'File Uploaded', detail: '' });
   }
 }
