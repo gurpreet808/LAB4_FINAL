@@ -62,7 +62,7 @@
     </div>
     <p-footer>
         <div class="ui-dialog-buttonpane ui-helper-clearfix">
-            <button type="button" pButton icon="pi pi-trash" class="ui-button-danger" (click)="delete()" label="Borrar"></button>
+            <button type="button" pButton icon="pi pi-trash" class="ui-button-danger" *ngIf="!this.newSala" (click)="delete()" label="Borrar"></button>
             <button type="button" pButton icon="pi pi-check" class="ui-button-success" (click)="save()" label="Guardar"></button>
         </div>
     </p-footer>

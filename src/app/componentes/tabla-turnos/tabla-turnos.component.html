@@ -183,7 +183,7 @@
     <p-footer>
         <div class="ui-dialog-buttonpane ui-helper-clearfix">
             <button type="button" pButton icon="pi pi-trash" class="ui-button-danger" (click)="delete()"
-                label="Borrar"></button>
+                *ngIf="!this.newTurno" label="Borrar"></button>
             <button type="button" pButton icon="pi pi-check" class="ui-button-success" [disabled]="!turnoForm.valid"
                 (click)="onSubmit()" label="Guardar"></button>
         </div>
