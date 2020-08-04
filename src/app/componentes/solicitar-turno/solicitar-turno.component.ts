@@ -59,7 +59,7 @@ export class SolicitarTurnoComponent implements OnInit {
     { label: 'Tratamiento', value: "tratamiento" }
   ];
 
-  constructor(public servTurno: TurnoService, public servEspecialidad: EspecialidadService, public router:Router,
+  constructor(public servTurno: TurnoService, public servEspecialidad: EspecialidadService, public router: Router,
     public servSala: SalaService, public servUsuario: UsuarioService, public fb: FormBuilder, public messageService: MessageService) {
 
     //Las especialidades se definen por los especialistas registrados
@@ -116,11 +116,11 @@ export class SolicitarTurnoComponent implements OnInit {
 
     this.turno.estado = "confirmado";
     this.turno.cliente_uid = this.servUsuario.afAuth.auth.currentUser.uid;
-    this.turno.cliente_nombre = this.servUsuario.el_usuario.nombre;
-    this.turno.cliente_mail = this.servUsuario.el_usuario.correo;
+    this.turno.cliente_nombre = this.servUsuario.el_usuario.value.nombre;
+    this.turno.cliente_mail = this.servUsuario.el_usuario.value.correo;
 
     this.servTurno.AgregarUno(this.turno);
-    
+
     this.turno = {};
     this.turnoForm.reset();
   }

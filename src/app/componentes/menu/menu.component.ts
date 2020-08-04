@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { MenuItem } from 'primeng/api/menuitem';
 import { Router, RouterLink } from '@angular/router';
+import { Usuario } from 'src/app/clases/usuario';
 
 @Component({
   selector: 'app-menu',
@@ -13,14 +14,14 @@ export class MenuComponent implements OnInit {
   items: MenuItem[] = [];
 
   constructor(public servUsuario: UsuarioService, public router: Router) {
-    servUsuario.logueado.subscribe(
-      (logged_in: boolean) => {
+    servUsuario.el_usuario.subscribe(
+      (_user: Usuario) => {
 
         this.items = [];
 
-        if (logged_in) {
-          if (servUsuario.el_usuario) {
-            switch (servUsuario.el_usuario.tipoEmpleado) {
+        if (servUsuario.logueado.value) {
+          if (servUsuario.el_usuario.value) {
+            switch (servUsuario.el_usuario.value.tipoEmpleado) {
               case "administrador":
                 this.items = [
                   {
@@ -71,7 +72,7 @@ export class MenuComponent implements OnInit {
             }
           }
 
-          if (servUsuario.el_usuario.esCliente == true) {
+          if (servUsuario.el_usuario.value.esCliente == true) {
             this.items.push({
               label: 'Mis turnos',
               icon: 'pi pi-fw pi-calendar',

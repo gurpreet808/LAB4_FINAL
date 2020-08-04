@@ -16,8 +16,8 @@ export class EspecialistaGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
 
     if (this.servUsuario.logueado.value) {
-      if (this.servUsuario.el_usuario) {
-        if (this.servUsuario.el_usuario.tipoEmpleado == "especialista") {
+      if (this.servUsuario.el_usuario.value) {
+        if (this.servUsuario.el_usuario.value.tipoEmpleado == "especialista") {
           return true;
         }
       }

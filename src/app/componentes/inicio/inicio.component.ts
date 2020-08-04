@@ -14,15 +14,16 @@ export class InicioComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  nombre(): string{
-    if (this.servUsuario.el_usuario) {
-      return " "+this.servUsuario.el_usuario.nombre+" "+this.servUsuario.el_usuario.apellido;
+  nombre(): string {
+    console.log(this.servUsuario.el_usuario.value);
+    if (this.servUsuario.el_usuario.value) {
+      return " " + this.servUsuario.el_usuario.value.nombre + " " + this.servUsuario.el_usuario.value.apellido;
     } else {
       "";
     }
   }
 
-  navegar(url: string){
+  navegar(url: string) {
     this.router.navigateByUrl(url);
   }
 

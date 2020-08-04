@@ -33,7 +33,7 @@ export class TurnoService {
 
           this.turnos.push(itemTurno);
 
-          if (this.servUsuario.el_usuario) {
+          if (this.servUsuario.el_usuario.value) {
             if (itemTurno.especialista_uid == this.servUsuario.afAuth.auth.currentUser.uid) {
               this.turnosParaAtender.push(itemTurno);
             }

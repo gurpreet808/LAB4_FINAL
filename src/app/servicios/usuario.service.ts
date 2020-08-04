@@ -11,8 +11,8 @@ import { HttpClient } from '@angular/common/http';
 })
 export class UsuarioService {
 
-  public logueado = new BehaviorSubject(false);
-  el_usuario: Usuario;
+  public logueado = new BehaviorSubject<boolean>(false);
+  el_usuario = new BehaviorSubject<Usuario>({});
   usuarios: Usuario[] = [];
   empleados: Usuario[] = [];
   clientes: Usuario[] = [];
@@ -26,13 +26,17 @@ export class UsuarioService {
       (authState) => {
         if (authState) {
           try {
-            let suscription = this.traerDatosDelUsuario(authState.uid).subscribe(
+            this.traerDatosDelUsuario(authState.uid).subscribe(this.el_usuario);
+            
+            /* let suscription = this.traerDatosDelUsuario(authState.uid).subscribe(
               (data) => {
-                this.el_usuario = data;
+                this.el_usuario.next(data);
                 suscription.unsubscribe();
                 this.logueado.next(true);
               }
-            );
+            ); */
+
+            this.logueado.next(true);
             
           } catch (error) {
             console.log(error);
