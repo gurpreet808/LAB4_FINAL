@@ -45,7 +45,7 @@ export class RegistrarUsuarioComponent implements OnInit {
       this.submitted = true;
       this.messageService.add({ severity: 'success', summary: '¡Bien!', detail: 'Se registró correctamente, puede iniciar sesión' });
     } catch (error) {
-      this.messageService.add({ severity: 'danger', summary: 'Error', detail: 'No se ha podido registrar su usuario, intente nuevamente' });
+      this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se ha podido registrar su usuario, intente nuevamente' });
     }
   }
 

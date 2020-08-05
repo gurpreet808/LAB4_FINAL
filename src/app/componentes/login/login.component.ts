@@ -16,15 +16,15 @@ export class LoginComponent implements OnInit {
   submitted: boolean;
 
   usuariosTest = [
-    {correo: "administrador@administrador.com", clave: "administrador"},
-    {correo: "recepcionista@recepcionista.com", clave: "recepcionista"},
-    {correo: "especialista1@especialista.com", clave: "especialista"},
-    {correo: "especialista2@especialista.com", clave: "especialista"},
-    {correo: "especialista3@especialista.com", clave: "especialista"},
-    {correo: "especialista4@especialista.com", clave: "especialista"},
-    {correo: "cliente1@cliente.com", clave: "cliente"},
-    {correo: "cliente2@cliente.com", clave: "cliente"},
-    {correo: "cliente3@cliente.com", clave: "cliente"}
+    { correo: "administrador@administrador.com", clave: "administrador", label: "Administrador"},
+    { correo: "recepcionista@recepcionista.com", clave: "recepcionista", label: "Recepcionista"},
+    { correo: "especialista1@especialista.com", clave: "especialista1", label:  "Esteban Quito (Ortodoncia)"},
+    { correo: "especialista2@especialista.com", clave: "especialista2", label:  "(especialista2)"},
+    { correo: "especialista3@especialista.com", clave: "especialista3", label:  "(especialista3)"},
+    { correo: "especialista4@especialista.com", clave: "especialista4", label:  "(especialista4)"},
+    { correo: "cliente1@cliente.com", clave: "cliente1", label: "Lautaro López (cliente1)"},
+    { correo: "cliente2@cliente.com", clave: "cliente2", label: "(cliente2)"},
+    { correo: "cliente3@cliente.com", clave: "cliente3", label: "(cliente3)"}
   ];
 
   constructor(public servUsuario: UsuarioService, public router: Router, public fb: FormBuilder, public messageService: MessageService) {
@@ -39,29 +39,41 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.submitted = true;
-    
-    this.messageService.add({ severity: 'info', summary: '¡Bien!', detail: 'Se enviaron los datos' });
-    this.loguear();
+    this.loguear().then(
+      (sePudo) => {
+        console.log(sePudo);
+
+        if (sePudo.estado) {
+          this.navegar("/");
+          this.messageService.add({ severity: 'info', summary: '¡Bien!', detail: 'Se enviaron los datos' });
+        } else {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: sePudo.info });
+        }
+      }
+    ).catch(
+      (error) => {
+        console.log(error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Error inesperado' });
+      }
+    );
   }
 
-  texto_error_usuario(){
+  texto_error_usuario() {
     return "Se requiere su correo con el formato usuario@dominio.com";
   }
 
-  texto_error_clave(){
+  texto_error_clave() {
     return "Se requiere su clave";
   }
 
   loguear() {
-    console.log("Usuario", this.loginForm.controls["usuario"].value);
-    console.log("Clave", this.loginForm.controls["clave"].value);
+    //console.log("Usuario", this.loginForm.controls["usuario"].value);
+    //console.log("Clave", this.loginForm.controls["clave"].value);
 
-    this.servUsuario.loginEmail(this.loginForm.controls["usuario"].value, this.loginForm.controls["clave"].value);
-    this.navegar("/");
+    return this.servUsuario.loginEmail(this.loginForm.controls["usuario"].value, this.loginForm.controls["clave"].value);
   }
 
-  elegirTest(id:number){
+  elegirTest(id: number) {
     this.loginForm.controls['usuario'].setValue(this.usuariosTest[id].correo);
     this.loginForm.controls['clave'].setValue(this.usuariosTest[id].clave);
   }

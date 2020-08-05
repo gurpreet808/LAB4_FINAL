@@ -27,7 +27,7 @@ export class UsuarioService {
         if (authState) {
           try {
             this.traerDatosDelUsuario(authState.uid).subscribe(this.el_usuario);
-            
+
             /* let suscription = this.traerDatosDelUsuario(authState.uid).subscribe(
               (data) => {
                 this.el_usuario.next(data);
@@ -37,7 +37,7 @@ export class UsuarioService {
             ); */
 
             this.logueado.next(true);
-            
+
           } catch (error) {
             console.log(error);
             this.logueado.next(false);
@@ -52,19 +52,35 @@ export class UsuarioService {
   }
 
   //FALTA Alerts para avisar errores
-  loginEmail(correo: string, clave: string) {
-    try {
-      this.afAuth.auth.signInWithEmailAndPassword(correo, clave);
-    } catch (error) {
-      console.log(error.code);
+  async loginEmail(correo: string, clave: string): Promise<{ estado: boolean; info?: string }> {
+    let rta: { estado: boolean; info?: string } = {estado: false};
 
-      if (error.code == "auth/wrong-password") {
-        console.log("Clave incorrecta");
-      }
-      if (error.code == "auth/user-not-found") {
-        console.log("No se encontró ese mail");
-      }
-    }
+    await this.afAuth.auth.signInWithEmailAndPassword(correo, clave)
+      .then(
+        (datos) => {
+          console.log("jaja", datos);
+          rta.estado = true;
+        }
+      )
+      .catch(
+        (error) => {
+          console.log(error.code);
+
+          rta.info = error.code;
+          
+          if (error.code == "auth/wrong-password") {
+            rta.info = "Clave incorrecta";
+          }
+
+          if (error.code == "auth/user-not-found") {
+            rta.info = "No se encontró ese mail";
+          }
+
+          rta.estado = false;
+        }
+      );
+
+    return Promise.resolve(rta);
   }
 
   traerDatosDelUsuario(uid: string): Observable<Usuario> {
@@ -142,7 +158,7 @@ export class UsuarioService {
     return this.usuarioList.remove(refKey);
   }
 
-  CargarUsuarios(){
+  CargarUsuarios() {
     this.TraerTodos().subscribe(
       (usuariosSnapshot: AngularFireAction<DatabaseSnapshot<Usuario>>[]) => {
         this.usuarios = [];
