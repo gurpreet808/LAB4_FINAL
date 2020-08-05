@@ -16,7 +16,7 @@ export class InicioComponent implements OnInit {
 
   nombre(): string {
     //console.log(this.servUsuario.el_usuario.value);
-    if (this.servUsuario.el_usuario.value) {
+    if (this.servUsuario.el_usuario.value.nombre) {
       return " " + this.servUsuario.el_usuario.value.nombre + " " + this.servUsuario.el_usuario.value.apellido;
     } else {
       return "";
