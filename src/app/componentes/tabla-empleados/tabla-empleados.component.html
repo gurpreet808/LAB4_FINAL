@@ -52,9 +52,8 @@
     </ng-template>
 </p-table>
 
-<p-dialog [closeOnEscape]="true" header="Detalles del Empleado" [(visible)]="displayDialog" [focusOnShow]="false"
-    showEffect="fade" [modal]="true" [resizable]="true" [maximizable]="true" [style]="{width: '60%'}"
-    [contentStyle]="{'overflow':'auto','max-height':'50vw'}">
+<p-dialog [closeOnEscape]="true" header="Detalles del Empleado" [(visible)]="displayDialog" showEffect="fade"
+    [modal]="true" [resizable]="true" [maximizable]="true" [style]="{width: '70%'}">
 
     <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
         <div class="ui-fluid p-formgrid p-grid">
@@ -89,23 +88,21 @@
 
             <div class="p-field p-col-12 p-md-6">
                 <label for="tipoEmpleado">{{"tipo Empleado" | titlecase}}</label>
-                <p-dropdown (onChange)="change_tipoEmpleado()" [options]="tiposEmpleados" formControlName="tipoEmpleado"
-                    placeholder="Obligatorio"></p-dropdown>
+                <p-dropdown (onChange)="change_tipoEmpleado()" [options]="tiposEmpleados" appendTo="body"
+                    formControlName="tipoEmpleado" placeholder="Obligatorio"></p-dropdown>
+                <p-message severity="error" [text]="texto_error_tipoEmpleado()"
+                    *ngIf="!usuarioForm.controls['tipoEmpleado'].valid">
+                </p-message>
             </div>
 
-            <div class="ui-g-12" *ngIf="tipo_especialista">
-                <div class="ui-g-4">
-                    <label for="especialidad">{{"especialidad" | titlecase}}</label>
-                </div>
-                <div class="ui-g-8">
-                    <p-dropdown [options]="especialidades" formControlName="especialidad" placeholder="Obligatorio">
-                    </p-dropdown>
-                </div>
-                <div class="ui-g-12">
-                    <p-message severity="error" [text]="texto_error_especialidad()"
-                        *ngIf="!usuarioForm.controls['especialidad'].valid">
-                    </p-message>
-                </div>
+            <div class="p-field p-col-12 p-md-6" *ngIf="tipo_especialista">
+                <label for="especialidad">{{"especialidad" | titlecase}}</label>
+                <p-dropdown [options]="especialidades" appendTo="body" formControlName="especialidad"
+                    placeholder="Obligatorio">
+                </p-dropdown>
+                <p-message severity="error" [text]="texto_error_especialidad()"
+                    *ngIf="!usuarioForm.controls['especialidad'].valid">
+                </p-message>
             </div>
 
         </div>
