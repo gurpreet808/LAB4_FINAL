@@ -1,4 +1,4 @@
-<div class="ui-g ui-fluid ">
+<div class="ui-g ui-fluid p-justify-center">
     <div class="ui-g-6 caja">
         <p-card header="Registrar cliente">
 
@@ -31,7 +31,7 @@
 
                     <div class="ui-inputgroup">
                         <span class="ui-inputgroup-addon"><i class="pi pi-key"></i></span>
-                        <input type="password" pInputText placeholder="Clave" formControlName="clave">
+                        <input type="password" pInputText minlength="6" maxlength="15" placeholder="Clave" formControlName="clave">
                     </div>
                     <div *ngIf="!clienteForm.controls['clave'].valid&&clienteForm.controls['clave'].dirty">
                         {{texto_error_clave()}}
@@ -46,9 +46,6 @@
                         </p-fileUpload>
                         <div>{{uploadPercent | async}}</div>
                         <div>{{downloadURL | async}}</div>
-                    </div>
-                    <div *ngIf="!clienteForm.controls['clave'].valid&&clienteForm.controls['clave'].dirty">
-                        {{texto_error_clave()}}
                     </div>
                 </form>
             </div>

@@ -94,19 +94,19 @@ export class RegistrarUsuarioComponent implements OnInit {
   }
 
   texto_error_apellido() {
-    return "Se requiere el apellido";
+    return "El apellido es obligatorio";
   }
 
   texto_error_nombre() {
-    return "Se requiere el nombre";
+    return "El nombre es obligatorio";
   }
 
   texto_error_correo() {
-    return "Se requiere el correo con el formato usuario@dominio.com";
+    return "Se requiere el correo, con el formato usuario@dominio.com";
   }
 
   texto_error_clave() {
-    return "Se requiere la clave";
+    return "La clave es obligatoria, mínimo de 6 caracteres.";
   }
 
   ahoraString() {

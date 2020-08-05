@@ -68,7 +68,7 @@ export class TablaEmpleadosComponent implements OnInit {
     });
 
     this.cols = [
-      { field: 'uid', header: 'UID' },
+      //{ field: 'uid', header: 'UID' },
       { field: 'nombre', header: 'Nombre' },
       { field: 'apellido', header: 'Apellido' },
       { field: 'correo', header: 'Correo' },
