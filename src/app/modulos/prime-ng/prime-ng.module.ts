@@ -16,6 +16,7 @@ import { CalendarModule } from 'primeng/calendar';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { FileUploadModule } from 'primeng/fileupload';
+import { SplitButtonModule } from 'primeng/splitbutton';
 
 @NgModule({
   declarations: [],
@@ -35,7 +36,8 @@ import { FileUploadModule } from 'primeng/fileupload';
     CalendarModule,
     MessagesModule,
     MessageModule,
-    FileUploadModule
+    FileUploadModule,
+    SplitButtonModule
   ],
   exports: [
     PanelModule,
@@ -52,7 +54,8 @@ import { FileUploadModule } from 'primeng/fileupload';
     CalendarModule,
     MessagesModule,
     MessageModule,
-    FileUploadModule
+    FileUploadModule,
+    SplitButtonModule
   ]
 })
 export class PrimeNGModule { }

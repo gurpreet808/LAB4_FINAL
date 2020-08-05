@@ -12,7 +12,7 @@ import { finalize } from 'rxjs/operators';
   selector: 'app-registrar-usuario',
   templateUrl: './registrar-usuario.component.html',
   styleUrls: ['./registrar-usuario.component.css'],
-  providers: [MessageService, AngularFireStorage]
+  providers: [AngularFireStorage]
 })
 export class RegistrarUsuarioComponent implements OnInit {
 
@@ -40,9 +40,13 @@ export class RegistrarUsuarioComponent implements OnInit {
   }
 
   onSubmit() {
-    this.registrar();
-    this.submitted = true;
-    this.messageService.add({ severity: 'info', summary: '¡Bien!', detail: 'Se enviaron los datos' });
+    try {
+      this.registrar();
+      this.submitted = true;
+      this.messageService.add({ severity: 'info', summary: '¡Bien!', detail: 'Se registró correctamente' });
+    } catch (error) {
+      this.messageService.add({ severity: 'danger', summary: 'Error', detail: 'No se ha podido registrar su usuario' });
+    }
   }
 
   loguear() {
@@ -55,27 +59,24 @@ export class RegistrarUsuarioComponent implements OnInit {
     user.esCliente = true;
 
     if (this.imageFile) {
-      try {
-        this.subirImagen(this.imageFile);
-        this.downloadURL.subscribe(
-          (rutaFoto: string) => {
-            console.log(rutaFoto);
-            if (rutaFoto != "") {
+      this.subirImagen(this.imageFile);
+      this.downloadURL.subscribe(
+        (rutaFoto: string) => {
+          console.log(rutaFoto);
+          if (rutaFoto != "") {
 
-              user.foto = rutaFoto;
-              this.servUsuario.registrarUsuario(user);
+            user.foto = rutaFoto;
+            this.servUsuario.registrarUsuario(user);
 
-              this.clienteForm.reset();
+            this.clienteForm.reset();
 
-              if (this.servUsuario.logueado.value == false) {
-                this.loguear();
-              }
+            this.messageService.add({ severity: 'success', summary: 'Se regirstó su usuario', detail: '' });
+            if (this.servUsuario.logueado.value == false) {
+              this.loguear();
             }
           }
-        )
-      } catch (error) {
-        console.log(error);
-      }
+        }
+      );
     } else {
       this.servUsuario.registrarUsuario(user);
 
@@ -142,6 +143,6 @@ export class RegistrarUsuarioComponent implements OnInit {
   onPreUpload(event) {
     this.imageFile = event.files[0];
     console.log(this.imageFile);
-    this.messageService.add({ severity: 'info', summary: 'File Uploaded', detail: '' });
+    //this.messageService.add({ severity: 'info', summary: 'File Uploaded', detail: '' });
   }
 }

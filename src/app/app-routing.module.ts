@@ -17,6 +17,7 @@ import { AdminGuard } from './guards/admin.guard';
 import { RecepcionistaGuard } from './guards/recepcionista.guard';
 import { EspecialistaGuard } from './guards/especialista.guard';
 import { AuthGuard } from './guards/auth.guard';
+import { MiPerfilComponent } from './componentes/mi-perfil/mi-perfil.component';
 
 const routes: Routes = [
   { path: "", component: InicioComponent },
@@ -32,6 +33,7 @@ const routes: Routes = [
   { path: "atender-turnos", component: TurnosComponent, canActivate: [EspecialistaGuard] },
   { path: "configEmpresa", component: ConfiguracionEmpresaComponent, canActivate: [AdminGuard] },
   { path: "usuarios", component: TablaUsuariosComponent },
+  { path: "mi-perfil", component: MiPerfilComponent },
   //{ path:"registrarme", component: RegistrarUsuarioComponent, canActivate: [AnonGuard] },
   { path: "**", component: Error404Component }
 ];

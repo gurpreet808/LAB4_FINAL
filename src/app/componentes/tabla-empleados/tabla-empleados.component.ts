@@ -9,8 +9,7 @@ import { MessageService } from 'primeng/api';
 @Component({
   selector: 'app-tabla-empleados',
   templateUrl: './tabla-empleados.component.html',
-  styleUrls: ['./tabla-empleados.component.css'],
-  providers: [MessageService]
+  styleUrls: ['./tabla-empleados.component.css']
 })
 export class TablaEmpleadosComponent implements OnInit {
 
@@ -64,7 +63,6 @@ export class TablaEmpleadosComponent implements OnInit {
       'correo': new FormControl('', Validators.compose([Validators.required, Validators.email])),
       'clave': new FormControl('', Validators.required),
       //'foto': new FormControl('', Validators.required),
-      'cuil': new FormControl(''),
       'tipoEmpleado': new FormControl('', Validators.required),
       'especialidad': new FormControl('', Validators.required)
     });
@@ -73,12 +71,12 @@ export class TablaEmpleadosComponent implements OnInit {
       { field: 'uid', header: 'UID' },
       { field: 'nombre', header: 'Nombre' },
       { field: 'apellido', header: 'Apellido' },
-      //{ field: 'correo', header: 'Correo' },
+      { field: 'correo', header: 'Correo' },
       //{ field: 'clave', header: 'Clave' },
-      { field: 'tipoEmpleado', header: 'Tipo de Empleado' },
-      { field: 'especialidad', header: 'Especialidad' },
-      { field: 'foto', header: 'Foto' },
-      { field: 'cuil', header: 'CUIL' }
+      //{ field: 'tipoEmpleado', header: 'Tipo de Empleado' },
+      //{ field: 'especialidad', header: 'Especialidad' },
+      //{ field: 'foto', header: 'Foto' },
+      //{ field: 'cuil', header: 'CUIL' }
     ];
   }
 

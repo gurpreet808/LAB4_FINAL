@@ -7,15 +7,13 @@ import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MessageService, SelectItem } from 'primeng/api';
 import { Usuario } from 'src/app/clases/usuario';
-import { Sala } from 'src/app/clases/sala';
 import { SalaService } from 'src/app/servicios/sala.service';
 import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-solicitar-turno',
   templateUrl: './solicitar-turno.component.html',
-  styleUrls: ['./solicitar-turno.component.css'],
-  providers: [MessageService]
+  styleUrls: ['./solicitar-turno.component.css']
 })
 export class SolicitarTurnoComponent implements OnInit {
 

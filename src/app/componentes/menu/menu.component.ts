@@ -84,6 +84,12 @@ export class MenuComponent implements OnInit {
               routerLink: 'solicitar-turno'
             });
           }
+
+          this.items.push({
+            label: 'Mi Perfil',
+            icon: 'pi pi-fw pi-user-edit',
+            routerLink: 'mi-perfil'
+          });
         }
 
       }

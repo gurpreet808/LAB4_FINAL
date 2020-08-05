@@ -58,8 +58,7 @@ export class TablaUsuariosComponent implements OnInit {
       { field: 'clave', header: 'Clave' },
       { field: 'tipoEmpleado', header: 'Tipo de Empleado' },
       { field: 'especialidad', header: 'Especialidad' },
-      { field: 'foto', header: 'Foto' },
-      { field: 'cuil', header: 'CUIL' }
+      { field: 'foto', header: 'Foto' }
     ];
   }
 

@@ -1,5 +1,6 @@
 <app-menu *ngIf="servUsuario.logueado.value"></app-menu>
 
 <div id="contenido">
+    <p-toast [style]="{marginTop: '10px'}"></p-toast>
     <router-outlet></router-outlet>
 </div>

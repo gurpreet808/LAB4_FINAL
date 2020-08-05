@@ -30,6 +30,8 @@ import { TurnoFormMinutosPipe } from './pipes/turno-form-minutos.pipe';
 import { CantidadTurnosDisponiblesPipe } from './pipes/cantidad-turnos-disponibles.pipe';
 import { MisTurnosComponent } from './componentes/mis-turnos/mis-turnos.component';
 import { SolicitarTurnoComponent } from './componentes/solicitar-turno/solicitar-turno.component';
+import { MiPerfilComponent } from './componentes/mi-perfil/mi-perfil.component';
+import { MessageService } from 'primeng/api';
 
 @NgModule({
   declarations: [
@@ -50,7 +52,8 @@ import { SolicitarTurnoComponent } from './componentes/solicitar-turno/solicitar
     TurnoFormMinutosPipe,
     CantidadTurnosDisponiblesPipe,
     MisTurnosComponent,
-    SolicitarTurnoComponent
+    SolicitarTurnoComponent,
+    MiPerfilComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +69,9 @@ import { SolicitarTurnoComponent } from './componentes/solicitar-turno/solicitar
     HttpClientModule,
     PrimeNGModule
   ],
-  providers: [],
+  providers: [
+    MessageService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

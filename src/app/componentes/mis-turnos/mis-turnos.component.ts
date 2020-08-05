@@ -6,15 +6,12 @@ import { EspecialidadService } from 'src/app/servicios/especialidad.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MessageService, SelectItem } from 'primeng/api';
-import { Usuario } from 'src/app/clases/usuario';
-import { Sala } from 'src/app/clases/sala';
 import { SalaService } from 'src/app/servicios/sala.service';
 
 @Component({
   selector: 'app-mis-turnos',
   templateUrl: './mis-turnos.component.html',
-  styleUrls: ['./mis-turnos.component.css'],
-  providers: [MessageService]
+  styleUrls: ['./mis-turnos.component.css']
 })
 export class MisTurnosComponent implements OnInit {
 

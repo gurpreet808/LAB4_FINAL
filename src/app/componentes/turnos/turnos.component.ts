@@ -13,8 +13,7 @@ import { SalaService } from 'src/app/servicios/sala.service';
 @Component({
   selector: 'app-turnos',
   templateUrl: './turnos.component.html',
-  styleUrls: ['./turnos.component.css'],
-  providers: [MessageService]
+  styleUrls: ['./turnos.component.css']
 })
 export class TurnosComponent implements OnInit {
 

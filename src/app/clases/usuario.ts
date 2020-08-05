@@ -8,7 +8,6 @@ export class Usuario {
     fechaAlta?: Object;
     fechaMod?: Object;
     esCliente?: boolean;
-    cuil?: number;
     tipoEmpleado?: "administrador" | "recepcionista" | "especialista";
     especialidad?: string;
 }
