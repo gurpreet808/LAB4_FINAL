@@ -43,9 +43,9 @@ export class RegistrarUsuarioComponent implements OnInit {
     try {
       this.registrar();
       this.submitted = true;
-      this.messageService.add({ severity: 'info', summary: '¡Bien!', detail: 'Se registró correctamente' });
+      this.messageService.add({ severity: 'success', summary: '¡Bien!', detail: 'Se registró correctamente, puede iniciar sesión' });
     } catch (error) {
-      this.messageService.add({ severity: 'danger', summary: 'Error', detail: 'No se ha podido registrar su usuario' });
+      this.messageService.add({ severity: 'danger', summary: 'Error', detail: 'No se ha podido registrar su usuario, intente nuevamente' });
     }
   }
 
@@ -70,7 +70,6 @@ export class RegistrarUsuarioComponent implements OnInit {
 
             this.clienteForm.reset();
 
-            this.messageService.add({ severity: 'success', summary: 'Se regirstó su usuario', detail: '' });
             if (this.servUsuario.logueado.value == false) {
               this.loguear();
             }
@@ -142,7 +141,6 @@ export class RegistrarUsuarioComponent implements OnInit {
 
   onPreUpload(event) {
     this.imageFile = event.files[0];
-    console.log(this.imageFile);
-    //this.messageService.add({ severity: 'info', summary: 'File Uploaded', detail: '' });
+    //console.log(this.imageFile);
   }
 }
