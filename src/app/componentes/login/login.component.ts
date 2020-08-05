@@ -45,7 +45,7 @@ export class LoginComponent implements OnInit {
 
         if (sePudo.estado) {
           this.navegar("/");
-          this.messageService.add({ severity: 'info', summary: '¡Bien!', detail: 'Se enviaron los datos' });
+          this.messageService.add({ severity: 'success', summary: '¡Bien!', detail: 'Ingresó correctamente' });
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: sePudo.info });
         }

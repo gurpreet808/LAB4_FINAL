@@ -23,4 +23,6 @@ export class Turno {
         especialista: number,
         experiencia: string
     }
+    quien_pidio?: "cliente" | "recepcionista";
+    codigo?: string;
 }

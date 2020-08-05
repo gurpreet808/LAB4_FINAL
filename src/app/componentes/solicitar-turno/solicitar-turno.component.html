@@ -1,6 +1,76 @@
 <form [formGroup]="turnoForm" (ngSubmit)="onSubmit()">
     <p-panel header="Nuevo turno">
-        <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
+        <div class="ui-fluid p-formgrid p-grid">
+
+            <div class="p-field p-col-12 p-md-2">
+                <label for="fecha">{{"fecha" | titlecase}}</label>
+                <p-calendar (onClose)="change_fecha()" formControlName="fecha" [minDate]="minDateValue"
+                    [disabledDays]="[0]" [readonlyInput]="true" appendTo="body" [locale]="es"></p-calendar>
+                <p-message severity="error" [text]="texto_error_fecha()" *ngIf="!turnoForm.controls['fecha'].valid">
+                </p-message>
+            </div>
+
+            <div class="p-field p-col-12 p-md-4">
+                <label for="especialidad">{{"especialidad" | titlecase}}</label>
+                <p-dropdown (onChange)="change_especialidad()" [options]="especialidades" formControlName="especialidad"
+                    placeholder="Obligatorio">
+                </p-dropdown>
+                <p-message severity="error" [text]="texto_error_especialidad()"
+                    *ngIf="!turnoForm.controls['especialidad'].valid">
+                </p-message>
+            </div>
+
+            <div class="p-field p-col-12 p-md-3">
+                <label for="tipo">{{"tipo" | titlecase}}</label>
+
+                <div class="p-formgroup-inline mi_radio">
+                    <span class="p-field-radiobutton mi_radio">
+                        <p-radioButton name="tipo" value="consulta" inputId="consulta" formControlName="tipo" (onClick)="change_tipo()"></p-radioButton>
+                        <label for="consulta">Consulta</label>
+                    </span>
+                    <span class="p-field-radiobutton mi_radio">
+                        <p-radioButton name="tipo" value="tratamiento" inputId="tratamiento" formControlName="tipo" (onClick)="change_tipo()"></p-radioButton>
+                        <label for="tratamiento">Tratamiento</label>
+                    </span>
+                </div>
+            </div>
+
+            <div class="p-field p-col-12 p-md-3">
+                <p *ngIf="turnoForm.controls['tipo'].valid">Duración estimada:
+                    {{this.turnoForm.controls["duracion"].value | turnoFormMinutos}}</p>
+            </div>
+
+            <div class="p-field p-col-12 p-md-6">
+                <label for="especialista">{{"especialista" | titlecase}}</label>
+                <p-dropdown (onChange)="change_especialista()" [options]="especialistas"
+                    formControlName="especialista_uid">
+                </p-dropdown>
+                <p-message severity="error" [text]="texto_error_especialista_uid()"
+                    *ngIf="!turnoForm.controls['especialista_uid'].valid">
+                </p-message>
+            </div>
+
+            <div class="p-field p-col-12 p-md-6">
+
+                <div *ngIf="turnoForm.controls['especialista_uid'].valid && turnoForm.controls['fecha'].valid">
+                    Cantidad turnos disponibles para {{turno.especialista_nombre}}:
+                    <br>
+                    <br>
+                    Para consultas: {{(disponibilidadTotal - cantidadMinutosOcupado) / 15 | cantidadTurnosDisponibles}}
+                    <br>
+                    Para tratamientos:
+                    {{(disponibilidadTotal - cantidadMinutosOcupado) / 60 | cantidadTurnosDisponibles}}
+                </div>
+            </div>
+
+            <div class="p-field p-col-12">
+                <button type="button" pButton icon="pi pi-check" class="ui-button-success" [disabled]="!turnoForm.valid"
+                    (click)="onSubmit()" label="Pedir turno"></button>
+            </div>
+
+        </div>
+
+        <!-- <div class="ui-grid ui-grid-responsive ui-grid-pad ui-fluid">
 
             <div class="ui-g-12">
                 <div class="ui-g-4">
@@ -84,6 +154,6 @@
                     (click)="onSubmit()" label="Pedir turno"></button>
             </div>
 
-        </div>
+        </div> -->
     </p-panel>
 </form>

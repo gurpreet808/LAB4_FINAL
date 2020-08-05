@@ -58,7 +58,7 @@ export class UsuarioService {
     await this.afAuth.auth.signInWithEmailAndPassword(correo, clave)
       .then(
         (datos) => {
-          console.log("jaja", datos);
+          //console.log(datos);
           rta.estado = true;
         }
       )

@@ -81,11 +81,10 @@ export class SolicitarTurnoComponent implements OnInit {
   ngOnInit(): void {
     this.turnoForm = this.fb.group({
       'especialidad': new FormControl('', Validators.required),
-      'tipo': new FormControl('', Validators.required),
+      'tipo': new FormControl('consulta', Validators.required),
       'fecha': new FormControl('', Validators.required),
       'especialista_uid': new FormControl('', Validators.required),
-      'duracion': new FormControl(''),
-      //'sala_uid': new FormControl('')
+      'duracion': new FormControl(15)
     });
 
   }
@@ -94,8 +93,8 @@ export class SolicitarTurnoComponent implements OnInit {
     this.submitted = true;
 
     if (this.puedePedirTurno) {
-      this.messageService.add({ severity: 'info', summary: '¡Bien!', detail: 'Se enviaron los datos' });
       this.save();
+      this.messageService.add({ severity: 'success', summary: '¡Bien!', detail: 'Se registró su turno' });
       this.router.navigateByUrl("/mis-turnos");
     } else {
       this.messageService.add({ severity: 'error', summary: '¡Uhhh!', detail: 'El especialista no dispone más turnos para ' + this.turnoForm.controls["tipo"].value });
@@ -116,6 +115,12 @@ export class SolicitarTurnoComponent implements OnInit {
     this.turno.cliente_uid = this.servUsuario.afAuth.auth.currentUser.uid;
     this.turno.cliente_nombre = this.servUsuario.el_usuario.value.nombre;
     this.turno.cliente_mail = this.servUsuario.el_usuario.value.correo;
+
+    if (this.servUsuario.el_usuario.value.esCliente) {
+      this.turno.quien_pidio = "cliente";
+    } else {
+      this.turno.quien_pidio = "recepcionista";
+    }
 
     this.servTurno.AgregarUno(this.turno);
 
@@ -249,19 +254,15 @@ export class SolicitarTurnoComponent implements OnInit {
   }
 
   texto_error_especialidad(): string {
-    return "Se requiere la especialidad";
+    return "Seleccione la especialidad";
   }
 
   texto_error_tipo(): string {
-    return "Se requiere el tipo de turno";
+    return "Elija el tipo de turno";
   }
 
   texto_error_fecha(): string {
-    return "Se requiere la fecha del turno";
-  }
-
-  texto_error_duracion(): string {
-    return "Se requiere la duracion del turno";
+    return "Elija la fecha";
   }
 
   texto_error_especialista_uid(): string {
