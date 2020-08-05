@@ -17,6 +17,7 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 import { FileUploadModule } from 'primeng/fileupload';
 import { SplitButtonModule } from 'primeng/splitbutton';
+import { RadioButtonModule } from 'primeng/radiobutton';
 
 @NgModule({
   declarations: [],
@@ -37,7 +38,8 @@ import { SplitButtonModule } from 'primeng/splitbutton';
     MessagesModule,
     MessageModule,
     FileUploadModule,
-    SplitButtonModule
+    SplitButtonModule,
+    RadioButtonModule
   ],
   exports: [
     PanelModule,
@@ -55,7 +57,8 @@ import { SplitButtonModule } from 'primeng/splitbutton';
     MessagesModule,
     MessageModule,
     FileUploadModule,
-    SplitButtonModule
+    SplitButtonModule,
+    RadioButtonModule
   ]
 })
 export class PrimeNGModule { }

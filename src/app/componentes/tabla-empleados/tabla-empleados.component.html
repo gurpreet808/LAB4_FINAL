@@ -25,9 +25,8 @@
                 <p-sortIcon [field]="'fechaAlta'"></p-sortIcon>
             </th>
         </tr>
-
-
     </ng-template>
+
     <ng-template pTemplate="body" let-rowData let-columns="columns">
         <tr [pSelectableRow]="rowData">
             <td>
@@ -58,88 +57,40 @@
     [contentStyle]="{'overflow':'auto','max-height':'50vw'}">
 
     <form [formGroup]="usuarioForm" (ngSubmit)="onSubmit()">
-        <div class="ui-g ui-fluid">
+        <div class="ui-fluid p-formgrid p-grid">
 
-            <div class="ui-g-12">
-                <div class="ui-g-4">
-                    <label for="nombre">{{"nombre" | titlecase}}</label>
-                </div>
-                <div class="ui-g-8">
-                    <input pInputText type="text" formControlName="nombre" placeholder="Obligatorio" />
-                </div>
-                <div class="ui-g-12">
-                    <p-message severity="error" [text]="texto_error_nombre()"
-                        *ngIf="!usuarioForm.controls['nombre'].valid"></p-message>
-                </div>
+            <div class="p-field p-col-12 p-md-6">
+                <label for="nombre">{{"nombre" | titlecase}}</label>
+                <input pInputText type="text" formControlName="nombre" placeholder="Obligatorio" />
+                <p-message severity="error" [text]="texto_error_nombre()" *ngIf="!usuarioForm.controls['nombre'].valid">
+                </p-message>
             </div>
 
-            <div class="ui-g-12">
-                <div class="ui-g-4">
-                    <label for="apellido">{{"apellido" | titlecase}}</label>
-                </div>
-                <div class="ui-g-8">
-                    <input pInputText type="text" formControlName="apellido" placeholder="Obligatorio" />
-                </div>
-                <div class="ui-g-12">
-                    <p-message severity="error" [text]="texto_error_apellido()"
-                        *ngIf="!usuarioForm.controls['apellido'].valid">
-                    </p-message>
-                </div>
+            <div class="p-field p-col-12 p-md-6">
+                <label for="apellido">{{"apellido" | titlecase}}</label>
+                <input pInputText type="text" formControlName="apellido" placeholder="Obligatorio" />
+                <p-message severity="error" [text]="texto_error_apellido()"
+                    *ngIf="!usuarioForm.controls['apellido'].valid"></p-message>
             </div>
 
-            <div class="ui-g-12" *ngIf="newUsuario">
-                <div class="ui-g-4">
-                    <label for="correo">{{"correo" | titlecase}}</label>
-                </div>
-                <div class="ui-g-8">
-                    <input pInputText type="text" formControlName="correo" placeholder="Obligatorio" />
-                </div>
-                <div class="ui-g-12">
-                    <p-message severity="error" [text]="texto_error_correo()"
-                        *ngIf="!usuarioForm.controls['correo'].valid"></p-message>
-                </div>
+            <div class="p-field p-col-12 p-md-6" *ngIf="newUsuario">
+                <label for="correo">{{"correo" | titlecase}}</label>
+                <input pInputText type="text" formControlName="correo" placeholder="Obligatorio" />
+                <p-message severity="error" [text]="texto_error_correo()" *ngIf="!usuarioForm.controls['correo'].valid">
+                </p-message>
             </div>
 
-            <div class="ui-g-12" *ngIf="newUsuario">
-                <div class="ui-g-4">
-                    <label for="clave">{{"clave" | titlecase}}</label>
-                </div>
-                <div class="ui-g-8">
-                    <input pInputText type="text" formControlName="clave" placeholder="Obligatorio" />
-                </div>
-                <div class="ui-g-12">
-                    <p-message severity="error" [text]="texto_error_clave()"
-                        *ngIf="!usuarioForm.controls['clave'].valid"></p-message>
-                </div>
+            <div class="p-field p-col-12 p-md-6" *ngIf="newUsuario">
+                <label for="clave">{{"clave" | titlecase}}</label>
+                <input pInputText type="text" formControlName="clave" placeholder="Obligatorio" />
+                <p-message severity="error" [text]="texto_error_clave()" *ngIf="!usuarioForm.controls['clave'].valid">
+                </p-message>
             </div>
 
-            <!-- <div class="ui-g-12">
-                <div class="ui-g-4">
-                    <label for="foto">{{"foto" | titlecase}}</label>
-                </div>
-                <div class="ui-g-8">
-                    <input pInputText type="text" formControlName="foto" placeholder="Obligatorio" />
-                </div>
-                <div class="ui-g-12">
-                    <p-message severity="error" [text]="texto_error_foto()"
-                        *ngIf="!usuarioForm.controls['foto'].valid&&usuarioForm.controls['foto'].dirty"></p-message>
-                </div>
-            </div> -->
-
-            <div class="ui-g-12">
-                <div class="ui-g-4">
-                    <label for="tipoEmpleado">{{"tipoEmpleado" | titlecase}}</label>
-                </div>
-                <div class="ui-g-8">
-                    <p-dropdown (onChange)="change_tipoEmpleado()" [options]="tiposEmpleados"
-                        formControlName="tipoEmpleado" placeholder="Obligatorio">
-                    </p-dropdown>
-                </div>
-                <div class="ui-g-12">
-                    <p-message severity="error" [text]="texto_error_tipoEmpleado()"
-                        *ngIf="!usuarioForm.controls['tipoEmpleado'].valid">
-                    </p-message>
-                </div>
+            <div class="p-field p-col-12 p-md-6">
+                <label for="tipoEmpleado">{{"tipo Empleado" | titlecase}}</label>
+                <p-dropdown (onChange)="change_tipoEmpleado()" [options]="tiposEmpleados" formControlName="tipoEmpleado"
+                    placeholder="Obligatorio"></p-dropdown>
             </div>
 
             <div class="ui-g-12" *ngIf="tipo_especialista">
