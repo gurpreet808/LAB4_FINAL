@@ -1,10 +1,10 @@
-<p-dataView #dv [value]="this.servTurno.turnosParaAtender" [paginator]="true" [rows]="5" paginatorPosition="both"
+<p-dataView #dv [value]="this.servTurno.turnosParaAtender" [paginator]="true" emptyMessage="No hay turnos" [rows]="5" paginatorPosition="both"
     filterBy="brand" [sortField]="sortField" [sortOrder]="sortOrder">
     <p-header>
         <div class="ui-helper-clearfix">
             <div class="p-grid">
                 <div class="p-col-12 p-md-4">
-                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By"
+                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Ordenar por"
                         (onChange)="onSortChange($event)" [style]="{'min-width':'140px'}"></p-dropdown>
                 </div>
                 <div class="p-col-6 p-md-4 filter-container">
