@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AngularFireDatabase, AngularFireList, AngularFireAction, DatabaseSnapshot } from '@angular/fire/database';
 import { Sala } from '../clases/sala';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,16 +18,18 @@ export class SalaService {
       (salasSnapshot: AngularFireAction<DatabaseSnapshot<Sala>>[]) => {
         this.salas = [];
 
-        salasSnapshot.forEach((salaData: AngularFireAction<DatabaseSnapshot<Sala>>) => {
+        salasSnapshot.forEach(
+          (salaData: AngularFireAction<DatabaseSnapshot<Sala>>) => {
 
-          //console.log(salaData);
-          let itemSala: Sala = salaData.payload.toJSON();
-          itemSala.id = salaData.key;
-          //console.log(itemSala);
+            //console.log(salaData);
+            let itemSala: Sala = salaData.payload.toJSON();
+            itemSala.id = salaData.key;
+            //console.log(itemSala);
 
-          this.salas.push(itemSala);
-        });
-        //console.log(this.salas);
+            this.salas.push(itemSala);
+          });
+
+        console.log(this.salas);
       }
     );
   }

@@ -115,6 +115,12 @@ export class SolicitarTurnoComponent implements OnInit {
     this.turno.cliente_uid = this.servUsuario.afAuth.auth.currentUser.uid;
     this.turno.cliente_nombre = this.servUsuario.el_usuario.value.nombre;
     this.turno.cliente_mail = this.servUsuario.el_usuario.value.correo;
+    this.turno.encuesta = {
+      cerrada: false,
+      clinica: 0,
+      especialista: 0,
+      experiencia: ""
+    }
 
     if (this.servUsuario.el_usuario.value.esCliente) {
       this.turno.quien_pidio = "cliente";

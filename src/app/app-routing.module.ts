@@ -18,6 +18,7 @@ import { RecepcionistaGuard } from './guards/recepcionista.guard';
 import { EspecialistaGuard } from './guards/especialista.guard';
 import { AuthGuard } from './guards/auth.guard';
 import { MiPerfilComponent } from './componentes/mi-perfil/mi-perfil.component';
+import { TurnosAtenderComponent } from './componentes/turnos-atender/turnos-atender.component';
 
 const routes: Routes = [
   { path: "", component: InicioComponent },
@@ -30,7 +31,7 @@ const routes: Routes = [
   { path: "turnos", component: TablaTurnosComponent, canActivate: [RecepcionistaGuard] },
   { path: "mis-turnos", component: MisTurnosComponent, canActivate: [AuthGuard] },
   { path: "solicitar-turno", component: SolicitarTurnoComponent, canActivate: [AuthGuard] },
-  { path: "atender-turnos", component: TurnosComponent, canActivate: [EspecialistaGuard] },
+  { path: "atender-turnos", component: TurnosAtenderComponent, canActivate: [EspecialistaGuard] },
   { path: "configEmpresa", component: ConfiguracionEmpresaComponent, canActivate: [AdminGuard] },
   { path: "usuarios", component: TablaUsuariosComponent },
   { path: "mi-perfil", component: MiPerfilComponent },

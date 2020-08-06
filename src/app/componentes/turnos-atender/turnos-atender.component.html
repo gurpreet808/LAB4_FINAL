@@ -1,0 +1,180 @@
+<p-dataView #dv [value]="this.servTurno.turnosParaAtender" [paginator]="true" [rows]="5" paginatorPosition="both"
+    filterBy="brand" [sortField]="sortField" [sortOrder]="sortOrder">
+    <p-header>
+        <div class="ui-helper-clearfix">
+            <div class="p-grid">
+                <div class="p-col-12 p-md-4">
+                    <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Sort By"
+                        (onChange)="onSortChange($event)" [style]="{'min-width':'140px'}"></p-dropdown>
+                </div>
+                <div class="p-col-6 p-md-4 filter-container">
+                    <!-- <div style="position:relative">
+                        <input type="search" pInputText placeholder="Search by brand"
+                            (input)="dv.filter($event.target.value)">
+                    </div> -->
+                </div>
+                <div class="p-col-6 p-md-4" style="text-align:right">
+                    <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                </div>
+            </div>
+        </div>
+    </p-header>
+    <ng-template let-turno pTemplate="listItem">
+        <div class="p-col-12">
+            <div class="turno-details">
+                <div>
+                    <div class="p-grid sample-layout" [style]="fondo_estado(turno.estado)">
+                        <div class="p-col-12 p-md-10  p-col-nogutter">
+                            <div class="p-col-12 p-col-nogutter">
+                                <!-- Posibilidad de mensajes -->
+                            </div>
+                            <div class="p-col-12">
+                                <div class="p-grid">
+
+                                    <div class="p-col-12 p-md-6">
+                                        <div>
+                                            <b>Fecha: </b>{{turno.fecha | date : 'dd/MM/yyyy'}}
+                                        </div>
+                                        <div>
+                                            <b>Estado: </b>{{turno.estado}}
+                                        </div>
+
+                                    </div>
+
+                                    <div class="p-col-12 p-md-6">
+                                        <div *ngIf="turno.sala_nombre">
+                                            <b>Sala: </b>{{turno.sala_nombre}}
+                                        </div>
+                                    </div>
+
+                                    <div class="p-col-12 p-md-6">
+                                        <div>
+                                            <b>Especialidad: </b>{{turno.especialidad}}
+                                        </div>
+                                        <div>
+                                            <b>Especialista: </b>{{turno.especialista_nombre}}
+                                        </div>
+                                        <div>
+                                            <b>Cliente: </b>{{turno.cliente_nombre}}
+                                        </div>
+                                    </div>
+
+                                    <div class="p-col-12 p-md-6">
+                                        <div>
+                                            <b>Tipo: </b>{{turno.tipo}}
+                                        </div>
+                                        <div>
+                                            <b>Duración aproximada: </b>{{turno.duracion}} minutos
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="p-col-12 p-md-2">
+                            <div class="p-col-12" *ngIf="turno.estado == 'confirmado'">
+                                <!-- <button pButton type="button" icon="pi pi-search"(click)="selectTurno($event, turno)"></button> -->
+                                <button type="button" pButton icon="pi pi-times" class="ui-button-success"
+                                    (click)="turnoAtender($event, turno)" label="Asignar sala"></button>
+                            </div>
+
+                            <div class="p-col-12" *ngIf="turno.estado == 'esperando'">
+                                <button type="button" pButton icon="pi pi-exclamation-circle"
+                                    class="ui-button-secondary" (click)="recibir(turno.id, turno.sala_id)"
+                                    label="Atender"></button>
+                            </div>
+
+                            <div class="p-col-12" *ngIf="turno.estado == 'atendiendo'">
+                                <!-- <button pButton type="button" icon="pi pi-search"(click)="selectTurno($event, turno)"></button> -->
+                                <button type="button" pButton icon="pi pi-times" class="ui-button-danger"
+                                    (click)="finalizar(turno)" label="Finalizar turno"></button>
+                            </div>
+
+                            <div class="p-col-12" *ngIf="turno.estado == 'confirmado' || turno.estado == 'esperando'">
+                                <!-- <button pButton type="button" icon="pi pi-search"(click)="selectTurno($event, turno)"></button> -->
+                                <button type="button" pButton icon="pi pi-times" class="ui-button-danger"
+                                    (click)="cancelar(turno)" label="Cancelar"></button>
+                            </div>
+
+                            <div class="p-col-12" *ngIf="turno.estado == 'finalizado'">
+                                <button type="button" pButton icon="pi pi-times" class="ui-button-warning"
+                                    [disabled]="!turno.encuesta.cerrada" (click)="turnoEncuesta($event, turno)"
+                                    label="Ver encuesta"></button>
+                            </div>
+
+                            <div class="p-col-12" *ngIf="turno.estado == 'finalizado'">
+                                <button type="button" pButton icon="pi pi-exclamation-circle"
+                                    class="ui-button-secondary" (click)="turnoResenia($event, turno)"
+                                    label="Reseña"></button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </ng-template>
+    <ng-template let-turno pTemplate="gridItem">
+        <div style="padding:.5em" class="p-col-12 p-md-3">
+            <p-panel [header]="turno.vin" [style]="{'text-align':'center'}">
+                <div class="turno-detail">{{turno.year}} - {{turno.color}}</div>
+                <button pButton type="button" icon="pi pi-search" (click)="turnoEncuesta($event, turno)"
+                    style="margin-top:0"></button>
+            </p-panel>
+        </div>
+    </ng-template>
+</p-dataView>
+
+<p-dialog header="Encuesta" [(visible)]="displayDialogEncuesta" [minY]="70" showEffect="fade" [modal]="true"
+    [style]="{width: '50%'}" (onAfterHide)="onDialogHide()" [contentStyle]="{padding: '2em'}">
+    <div class="p-grid" *ngIf="el_turno">
+        <div class="p-col-12">
+            Clínica:
+            <p-rating [(ngModel)]="el_turno.encuesta.clinica" stars="10" [cancel]="false" [readonly]="true"></p-rating>
+        </div>
+        <div class="p-col-12">
+            Especialista:
+            <p-rating [(ngModel)]="el_turno.encuesta.especialista" stars="10" [cancel]="false" [readonly]="true">
+            </p-rating>
+        </div>
+        <div class="p-col-12">
+            Experiencia:
+            <div>
+                {{el_turno.encuesta.experiencia}}
+            </div>
+        </div>
+    </div>
+</p-dialog>
+
+<p-dialog header="Reseña" [(visible)]="displayDialogResenia" [minY]="70" showEffect="fade" [modal]="true"
+    [style]="{width: '50%'}" (onAfterHide)="onDialogHide()" [contentStyle]="{padding: '2em'}">
+    <div class="p-grid" *ngIf="el_turno">
+        <div class="p-col-12">
+            <div *ngIf="!sin_resenia">
+                {{el_turno.resenia}}
+            </div>
+            <div *ngIf="sin_resenia">
+                <textarea [rows]="5" pInputTextarea autoResize="autoResize" [(ngModel)]="mi_resenia"></textarea>
+            </div>
+            <div class="p-col-12" style="text-align: 'center'" *ngIf="sin_resenia">
+                <button type="button" pButton icon="pi pi-check" class="ui-button-success"
+                    (click)="enviarResenia(el_turno.id, mi_resenia)" label="Enviar"></button>
+            </div>
+        </div>
+    </div>
+</p-dialog>
+
+<p-dialog header="Atender al cliente" [(visible)]="displayDialogAtender" [minY]="70" showEffect="fade" [modal]="true"
+    [style]="{width: '50%'}" (onAfterHide)="onDialogHide()" [contentStyle]="{padding: '2em'}">
+    <div class="p-grid">
+        <div class="p-col-12">
+            Salas disponibles:
+            <p-dropdown (onChange)="change_sala()" [options]="salas" appendTo="body" [(ngModel)]="sala_elegida" placeholder="Elige una sala disponible">
+            </p-dropdown>
+        </div>
+        <div class="p-col-12">
+            <button type="button" pButton icon="pi pi-check" class="ui-button-success"
+                (click)="atender(el_turno.id, sala_elegida.id_sala, sala_elegida.nombre_sala)" label="Confirmar"></button>
+        </div>
+    </div>
+</p-dialog>

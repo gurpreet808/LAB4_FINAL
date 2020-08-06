@@ -32,6 +32,7 @@ import { MisTurnosComponent } from './componentes/mis-turnos/mis-turnos.componen
 import { SolicitarTurnoComponent } from './componentes/solicitar-turno/solicitar-turno.component';
 import { MiPerfilComponent } from './componentes/mi-perfil/mi-perfil.component';
 import { MessageService } from 'primeng/api';
+import { TurnosAtenderComponent } from './componentes/turnos-atender/turnos-atender.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { MessageService } from 'primeng/api';
     CantidadTurnosDisponiblesPipe,
     MisTurnosComponent,
     SolicitarTurnoComponent,
-    MiPerfilComponent
+    MiPerfilComponent,
+    TurnosAtenderComponent
   ],
   imports: [
     BrowserModule,

@@ -22,17 +22,14 @@ export class MisTurnosComponent implements OnInit {
   sortField: string;
   sortOrder: number;
 
-  constructor(public servTurno: TurnoService, public servEspecialidad: EspecialidadService,
-    public servSala: SalaService, public servUsuario: UsuarioService, public messageService: MessageService) {
-
-
+  constructor(public servTurno: TurnoService, public messageService: MessageService) {
   }
 
   ngOnInit(): void {
     this.sortOptions = [
-      { label: 'Newest First', value: '!year' },
-      { label: 'Oldest First', value: 'year' },
-      { label: 'Brand', value: 'brand' }
+      { label: 'Más nuevos', value: '!fecha' },
+      { label: 'Más viejos', value: 'fecha' },
+      { label: 'Especialidad', value: 'especialidas' }
     ];
   }
 

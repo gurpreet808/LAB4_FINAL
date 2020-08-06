@@ -56,7 +56,7 @@
                 <label for="en_uso">{{"en_uso" | titlecase}}</label>
             </div>
             <div class="ui-g-8">
-                <p-dropdown [options]="en_usos" id="en_uso" [(ngModel)]="sala.en_uso"></p-dropdown>
+                <p-dropdown [options]="en_usos" id="en_uso" [(ngModel)]="sala.en_uso" appendTo="body"></p-dropdown>
             </div>
         </div>
     </div>

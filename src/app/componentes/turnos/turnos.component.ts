@@ -75,8 +75,8 @@ export class TurnosComponent implements OnInit {
     this.cols = [
       { field: 'id', header: 'ID' },
       { field: 'cliente_nombre', header: 'Cliente' },
-      { field: 'especialista_nombre', header: 'Especialista' },
-      { field: 'especialidad', header: 'Especialidad' },
+      //{ field: 'especialista_nombre', header: 'Especialista' },
+      //{ field: 'especialidad', header: 'Especialidad' },
       { field: 'tipo', header: 'Tipo de turno' },
       { field: 'sala_nombre', header: 'Sala' },
       { field: 'estado', header: 'Estado' },

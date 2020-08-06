@@ -32,8 +32,8 @@ export class SalasComponent implements OnInit {
 
   en_usos = [
     { label: 'Seleccionar', value: null },
-    { label: 'Si', value: "true" },
-    { label: 'No', value: "false" }
+    { label: 'Si', value: true },
+    { label: 'No', value: false }
   ];
 
   constructor(public servSala: SalaService) {
