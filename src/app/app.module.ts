@@ -20,7 +20,6 @@ import { RegistrarUsuarioComponent } from './componentes/registrar-usuario/regis
 import { InicioComponent } from './componentes/inicio/inicio.component';
 import { TurnosComponent } from './componentes/turnos/turnos.component';
 import { SalasComponent } from './componentes/salas/salas.component';
-import { PedirTurnoComponent } from './componentes/pedir-turno/pedir-turno.component';
 import { TablaEmpleadosComponent } from './componentes/tabla-empleados/tabla-empleados.component';
 import { TablaTurnosComponent } from './componentes/tabla-turnos/tabla-turnos.component';
 import { TablaEspecialidadesComponent } from './componentes/tabla-especialidades/tabla-especialidades.component';
@@ -44,7 +43,6 @@ import { TurnosAtenderComponent } from './componentes/turnos-atender/turnos-aten
     InicioComponent,
     TurnosComponent,
     SalasComponent,
-    PedirTurnoComponent,
     TablaEmpleadosComponent,
     TablaTurnosComponent,
     TablaEspecialidadesComponent,
