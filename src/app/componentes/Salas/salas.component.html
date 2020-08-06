@@ -39,7 +39,7 @@
                 <label for="tipo">{{"tipo" | titlecase}}</label>
             </div>
             <div class="ui-g-8">
-                <p-dropdown [options]="tipos" id="tipo" [(ngModel)]="sala.tipo"></p-dropdown>
+                <p-dropdown [options]="tipos" id="tipo" [(ngModel)]="sala.tipo" appendTo="body"></p-dropdown>
             </div>
         </div>
         <div class="ui-g-12">
@@ -47,11 +47,11 @@
                 <label for="estado">{{"estado" | titlecase}}</label>
             </div>
             <div class="ui-g-8">
-                <p-dropdown [options]="estados" id="estado" [(ngModel)]="sala.estado"></p-dropdown>
+                <p-dropdown [options]="estados" id="estado" [(ngModel)]="sala.estado" appendTo="body"></p-dropdown>
             </div>
         </div>
 
-        <div class="ui-g-12">
+        <div class="ui-g-12" *ngIf="!this.newSala">
             <div class="ui-g-4">
                 <label for="en_uso">{{"en_uso" | titlecase}}</label>
             </div>

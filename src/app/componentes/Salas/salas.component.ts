@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Sala } from 'src/app/clases/sala';
 import { SalaService } from 'src/app/servicios/sala.service';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-salas',
@@ -36,7 +37,7 @@ export class SalasComponent implements OnInit {
     { label: 'No', value: false }
   ];
 
-  constructor(public servSala: SalaService) {
+  constructor(public servSala: SalaService, public messageService: MessageService) {
 
   }
 
@@ -57,22 +58,33 @@ export class SalasComponent implements OnInit {
 
   save() {
     if (this.newSala) {
-      this.servSala.AgregarUno(this.sala).then(() => {
-        console.log('Documento creado exitósamente!');
-      }, (error) => {
-        console.error(error);
-      });
-    }
-    else {
+      console.log(this.sala);
+      if (this.sala.nombre && this.sala.tipo && this.sala.estado) {
+        this.sala.en_uso = false;
+        this.servSala.AgregarUno(this.sala).then(
+          () => {
+            this.messageService.add({ severity: 'success', summary: '¡Bien!', detail: 'Se enviaron los datos' });
+            this.displayDialog = false;
+            this.sala = {};
+          }
+        ).catch(
+          (error) => {
+            console.error(error);
+            this.messageService.add({ severity: 'error', summary: 'Error', detail: 'No se guardaron los datos' });
+          }
+        );
+      } else {
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Complete todos los datos' });
+      }
+    } else {
       this.servSala.ModificarUno(this.sala.id, this.sala).then(() => {
         console.log('Documento editado exitósamente');
+        this.displayDialog = false;
+        this.sala = {};
       }, (error) => {
         console.log(error);
       });
     }
-
-    this.displayDialog = false;
-    this.sala = {};
   }
 
   delete() {
