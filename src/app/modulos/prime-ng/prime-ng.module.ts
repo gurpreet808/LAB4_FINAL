@@ -18,6 +18,8 @@ import { MessageModule } from 'primeng/message';
 import { FileUploadModule } from 'primeng/fileupload';
 import { SplitButtonModule } from 'primeng/splitbutton';
 import { RadioButtonModule } from 'primeng/radiobutton';
+import { DataViewModule } from 'primeng/dataview';
+import { RatingModule } from 'primeng/rating';
 
 @NgModule({
   declarations: [],
@@ -39,7 +41,9 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     MessageModule,
     FileUploadModule,
     SplitButtonModule,
-    RadioButtonModule
+    RadioButtonModule,
+    DataViewModule,
+    RatingModule
   ],
   exports: [
     PanelModule,
@@ -58,7 +62,9 @@ import { RadioButtonModule } from 'primeng/radiobutton';
     MessageModule,
     FileUploadModule,
     SplitButtonModule,
-    RadioButtonModule
+    RadioButtonModule,
+    DataViewModule,
+    RatingModule
   ]
 })
 export class PrimeNGModule { }

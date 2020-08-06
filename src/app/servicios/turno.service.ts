@@ -15,13 +15,15 @@ export class TurnoService {
   turnoList: AngularFireList<Turno>;
 
   constructor(public db: AngularFireDatabase, public servUsuario: UsuarioService) {
-    this.turnoList = this.db.list<Turno>('/turnos');
+    this.turnoList = this.db.list<Turno>('/turnos', ref => ref.orderByChild('fecha'));
 
     this.TraerTodos().subscribe(
       (turnosSnapshot: AngularFireAction<DatabaseSnapshot<Turno>>[]) => {
         this.turnos = [];
         this.turnosParaAtender = [];
         this.misTurnos = [];
+
+        //turnosSnapshot = turnosSnapshot.reverse();
 
         turnosSnapshot.forEach((turnoData: AngularFireAction<DatabaseSnapshot<Turno>>) => {
 
@@ -33,7 +35,7 @@ export class TurnoService {
 
           this.turnos.push(itemTurno);
 
-          if (this.servUsuario.el_usuario.value) {
+          if (this.servUsuario.el_usuario) {
             if (itemTurno.especialista_uid == this.servUsuario.afAuth.auth.currentUser.uid) {
               this.turnosParaAtender.push(itemTurno);
             }
@@ -46,6 +48,27 @@ export class TurnoService {
         console.log(this.turnos);
       }
     );
+
+  }
+
+  separarTurnos() {
+    this.turnosParaAtender = [];
+    this.misTurnos = [];
+
+    this.turnos.forEach(
+      (_turno: Turno) => {
+        if (this.servUsuario.el_usuario) {
+          if (_turno.especialista_uid == this.servUsuario.afAuth.auth.currentUser.uid) {
+            this.turnosParaAtender.push(_turno);
+          }
+
+          if (_turno.cliente_uid == this.servUsuario.afAuth.auth.currentUser.uid) {
+            this.misTurnos.push(_turno);
+          }
+        }
+      }
+    );
+
   }
 
   TraerTodos() {

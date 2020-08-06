@@ -21,7 +21,8 @@ export class Turno {
     encuesta?: {
         clinica: number,
         especialista: number,
-        experiencia: string
+        experiencia: string,
+        cerrada: boolean
     }
     quien_pidio?: "cliente" | "recepcionista";
     codigo?: string;

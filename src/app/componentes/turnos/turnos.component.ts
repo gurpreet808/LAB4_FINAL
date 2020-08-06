@@ -64,6 +64,8 @@ export class TurnosComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.servTurno.separarTurnos();
+
     this.turnoForm = this.fb.group({
       'sala_id': new FormControl('', Validators.required),
       'estado': new FormControl('', Validators.required),

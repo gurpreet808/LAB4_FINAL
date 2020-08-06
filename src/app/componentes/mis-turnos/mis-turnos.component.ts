@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Turno } from 'src/app/clases/turno';
-import { Especialidad } from 'src/app/clases/especialidad';
 import { TurnoService } from 'src/app/servicios/turno.service';
 import { EspecialidadService } from 'src/app/servicios/especialidad.service';
 import { UsuarioService } from 'src/app/servicios/usuario.service';
-import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { MessageService, SelectItem } from 'primeng/api';
 import { SalaService } from 'src/app/servicios/sala.service';
+import { Turno } from 'src/app/clases/turno';
 
 @Component({
   selector: 'app-mis-turnos',
@@ -15,157 +13,128 @@ import { SalaService } from 'src/app/servicios/sala.service';
 })
 export class MisTurnosComponent implements OnInit {
 
-  encuestaForm: FormGroup;
-  submitted: boolean;
+  el_turno: Turno;
+  displayDialogEncuesta: boolean = false;
+  displayDialogResenia: boolean = false;
 
-  displayDialog: boolean;
-  newTurno: boolean;
-  selectedTurno: Turno;
-  cols: any[];
-
-  turno: Turno = {};
-
-  puedo_encuesta: boolean = false;
-  puedo_cancelar: boolean = false;
+  sortOptions: SelectItem[];
+  sortKey: string;
+  sortField: string;
+  sortOrder: number;
 
   constructor(public servTurno: TurnoService, public servEspecialidad: EspecialidadService,
-    public servSala: SalaService, public servUsuario: UsuarioService, public fb: FormBuilder, public messageService: MessageService) {
+    public servSala: SalaService, public servUsuario: UsuarioService, public messageService: MessageService) {
+
 
   }
 
   ngOnInit(): void {
-    this.encuestaForm = this.fb.group({
-      'clinica': new FormControl('', Validators.required),
-      'especialista': new FormControl('', Validators.required),
-      'experiencia': new FormControl('', Validators.required)
-    });
-
-    this.cols = [
-      { field: 'id', header: 'ID' },
-      { field: 'cliente_nombre', header: 'Cliente' },
-      { field: 'especialista_nombre', header: 'Especialista' },
-      { field: 'especialidad', header: 'Especialidad' },
-      { field: 'tipo', header: 'Tipo de turno' },
-      { field: 'sala_nombre', header: 'Sala' },
-      { field: 'estado', header: 'Estado' },
-      { field: 'resenia', header: 'Reseña' },
-      { field: 'encuesta', header: 'Encuesta' }
+    this.sortOptions = [
+      { label: 'Newest First', value: '!year' },
+      { label: 'Oldest First', value: 'year' },
+      { label: 'Brand', value: 'brand' }
     ];
-
   }
 
-  onSubmit() {
-    this.submitted = true;
+  turnoResenia(event: Event, turno: Turno) {
+    event.preventDefault();
+    this.el_turno = turno;
 
-    this.save();
-    
-    this.messageService.add({ severity: 'info', summary: '¡Bien!', detail: 'Se enviaron los datos' });
-  }
-  
-  save() {
-    
-    console.clear();
-    
-    this.turno.encuesta = this.encuestaForm.value;
-    delete this.turno.fecha;
-
-    console.log("B4 save this.turno", this.turno);
-
-    if (this.turno.estado == "esperando" || this.turno.estado == "atendiendo") {
-      this.servSala.ModificarUno(this.turno.sala_id, { en_uso: true });
-    } else {
-      this.servSala.ModificarUno(this.turno.sala_id, { en_uso: false });
+    if (!this.el_turno.resenia) {
+      this.el_turno.resenia = "";
     }
 
-    this.turno.estado = "cerrado";
-
-    this.servTurno.ModificarUno(this.turno.id, this.turno);
-
-    this.displayDialog = false;
-    this.turno = {};
-    this.encuestaForm.reset();
+    this.displayDialogResenia = true;
   }
 
-  delete() {
-    /* this.servTurno.BorrarUno(this.turno.id).then(() => {
-      console.log('Documento eliminado!');
-    }, (error) => {
-      console.error(error);
-    }); */
+  turnoEncuesta(event: Event, turno: Turno) {
+    event.preventDefault();
+    this.el_turno = turno;
 
-    this.turno = {};
-    this.encuestaForm.reset();
-
-    this.displayDialog = false;
-  }
-
-  showDialogToAdd() {
-    this.newTurno = true;
-    this.turno = {};
-    this.encuestaForm.reset();
-
-    this.displayDialog = true;
-  }
-
-  cancelar(){
-    this.turno.estado = "cancelado";
-
-    console.log(this.turno);
-
-    delete this.turno.fecha;
-
-    this.servTurno.ModificarUno(this.turno.id, this.turno);
-
-    this.displayDialog = false;
-    this.turno = {};
-    this.encuestaForm.reset();
-    
-    this.messageService.add({ severity: 'info', summary: '¡Bien!', detail: 'Se enviaron los datos' });
-  }
-
-  onRowSelect(event) {
-    this.newTurno = false;
-    this.turno = this.cloneTurno(event.data);
-
-    if (this.turno.estado == "finalizado") {
-      this.puedo_encuesta = true;
-      this.puedo_cancelar = false;
-    } else {
-      this.puedo_encuesta = false;
-      this.puedo_cancelar = true;
-
-      if (this.turno.estado == "atendiendo" || this.turno.estado == "cancelado" || this.turno.estado == "cerrado") {
-        this.puedo_cancelar = false;
+    if (!this.el_turno.encuesta) {
+      this.el_turno.encuesta = {
+        clinica: 0,
+        especialista: 0,
+        experiencia: "",
+        cerrada: false
       }
     }
 
-    this.displayDialog = true;
+    this.displayDialogEncuesta = true;
   }
 
-  cloneTurno(c: Turno): Turno {
-    let turno = {};
-    this.encuestaForm.reset();
+  onDialogHide() {
+    this.el_turno = null;
+    console.log("me voy");
+  }
 
-    for (let prop in c) {
-      turno[prop] = c[prop];
-      if (this.encuestaForm.controls[prop]) {
-        this.encuestaForm.controls[prop].setValue(c[prop]);
-      }
+  onSortChange(event) {
+    let value = event.value;
+
+    if (value.indexOf('!') === 0) {
+      this.sortOrder = -1;
+      this.sortField = value.substring(1, value.length);
     }
-
-    return turno;
+    else {
+      this.sortOrder = 1;
+      this.sortField = value;
+    }
   }
 
-  texto_error_clinica(): string {
-    return "Se requiere el puntaje de la clinica";
+  cancelar(id_turno: string) {
+    this.servTurno.ModificarUno(id_turno, { estado: "cancelado" })
+      .then(
+        (datos) => {
+          console.log("cancelar", datos);
+          this.messageService.add({ severity: 'success', summary: '¡Bien!', detail: 'Canceló el turno' });
+        }
+      )
+      .catch(
+        (error) => {
+          console.log(error);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: "No se pudo cancelar" });
+        }
+      );
   }
 
-  texto_error_especialista(): string {
-    return "Se requiere el puntaje del especialista";
+  enviarEncuesta(id_turno: string, mi_encuesta: Turno["encuesta"]) {
+    mi_encuesta.cerrada = true;
+
+    this.servTurno.ModificarUno(id_turno, { encuesta: mi_encuesta })
+      .then(
+        (datos) => {
+          //console.log("Encuesta", datos);
+          this.messageService.add({ severity: 'success', summary: '¡Gracias!', detail: 'Se envió la encuesta' });
+        }
+      )
+      .catch(
+        (error) => {
+          console.log(error);
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: "No se pudo cancelar" });
+        }
+      );
   }
 
-  texto_error_experiencia(): string {
-    return "Se requiere que nos cuentes tu experiencia";
+  fondo_estado(estado: string) {
+    switch (estado) {
+      case 'confirmado':
+        return "background-color: green;";
+
+      case 'esperando':
+        return "background-color: Olive;";
+
+      case 'atendiendo':
+        return "background-color: DarkBlue;";
+
+      case 'cancelado':
+        return "background-color: FireBrick;";
+
+      case 'finalizado':
+        return "background-color: DimGrey;";
+
+      default:
+        return "";
+    }
   }
 
 }
