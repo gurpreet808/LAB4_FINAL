@@ -9,8 +9,11 @@ import { UsuarioService } from './usuario.service';
 export class TurnoService {
 
   turnos: Turno[] = [];
+
   turnosParaAtender: Turno[] = [];
+  turnosParaAtender_hoy: Turno[] = [];
   misTurnos: Turno[] = [];
+  misTurnos_hoy: Turno[] = [];
 
   turnoList: AngularFireList<Turno>;
 
@@ -35,7 +38,7 @@ export class TurnoService {
 
           this.turnos.push(itemTurno);
 
-          if (this.servUsuario.el_usuario) {
+          /* if (this.servUsuario.el_usuario) {
             if (itemTurno.especialista_uid == this.servUsuario.afAuth.auth.currentUser.uid) {
               this.turnosParaAtender.push(itemTurno);
             }
@@ -43,9 +46,17 @@ export class TurnoService {
             if (itemTurno.cliente_uid == this.servUsuario.afAuth.auth.currentUser.uid) {
               this.misTurnos.push(itemTurno);
             }
-          }
+          } */
+
+          this.separarTurnos();
         });
         console.log(this.turnos);
+      }
+    );
+
+    this.servUsuario.el_usuario.subscribe(
+      () => {
+        this.separarTurnos();
       }
     );
 

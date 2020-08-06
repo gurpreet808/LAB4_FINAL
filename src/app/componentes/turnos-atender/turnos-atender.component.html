@@ -1,13 +1,14 @@
-<p-dataView #dv [value]="this.servTurno.turnosParaAtender" [paginator]="true" emptyMessage="No hay turnos" [rows]="5" paginatorPosition="both"
-    filterBy="brand" [sortField]="sortField" [sortOrder]="sortOrder">
+<p-dataView #dv [value]="QueArray()" [paginator]="true" emptyMessage="No hay turnos" [rows]="5" paginatorPosition="both"
+    filterBy="fecha" [sortField]="sortField" [sortOrder]="sortOrder">
     <p-header>
         <div class="ui-helper-clearfix">
             <div class="p-grid">
-                <div class="p-col-12 p-md-4">
+                <div class="p-col-12 p-md-3">
                     <p-dropdown [options]="sortOptions" [(ngModel)]="sortKey" placeholder="Ordenar por"
                         (onChange)="onSortChange($event)" [style]="{'min-width':'140px'}"></p-dropdown>
                 </div>
-                <div class="p-col-6 p-md-4 filter-container">
+                <div class="p-col-6 p-md-5 filter-container">
+                    <p-toggleButton [(ngModel)]="muestro_hoy" onLabel="Hoy" offLabel="Todos" (onChange)="change_muestro_hoy()"></p-toggleButton>
                     <!-- <div style="position:relative">
                         <input type="search" pInputText placeholder="Search by brand"
                             (input)="dv.filter($event.target.value)">

@@ -23,6 +23,7 @@ export class TurnosAtenderComponent implements OnInit {
   sortKey: string;
   sortField: string;
   sortOrder: number;
+  muestro_hoy: boolean = true;
 
   salas: SelectItem[] = [
     { label: 'Seleccionar', value: null },
@@ -224,6 +225,20 @@ export class TurnosAtenderComponent implements OnInit {
       }
     ); */
 
+  }
+
+  change_muestro_hoy() {
+
+  }
+
+  QueArray() {
+    if (this.muestro_hoy) {
+      //Sólo los de hoy
+      return this.servTurno.misTurnos;
+    }
+
+    //Todos
+    return this.servTurno.turnos;
   }
 
   fondo_estado(estado: string) {

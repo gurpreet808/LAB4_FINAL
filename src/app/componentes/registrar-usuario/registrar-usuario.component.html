@@ -31,7 +31,8 @@
 
                     <div class="ui-inputgroup">
                         <span class="ui-inputgroup-addon"><i class="pi pi-key"></i></span>
-                        <input type="password" pInputText minlength="6" maxlength="15" placeholder="Clave" formControlName="clave">
+                        <input type="password" pInputText minlength="6" maxlength="15" placeholder="Clave"
+                            formControlName="clave">
                     </div>
                     <div *ngIf="!clienteForm.controls['clave'].valid&&clienteForm.controls['clave'].dirty">
                         {{texto_error_clave()}}
@@ -41,8 +42,13 @@
                         <span class="ui-inputgroup-addon"><i class="pi pi-image"></i></span>
                         <!-- <input type="file" id="customFile" accept='image/*' (change)="subirImagen($event)"> -->
 
-                        <p-fileUpload [multiple]="false" accept="image/*" (onSelect)="onPreUpload($event)" maxFileSize="1000000" invalidFileSizeMessageSummary="{0} El archivo es muy grande, " invalidFileSizeMessageDetail="el tamaño permitido es {0}." invalidFileTypeMessageSummary="{0} El tipo de archivo no es admitido, "
-                            invalidFileTypeMessageDetail="sólo se permiten imágenes." chooseLabel="Seleccionar imagen de perfil" [showUploadButton]="false" [showCancelButton]="false">
+                        <p-fileUpload [multiple]="false" accept="image/*" (onSelect)="onPreUpload($event)"
+                            maxFileSize="1000000" invalidFileSizeMessageSummary="{0} El archivo es muy grande, "
+                            invalidFileSizeMessageDetail="el tamaño permitido es {0}."
+                            invalidFileTypeMessageSummary="{0} El tipo de archivo no es admitido, "
+                            invalidFileTypeMessageDetail="sólo se permiten imágenes."
+                            chooseLabel="Seleccionar imagen de perfil" [showUploadButton]="false"
+                            [showCancelButton]="false">
                         </p-fileUpload>
                         <div>{{uploadPercent | async}}</div>
                         <div>{{downloadURL | async}}</div>
@@ -51,8 +57,10 @@
             </div>
 
             <p-footer>
-                <button pButton type="button" label="Registrarme" icon="pi pi-user-plus" class="ui-button-primary" (click)="onSubmit()" [disabled]="!clienteForm.valid"></button>
-                <button pButton type="button" label="Iniciar sesión" icon="pi pi-sign-in" class="ui-button-secondary" (click)="loguear()"></button>
+                <button pButton type="button" label="Registrarme" icon="pi pi-user-plus" class="ui-button-primary"
+                    (click)="onSubmit()" [disabled]="!clienteForm.valid"></button>
+                <button pButton type="button" label="Iniciar sesión" icon="pi pi-sign-in" class="ui-button-secondary"
+                    (click)="loguear()"></button>
             </p-footer>
         </p-card>
 

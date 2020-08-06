@@ -20,6 +20,7 @@ import { SplitButtonModule } from 'primeng/splitbutton';
 import { RadioButtonModule } from 'primeng/radiobutton';
 import { DataViewModule } from 'primeng/dataview';
 import { RatingModule } from 'primeng/rating';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 
 @NgModule({
   declarations: [],
@@ -43,7 +44,8 @@ import { RatingModule } from 'primeng/rating';
     SplitButtonModule,
     RadioButtonModule,
     DataViewModule,
-    RatingModule
+    RatingModule,
+    ToggleButtonModule
   ],
   exports: [
     PanelModule,
@@ -64,7 +66,8 @@ import { RatingModule } from 'primeng/rating';
     SplitButtonModule,
     RadioButtonModule,
     DataViewModule,
-    RatingModule
+    RatingModule,
+    ToggleButtonModule
   ]
 })
 export class PrimeNGModule { }
