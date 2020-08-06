@@ -101,6 +101,7 @@ export class MisTurnosComponent implements OnInit {
       .then(
         (datos) => {
           //console.log("Encuesta", datos);
+          this.displayDialogEncuesta = false;
           this.messageService.add({ severity: 'success', summary: '¡Gracias!', detail: 'Se envió la encuesta' });
         }
       )

@@ -134,6 +134,7 @@ export class TurnosAtenderComponent implements OnInit {
         (datos) => {
           //console.log("Encuesta", datos);
           this.sin_resenia = false;
+          this.displayDialogResenia = false;
           this.messageService.add({ severity: 'success', summary: '¡Gracias!', detail: 'Se envió la reseña' });
         }
       )
@@ -149,6 +150,7 @@ export class TurnosAtenderComponent implements OnInit {
     this.servTurno.ModificarUno(id_turno, { sala_id: id_sala, sala_nombre: nombre_sala, estado: "esperando" })
       .then(
         (datos) => {
+          this.displayDialogAtender = false;
           this.messageService.add({ severity: 'success', summary: '¡Bien!', detail: 'Asignó al cliente a una sala' });
         }
       )
