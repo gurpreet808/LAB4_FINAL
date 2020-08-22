@@ -1,4 +1,4 @@
-<p-dataView #dv [value]="QueArray()" [paginator]="true" emptyMessage="No hay turnos" [rows]="5" paginatorPosition="both"
+<p-dataView #dv [value]="servTurno.turnosParaAtender" [paginator]="true" emptyMessage="No hay turnos" [rows]="5" paginatorPosition="both"
     filterBy="fecha" [sortField]="sortField" [sortOrder]="sortOrder">
     <p-header>
         <div class="ui-helper-clearfix">
@@ -76,19 +76,19 @@
                         <div class="p-col-12 p-md-2">
                             <div class="p-col-12" *ngIf="turno.estado == 'confirmado'">
                                 <!-- <button pButton type="button" icon="pi pi-search"(click)="selectTurno($event, turno)"></button> -->
-                                <button type="button" pButton icon="pi pi-times" class="ui-button-success"
+                                <button type="button" pButton icon="pi pi-clock" class="ui-button-success"
                                     (click)="turnoAtender($event, turno)" label="Asignar sala"></button>
                             </div>
 
                             <div class="p-col-12" *ngIf="turno.estado == 'esperando'">
-                                <button type="button" pButton icon="pi pi-exclamation-circle"
+                                <button type="button" pButton icon="pi pi-arrow-up"
                                     class="ui-button-secondary" (click)="recibir(turno.id, turno.sala_id)"
                                     label="Atender"></button>
                             </div>
 
                             <div class="p-col-12" *ngIf="turno.estado == 'atendiendo'">
                                 <!-- <button pButton type="button" icon="pi pi-search"(click)="selectTurno($event, turno)"></button> -->
-                                <button type="button" pButton icon="pi pi-times" class="ui-button-danger"
+                                <button type="button" pButton icon="pi pi-check" class="ui-button-info"
                                     (click)="finalizar(turno)" label="Finalizar turno"></button>
                             </div>
 
@@ -99,7 +99,7 @@
                             </div>
 
                             <div class="p-col-12" *ngIf="turno.estado == 'finalizado'">
-                                <button type="button" pButton icon="pi pi-times" class="ui-button-warning"
+                                <button type="button" pButton icon="pi pi-star" class="ui-button-warning"
                                     [disabled]="!turno.encuesta.cerrada" (click)="turnoEncuesta($event, turno)"
                                     label="Ver encuesta"></button>
                             </div>

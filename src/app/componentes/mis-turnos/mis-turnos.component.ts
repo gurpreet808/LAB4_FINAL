@@ -27,9 +27,10 @@ export class MisTurnosComponent implements OnInit {
 
   ngOnInit(): void {
     this.sortOptions = [
-      { label: 'Más nuevos', value: '!fecha' },
-      { label: 'Más viejos', value: 'fecha' },
-      { label: 'Especialidad', value: 'especialidas' }
+      { label: 'Fecha desc', value: '!fecha' },
+      { label: 'Fecha asc', value: 'fecha' },
+      { label: 'Especialidad asc', value: 'especialidad' },
+      { label: 'Especialidad desc', value: '!especialidad' }
     ];
   }
 

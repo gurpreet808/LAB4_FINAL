@@ -234,7 +234,7 @@ export class TurnosAtenderComponent implements OnInit {
   QueArray() {
     if (this.muestro_hoy) {
       //Sólo los de hoy
-      return this.servTurno.misTurnos;
+      return this.servTurno.turnosParaAtender;
     }
 
     //Todos

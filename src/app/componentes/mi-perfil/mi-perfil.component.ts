@@ -53,7 +53,7 @@ export class MiPerfilComponent implements OnInit {
               nombre: "Cambiate2"
             };
 
-            this.servUsuario.modificarUsuario(Object.assign(this.yo, {foto: rutaFoto}), this.yo.uid);
+            //this.servUsuario.modificarUsuario(Object.assign(this.yo, {foto: rutaFoto}), this.yo.uid);
 
             //this.servUsuario.ModificarUno(this.yo.uid, Object.assign(this.yo, _user));
             //this.servUsuario.ModificarUno(this.yo.uid, Object.assign(this.yo, {foto: rutaFoto}));

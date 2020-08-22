@@ -17,14 +17,11 @@ export class LoginComponent implements OnInit {
 
   usuariosTest = [
     { correo: "administrador@administrador.com", clave: "administrador", label: "Administrador"},
-    { correo: "recepcionista@recepcionista.com", clave: "recepcionista", label: "Recepcionista"},
-    { correo: "especialista1@especialista.com", clave: "especialista1", label:  "Esteban Quito (Ortodoncia)"},
-    { correo: "especialista2@especialista.com", clave: "especialista2", label:  "(especialista2)"},
-    { correo: "especialista3@especialista.com", clave: "especialista3", label:  "(especialista3)"},
-    { correo: "especialista4@especialista.com", clave: "especialista4", label:  "(especialista4)"},
-    { correo: "cliente1@cliente.com", clave: "cliente1", label: "Lautaro López (cliente1)"},
-    { correo: "cliente2@cliente.com", clave: "cliente2", label: "(cliente2)"},
-    { correo: "cliente3@cliente.com", clave: "cliente3", label: "(cliente3)"}
+    { correo: "especialista1@especialista.com", clave: "especialista", label:  "Esteban Quito (Ortodoncia)"},
+    { correo: "especialista2@especialista.com", clave: "especialista", label:  "Jazmín Flores (especialista2)"},
+    { correo: "cliente1@cliente.com", clave: "cliente", label: "Lautaro López (cliente1)"},
+    { correo: "cliente2@cliente.com", clave: "cliente", label: "Camila Rodríguez (cliente2)"},
+    { correo: "cliente3@cliente.com", clave: "cliente", label: "Juan Pérez (cliente3)"}
   ];
 
   constructor(public servUsuario: UsuarioService, public router: Router, public fb: FormBuilder, public messageService: MessageService) {
