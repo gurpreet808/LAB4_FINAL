@@ -55,7 +55,6 @@
                 <div *ngIf="turnoForm.controls['especialista_uid'].valid && turnoForm.controls['fecha'].valid">
                     Cantidad turnos disponibles para {{turno.especialista_nombre}}:
                     <br>
-                    <br>
                     Para consultas: {{(disponibilidadTotal - cantidadMinutosOcupado) / 15 | cantidadTurnosDisponibles}}
                     <br>
                     Para tratamientos:
