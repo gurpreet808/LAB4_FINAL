@@ -32,6 +32,7 @@ import { SolicitarTurnoComponent } from './componentes/solicitar-turno/solicitar
 import { MiPerfilComponent } from './componentes/mi-perfil/mi-perfil.component';
 import { MessageService } from 'primeng/api';
 import { TurnosAtenderComponent } from './componentes/turnos-atender/turnos-atender.component';
+import { TestCalendarComponent } from './componentes/test-calendar/test-calendar.component';
 
 @NgModule({
   declarations: [
@@ -53,7 +54,8 @@ import { TurnosAtenderComponent } from './componentes/turnos-atender/turnos-aten
     MisTurnosComponent,
     SolicitarTurnoComponent,
     MiPerfilComponent,
-    TurnosAtenderComponent
+    TurnosAtenderComponent,
+    TestCalendarComponent
   ],
   imports: [
     BrowserModule,

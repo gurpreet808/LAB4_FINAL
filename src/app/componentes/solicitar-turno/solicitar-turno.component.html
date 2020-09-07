@@ -4,8 +4,8 @@
 
             <div class="p-field p-col-12 p-md-2">
                 <label for="fecha">{{"fecha" | titlecase}}</label>
-                <p-calendar (onClose)="change_fecha()" formControlName="fecha" dateFormat="dd/mm/yy" [minDate]="minDateValue"
-                    [disabledDays]="[0]" [readonlyInput]="true" appendTo="body" [locale]="es"></p-calendar>
+                <p-calendar (onSelect)="change_fecha()" formControlName="fecha" dateFormat="dd/mm/yy" [minDate]="minDateValue"
+                    [disabledDays]="[0]" [readonlyInput]="true" appendTo="body" [locale]="es" showTime="true" hourFormat="24" [stepMinute]="15"></p-calendar>
                 <p-message severity="error" [text]="texto_error_fecha()" *ngIf="!turnoForm.controls['fecha'].valid">
                 </p-message>
             </div>
@@ -51,14 +51,8 @@
             </div>
 
             <div class="p-field p-col-12 p-md-6">
-
                 <div *ngIf="turnoForm.controls['especialista_uid'].valid && turnoForm.controls['fecha'].valid">
-                    Cantidad turnos disponibles para {{turno.especialista_nombre}}:
-                    <br>
-                    Para consultas: {{(disponibilidadTotal - cantidadMinutosOcupado) / 15 | cantidadTurnosDisponibles}}
-                    <br>
-                    Para tratamientos:
-                    {{(disponibilidadTotal - cantidadMinutosOcupado) / 60 | cantidadTurnosDisponibles}}
+                    Turnos ocupados:
                 </div>
             </div>
 

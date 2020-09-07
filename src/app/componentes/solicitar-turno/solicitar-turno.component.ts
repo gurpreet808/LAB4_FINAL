@@ -23,8 +23,9 @@ export class SolicitarTurnoComponent implements OnInit {
   minDateValue = new Date(Date.now());
   fecha: Date;
 
-  cantidadMinutosOcupado: number = 0;
-  disponibilidadTotal: number = 0;
+  dia: number = -1;
+  hora: number = -1;
+  minutos: number = -1;
 
   puedePedirTurno: boolean = false;
 
@@ -134,6 +135,24 @@ export class SolicitarTurnoComponent implements OnInit {
     this.turnoForm.reset();
   }
 
+  change_fecha() {
+    console.log(this.isOpenNow(this.turnoForm.controls['fecha'].value));
+
+    if (this.isOpenNow(this.turnoForm.controls['fecha'].value)) {
+
+    } else {
+      this.turnoForm.controls['fecha'].setErrors(
+        {
+          diaNoLaboral: true
+        }
+      );
+
+      console.log(this.turnoForm.controls['fecha'].errors);
+    }
+
+    this.checkSiHayTurnos();
+  }
+
   change_especialidad() {
     this.especialistas = [
       { label: 'Seleccionar', value: null }
@@ -172,11 +191,6 @@ export class SolicitarTurnoComponent implements OnInit {
     this.checkSiHayTurnos();
   }
 
-  change_fecha() {
-    (this.turnoForm.controls["fecha"].value as Date).setHours(0, 0, 0);
-    this.checkSiHayTurnos();
-  }
-
   change_especialista() {
     this.servUsuario.empleados.forEach(
       (empleado: Usuario) => {
@@ -192,63 +206,37 @@ export class SolicitarTurnoComponent implements OnInit {
 
   checkSiHayTurnos() {
 
-    try {
-      this.calcularMinutosOcupado();
-    } catch (error) {
-      //console.log(error);
-    }
-
-    try {
-      this.calcularDisponibilidadTotal();
-    } catch (error) {
-      //console.log(error);
-    }
-
-    try {
-      if ((this.disponibilidadTotal - this.cantidadMinutosOcupado - this.turnoForm.controls["duracion"].value) < 1) {
-        this.puedePedirTurno = false;
-      } else {
-        this.puedePedirTurno = true;
-      }
-    } catch (error) {
-      //console.log(error);
-    }
-
   }
 
-  calcularMinutosOcupado() {
-    this.cantidadMinutosOcupado = 0;
+  isOpenNow(fecha: Date): boolean {
+    this.dia = fecha.getDay();
+    this.hora = fecha.getHours();
+    this.minutos = fecha.getMinutes();
 
-    this.servTurno.turnos.forEach(
-      (turnoItem: Turno) => {
-        //console.log("turno analisis", turnoItem);
+    //Domingo
+    if (this.dia == 0) {
+      return false;
+    }
 
-        if (turnoItem.especialista_uid == this.turnoForm.controls["especialista_uid"].value) {
-          //console.log("mismo UID");
-          if (turnoItem.fecha == (this.turnoForm.controls["fecha"].value as Date).toString()) {
-            //console.log("misma fecha");
-            if (turnoItem.estado == "confirmado") {
-              //console.log("es confirmado");
-              this.cantidadMinutosOcupado = this.cantidadMinutosOcupado + turnoItem.duracion;
-            }
-          }
+    //De L a V
+    if (this.dia >= 1 && this.dia <= 5) {
+      if (this.hora >= 8 && this.minutos >= 0) {
+        if (this.hora <= 18 && this.minutos <= 59) {
+          return true;
         }
       }
-    );
-  }
-
-  calcularDisponibilidadTotal() {
-    if ((this.turnoForm.controls["fecha"].value as Date).getDay() == 6) {
-      this.disponibilidadTotal = (14 - 8) * 60;
-      console.log("es sábado", this.disponibilidadTotal);
-    } else {
-      this.disponibilidadTotal = (19 - 8) * 60;
-      console.log("NO es sábado", this.disponibilidadTotal);
     }
-  }
 
-  calcularCantidadTurnos(duracion: number): number {
-    return Math.floor((this.disponibilidadTotal - this.cantidadMinutosOcupado) / duracion);
+    //Sabado
+    if (this.dia == 6) {
+      if (this.hora >= 8 && this.minutos >= 0) {
+        if (this.hora <= 13 && this.minutos <= 59) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   }
 
   texto_error_cliente_nombre(): string {

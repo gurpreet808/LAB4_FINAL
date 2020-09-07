@@ -1,0 +1,16 @@
+<div>
+    {{mi_fecha}}
+</div>
+
+<div>
+    {{valido}}
+</div>
+
+<div>
+    <button (click)="setearDia()">Sumar un dia</button>
+</div>
+
+<div>
+    <p-calendar [(ngModel)]="mi_fecha" dateFormat="dd/mm/yy" [minDate]="minDateValue" [disabledDays]="[0]"
+        [readonlyInput]="true" appendTo="body" [locale]="es" showTime="true" hourFormat="24" (onSelect)="cambioFecha()"></p-calendar>
+</div>
