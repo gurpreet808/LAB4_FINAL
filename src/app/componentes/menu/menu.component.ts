@@ -102,7 +102,7 @@ export class MenuComponent implements OnInit {
   desloguear() {
     console.log("Cerrando sesión...");
 
-    this.router.navigateByUrl("/");
+    this.router.navigateByUrl("/login");
     this.servUsuario.logout();
   }
 

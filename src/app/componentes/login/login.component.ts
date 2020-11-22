@@ -16,19 +16,22 @@ export class LoginComponent implements OnInit {
   submitted: boolean;
 
   usuariosTest = [
-    { correo: "administrador@administrador.com", clave: "administrador", label: "Administrador"},
-    { correo: "especialista1@especialista.com", clave: "especialista", label:  "Esteban Quito (Ortodoncia)"},
-    { correo: "especialista2@especialista.com", clave: "especialista", label:  "Jazmín Flores (especialista2)"},
-    { correo: "cliente1@cliente.com", clave: "cliente", label: "Lautaro López (cliente1)"},
-    { correo: "cliente2@cliente.com", clave: "cliente", label: "Camila Rodríguez (cliente2)"},
-    { correo: "cliente3@cliente.com", clave: "cliente", label: "Juan Pérez (cliente3)"}
+    { correo: "administrador@administrador.com", clave: "administrador", label: "Administrador" },
+    { correo: "especialista1@especialista.com", clave: "especialista", label: "Esteban Quito (Ortodoncia)" },
+    { correo: "especialista2@especialista.com", clave: "especialista", label: "Jazmín Flores (especialista2)" },
+    { correo: "cliente1@cliente.com", clave: "cliente", label: "Lautaro López (cliente1)" },
+    { correo: "cliente2@cliente.com", clave: "cliente", label: "Camila Rodríguez (cliente2)" },
+    { correo: "cliente3@cliente.com", clave: "cliente", label: "Juan Pérez (cliente3)" }
   ];
 
   constructor(public servUsuario: UsuarioService, public router: Router, public fb: FormBuilder, public messageService: MessageService) {
-
   }
-
+  
   ngOnInit(): void {
+    if (this.servUsuario.logueado.value != false) {
+      this.router.navigateByUrl("/");
+    }
+
     this.loginForm = this.fb.group({
       'usuario': new FormControl('', Validators.required),
       'clave': new FormControl('', Validators.compose([Validators.required, Validators.minLength(6)])),
@@ -41,8 +44,15 @@ export class LoginComponent implements OnInit {
         console.log(sePudo);
 
         if (sePudo.estado) {
-          this.navegar("/");
           this.messageService.add({ severity: 'success', summary: '¡Bien!', detail: 'Ingresó correctamente' });
+          let suscripcion = this.servUsuario.logueado.subscribe(
+            (logeado: boolean) => {
+              if (logeado == true) {
+                this.navegar("/");
+                suscripcion.unsubscribe();
+              }
+            }
+          );
         } else {
           this.messageService.add({ severity: 'error', summary: 'Error', detail: sePudo.info });
         }
