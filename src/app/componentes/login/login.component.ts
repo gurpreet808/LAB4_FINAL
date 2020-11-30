@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
 
   constructor(public servUsuario: UsuarioService, public router: Router, public fb: FormBuilder, public messageService: MessageService) {
   }
-  
+
   ngOnInit(): void {
     if (this.servUsuario.logueado.value != false) {
       this.router.navigateByUrl("/");
@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.loguear().then(
-      (sePudo) => {
+      (sePudo: {estado: boolean, info?: string}) => {
         console.log(sePudo);
 
         if (sePudo.estado) {

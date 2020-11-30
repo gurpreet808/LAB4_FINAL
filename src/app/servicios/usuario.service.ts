@@ -12,6 +12,7 @@ import { HttpClient } from '@angular/common/http';
 export class UsuarioService {
 
   public logueado = new BehaviorSubject<boolean>(false);
+  firstRun: boolean = true;
   el_usuario = new BehaviorSubject<Usuario>({});
   usuarios: Usuario[] = [];
   empleados: Usuario[] = [];
@@ -24,6 +25,8 @@ export class UsuarioService {
 
     this.afAuth.authState.subscribe(
       (authState) => {
+        this.firstRun = false;
+
         if (authState) {
           try {
             this.traerDatosDelUsuario(authState.uid).subscribe(this.el_usuario);
@@ -44,6 +47,7 @@ export class UsuarioService {
           }
         } else {
           this.logueado.next(false);
+          
         }
       }
     );

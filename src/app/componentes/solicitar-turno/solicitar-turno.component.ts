@@ -27,7 +27,8 @@ export class SolicitarTurnoComponent implements OnInit {
   hora: number = -1;
   minutos: number = -1;
 
-  puedePedirTurno: boolean = false;
+  //Esto es para que se bloquee que pida turno si está ocupado
+  puedePedirTurno: boolean = true;
 
   turno: Turno = {};
 
@@ -60,7 +61,6 @@ export class SolicitarTurnoComponent implements OnInit {
 
   constructor(public servTurno: TurnoService, public servEspecialidad: EspecialidadService, public router: Router,
     public servSala: SalaService, public servUsuario: UsuarioService, public fb: FormBuilder, public messageService: MessageService) {
-
     //Las especialidades se definen por los especialistas registrados
     servEspecialidad.especialidadList.valueChanges().subscribe(
       (especialidadesFire: Especialidad[]) => {
@@ -80,14 +80,22 @@ export class SolicitarTurnoComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.roundTimeQuarterHour();
+
     this.turnoForm = this.fb.group({
       'especialidad': new FormControl('', Validators.required),
       'tipo': new FormControl('consulta', Validators.required),
-      'fecha': new FormControl('', Validators.required),
+      'fecha': new FormControl(this.minDateValue, Validators.required),
       'especialista_uid': new FormControl('', Validators.required),
       'duracion': new FormControl(15)
     });
 
+  }
+
+  roundTimeQuarterHour() {
+    this.minDateValue.setMilliseconds(Math.round(this.minDateValue.getMilliseconds() / 1000) * 1000);
+    this.minDateValue.setSeconds(Math.round(this.minDateValue.getSeconds() / 60) * 60);
+    this.minDateValue.setMinutes(Math.round(this.minDateValue.getMinutes() / 15) * 15);
   }
 
   onSubmit() {
@@ -143,7 +151,7 @@ export class SolicitarTurnoComponent implements OnInit {
     } else {
       this.turnoForm.controls['fecha'].setErrors(
         {
-          diaNoLaboral: true
+          horarioNoLaboral: true
         }
       );
 
@@ -248,7 +256,7 @@ export class SolicitarTurnoComponent implements OnInit {
   }
 
   texto_error_especialidad(): string {
-    return "Seleccione la especialidad";
+    return "Seleccione una especialidad";
   }
 
   texto_error_tipo(): string {
@@ -256,11 +264,15 @@ export class SolicitarTurnoComponent implements OnInit {
   }
 
   texto_error_fecha(): string {
-    return "Elija la fecha";
+    /* if (this.turnoForm.controls['fecha'].errors['horarioNolaboral']) {
+      return "Atendemos de 8 a 19hs (Lunes a Viernes) y de 8 a 14hs (Sábados)";
+    } */
+
+    return "Elija una fecha válida";
   }
 
   texto_error_especialista_uid(): string {
-    return "Se requiere el especialista";
+    return "Seleccione un especialista";
   }
 
   texto_error_sala_uid(): string {

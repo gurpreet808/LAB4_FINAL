@@ -12,9 +12,9 @@ export class InicioComponent implements OnInit {
   constructor(public router: Router, public servUsuario: UsuarioService) { }
 
   ngOnInit(): void {
-    if (this.servUsuario.logueado.value != true) {
+    /* if (this.servUsuario.logueado.value != true) {
       this.router.navigateByUrl("/login");
-    }
+    } */
   }
 
   nombre(): string {
