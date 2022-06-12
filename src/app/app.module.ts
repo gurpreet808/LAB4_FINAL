@@ -1,68 +1,51 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
+import { BrowserModule, HammerModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppRoutingModule } from './app-routing.module';
+import { LayoutModule } from '@angular/cdk/layout';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { firebaseConfig } from './app.firebase.config';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireAuthModule } from '@angular/fire/auth';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
-import { AngularFireStorageModule } from '@angular/fire/storage';
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
+import { AngularFireStorageModule } from '@angular/fire/compat/storage';
 import { HttpClientModule } from '@angular/common/http';
 import { PrimeNGModule } from './modulos/prime-ng/prime-ng.module';
 
+//import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+//import { provideAuth, getAuth } from '@angular/fire/auth';
+//import { provideDatabase, getDatabase } from '@angular/fire/database';
+//import { provideFirestore, getFirestore } from '@angular/fire/firestore';
+//import { provideFunctions, getFunctions } from '@angular/fire/functions';
+//import { provideMessaging, getMessaging } from '@angular/fire/messaging';
+//import { provideStorage, getStorage } from '@angular/fire/storage';
 import { AppComponent } from './app.component';
-import { MenuComponent } from './componentes/menu/menu.component';
-import { LoginComponent } from './componentes/login/login.component';
-import { Error404Component } from './componentes/error404/error404.component';
-import { RegistrarUsuarioComponent } from './componentes/registrar-usuario/registrar-usuario.component';
+import { environment } from '../environments/environment';
+import { ConfirmationService, MessageService } from 'primeng/api';
 import { InicioComponent } from './componentes/inicio/inicio.component';
-import { TurnosComponent } from './componentes/turnos/turnos.component';
-import { SalasComponent } from './componentes/salas/salas.component';
-import { TablaEmpleadosComponent } from './componentes/tabla-empleados/tabla-empleados.component';
-import { TablaTurnosComponent } from './componentes/tabla-turnos/tabla-turnos.component';
-import { TablaEspecialidadesComponent } from './componentes/tabla-especialidades/tabla-especialidades.component';
-import { TablaUsuariosComponent } from './componentes/tabla-usuarios/tabla-usuarios.component';
-import { ConfiguracionEmpresaComponent } from './componentes/configuracion-empresa/configuracion-empresa.component';
-import { TurnoFormMinutosPipe } from './pipes/turno-form-minutos.pipe';
-import { CantidadTurnosDisponiblesPipe } from './pipes/cantidad-turnos-disponibles.pipe';
-import { MisTurnosComponent } from './componentes/mis-turnos/mis-turnos.component';
-import { SolicitarTurnoComponent } from './componentes/solicitar-turno/solicitar-turno.component';
-import { MiPerfilComponent } from './componentes/mi-perfil/mi-perfil.component';
-import { MessageService } from 'primeng/api';
-import { TurnosAtenderComponent } from './componentes/turnos-atender/turnos-atender.component';
+import { Error404Component } from './componentes/error404/error404.component';
+import { LoginComponent } from './componentes/login/login.component';
+import { SpinnerComponent } from './componentes/spinner/spinner.component';
+import { NavBarComponent } from './componentes/nav-bar/nav-bar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    MenuComponent,
-    LoginComponent,
-    Error404Component,
-    RegistrarUsuarioComponent,
     InicioComponent,
-    TurnosComponent,
-    SalasComponent,
-    TablaEmpleadosComponent,
-    TablaTurnosComponent,
-    TablaEspecialidadesComponent,
-    TablaUsuariosComponent,
-    ConfiguracionEmpresaComponent,
-    TurnoFormMinutosPipe,
-    CantidadTurnosDisponiblesPipe,
-    MisTurnosComponent,
-    SolicitarTurnoComponent,
-    MiPerfilComponent,
-    TurnosAtenderComponent
+    Error404Component,
+    LoginComponent,
+    SpinnerComponent,
+    NavBarComponent
   ],
   imports: [
     BrowserModule,
+    HammerModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    AngularFireModule.initializeApp(firebaseConfig),
-    //AngularFirestoreModule,
+    LayoutModule,
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
     AngularFireDatabaseModule,
     AngularFireStorageModule,
@@ -70,6 +53,7 @@ import { TurnosAtenderComponent } from './componentes/turnos-atender/turnos-aten
     PrimeNGModule
   ],
   providers: [
+    ConfirmationService,
     MessageService
   ],
   bootstrap: [AppComponent]

@@ -2,10 +2,13 @@
   "targets": {
     "final-lab-4": {
       "hosting": {
-        "FinalLab4v2": [
+        "FinalLab4": [
           "final-lab-4"
         ]
       }
     }
+  },
+  "projects": {
+    "default": "final-lab-4"
   }
 }

@@ -21,6 +21,15 @@ import { RadioButtonModule } from 'primeng/radiobutton';
 import { DataViewModule } from 'primeng/dataview';
 import { RatingModule } from 'primeng/rating';
 import { ToggleButtonModule } from 'primeng/togglebutton';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToolbarModule } from 'primeng/toolbar';
+import { InputNumberModule } from 'primeng/inputnumber';
+import { MultiSelectModule } from 'primeng/multiselect';
+import { ChipModule } from 'primeng/chip';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
+import { BlockUIModule } from 'primeng/blockui';
+import { DockModule } from 'primeng/dock';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @NgModule({
   declarations: [],
@@ -45,7 +54,16 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
     RadioButtonModule,
     DataViewModule,
     RatingModule,
-    ToggleButtonModule
+    ToggleButtonModule,
+    ConfirmDialogModule,
+    ToolbarModule,
+    InputNumberModule,
+    MultiSelectModule,
+    ChipModule,
+    ScrollPanelModule,
+    BlockUIModule,
+    SelectButtonModule,
+    DockModule
   ],
   exports: [
     PanelModule,
@@ -67,7 +85,16 @@ import { ToggleButtonModule } from 'primeng/togglebutton';
     RadioButtonModule,
     DataViewModule,
     RatingModule,
-    ToggleButtonModule
+    ToggleButtonModule,
+    ConfirmDialogModule,
+    ToolbarModule,
+    InputNumberModule,
+    MultiSelectModule,
+    ChipModule,
+    ScrollPanelModule,
+    BlockUIModule,
+    SelectButtonModule,
+    DockModule
   ]
 })
 export class PrimeNGModule { }

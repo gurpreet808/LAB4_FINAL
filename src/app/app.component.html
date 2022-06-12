@@ -1,6 +1,18 @@
-<app-menu *ngIf="servUsuario.logueado.value"></app-menu>
+<app-spinner></app-spinner>
 
-<div id="contenido">
+<div #main_container id="main_container" class="p-2">
+    <app-nav-bar></app-nav-bar>
+
     <p-toast [style]="{marginTop: '10px'}"></p-toast>
-    <router-outlet></router-outlet>
+
+    <p-confirmDialog #cd [style]="{width: '90vw'}">
+        <ng-template pTemplate="footer">
+            <button type="button" pButton icon="pi pi-times" class="p-button-danger" label="No" (click)="cd.reject()"></button>
+            <button type="button" pButton icon="pi pi-check" class="p-button-success" label="Si" (click)="cd.accept()"></button>
+        </ng-template>
+    </p-confirmDialog>
+
+    <div id="contenido">
+        <router-outlet></router-outlet>
+    </div>
 </div>
