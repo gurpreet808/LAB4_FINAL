@@ -1,1 +1,8 @@
-<p>nav-bar works!</p>
+<p-menubar [model]="items">
+    <ng-template pTemplate="start">
+        <img src="assets/imagenes/logo.png" height="40" class="mr-2">
+    </ng-template>
+    <!-- <ng-template pTemplate="end">
+        <button pButton pRipple *ngIf="this.servUsuarios.logueado.value" type="button" label="Cerrar sesión" class="p-button-danger" icon="pi pi-fw pi-sign-out" (click)="desloguear()"></button>
+    </ng-template> -->
+</p-menubar>
