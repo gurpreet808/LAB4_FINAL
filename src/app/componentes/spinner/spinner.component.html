@@ -1,1 +1,7 @@
-<p>spinner works!</p>
+<div id="spinner" *ngIf="this.servSpinner.loading">
+    <img class="spinnerintegra" [src]="this.servSpinner.url_logo" alt="" />
+    <!-- <div class="flex justify-content-center flex-wrap md:w-6 w-9">
+        <logo-bifrost class="md:w-6 w-9"></logo-bifrost>
+    </div> -->
+    <div id="loading"></div>
+</div>
