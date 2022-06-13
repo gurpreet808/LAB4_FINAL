@@ -1,0 +1,82 @@
+<p-table #dt [value]="items()" [rows]="-1" responsiveLayout="scroll" [rowHover]="true" dataKey="id">
+    <ng-template pTemplate="caption">
+        <div class="grid align-items-center justify-content-between">
+            <div class="col-4 md:col-2">
+                <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2" (click)="Nuevo()"></button>
+            </div>
+
+            <div class="col-8 md:col-10" style="text-align: center">
+                <h3 class="m-0">Administrar Salas</h3>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="nombre">Nombre
+                <p-sortIcon field="nombre"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="tipo">Tipo de sala
+                <p-sortIcon field="tipo"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="en_uso">¿En uso?
+                <p-sortIcon field="en_uso"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="estado">Estado
+                <p-sortIcon field="estado"></p-sortIcon>
+            </th>
+
+            <th>Acciones</th>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-item>
+        <tr>
+            <td>{{item.nombre}}</td>
+            <td>{{item.tipo}}</td>
+            <td>{{item.en_uso}}</td>
+            <td>{{item.estado}}</td>
+
+            <td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2" (click)="Editar(item)"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="Borrar(item)"></button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-dialog [(visible)]="itemDialog" [style]="{width: '450px'}" header="Detalles de la sala" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="nombre">Nombre</label>
+            <input type="text" pInputText id="nombre" [(ngModel)]="item.nombre" required autofocus />
+            <small class="p-error" *ngIf="!item.nombre">Se requiere el nombre.</small>
+        </div>
+
+        <div class="field">
+            <label for="tipo">Tipo de sala</label>
+            <p-dropdown [options]="opcionesTipoSala" [(ngModel)]="item.tipo" appendTo="body"></p-dropdown>
+            <small class="p-error" *ngIf="!item.tipo">Se requiere el tipo de sala.</small>
+        </div>
+
+        <div class="field-checkbox">
+            <label for="en_uso">¿En uso?</label>
+            <p-checkbox class="ml-2" [(ngModel)]="item.en_uso" [binary]=true></p-checkbox>
+        </div>
+
+        <div class="field">
+            <label for="estado">Estado</label>
+            <p-dropdown [options]="opcionesEstadoSala" [(ngModel)]="item.estado" appendTo="body"></p-dropdown>
+            <small class="p-error" *ngIf="!item.estado">Se requiere el estado de la sala.</small>
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-warning" (click)="Cancelar()"></button>
+        <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-success" (click)="Guardar()"></button>
+    </ng-template>
+</p-dialog>

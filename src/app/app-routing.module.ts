@@ -3,11 +3,12 @@ import { RouterModule, Routes } from '@angular/router';
 import { Error404Component } from './componentes/error404/error404.component';
 import { InicioComponent } from './componentes/inicio/inicio.component';
 import { LoginComponent } from './componentes/login/login.component';
+import { TablaSalasComponent } from './componentes/tabla-salas/tabla-salas.component';
 
 const routes: Routes = [
   { path: "", component: InicioComponent },
   { path: "login", component: LoginComponent },
-  //{ path: "envios", component: ListaEnviosComponent },
+  { path: "salas", component: TablaSalasComponent },
   //{ path: "registrarme", component: RegistrarUsuarioComponent },
   //{ path: "especialidades", component: TablaEspecialidadesComponent, canActivate: [AdminGuard] },
   //{ path:"registrarme", component: RegistrarUsuarioComponent, canActivate: [AnonGuard] },

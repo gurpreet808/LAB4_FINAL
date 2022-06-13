@@ -27,6 +27,7 @@ import { Error404Component } from './componentes/error404/error404.component';
 import { LoginComponent } from './componentes/login/login.component';
 import { SpinnerComponent } from './componentes/spinner/spinner.component';
 import { NavBarComponent } from './componentes/nav-bar/nav-bar.component';
+import { TablaSalasComponent } from './componentes/tabla-salas/tabla-salas.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { NavBarComponent } from './componentes/nav-bar/nav-bar.component';
     Error404Component,
     LoginComponent,
     SpinnerComponent,
-    NavBarComponent
+    NavBarComponent,
+    TablaSalasComponent
   ],
   imports: [
     BrowserModule,

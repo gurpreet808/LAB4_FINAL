@@ -30,6 +30,7 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { BlockUIModule } from 'primeng/blockui';
 import { DockModule } from 'primeng/dock';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { CheckboxModule } from 'primeng/checkbox';
 
 @NgModule({
   declarations: [],
@@ -63,7 +64,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     ScrollPanelModule,
     BlockUIModule,
     SelectButtonModule,
-    DockModule
+    DockModule,
+    CheckboxModule
   ],
   exports: [
     PanelModule,
@@ -94,7 +96,8 @@ import { SelectButtonModule } from 'primeng/selectbutton';
     ScrollPanelModule,
     BlockUIModule,
     SelectButtonModule,
-    DockModule
+    DockModule,
+    CheckboxModule
   ]
 })
 export class PrimeNGModule { }
