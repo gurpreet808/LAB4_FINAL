@@ -1,0 +1,61 @@
+<p-table [value]="items()" [rows]="-1" dataKey="id" editMode="row" responsiveLayout="scroll">
+    <ng-template pTemplate="caption">
+        <div class="grid align-items-center justify-content-between">
+            <div class="col-4 md:col-2">
+                <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2" (click)="Nuevo()"></button>
+            </div>
+
+            <div class="col-8 md:col-10" style="text-align: center">
+                <h3 class="m-0">Administrar Especialidades</h3>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="nombre">Nombre
+                <p-sortIcon field="nombre"></p-sortIcon>
+            </th>
+
+            <th class="text-center">Acciones</th>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-item let-editing="editing" let-ri="rowIndex">
+        <tr [pEditableRow]="item">
+            <td>
+                <p-cellEditor>
+                    <ng-template pTemplate="input">
+                        <input type="text" pInputText class="mr-2" [(ngModel)]="item.nombre" required autofocus />
+                        <small class="p-error" *ngIf="!item.nombre">Se requiere el nombre.</small>
+                    </ng-template>
+                    <ng-template pTemplate="output">
+                        {{item.nombre}}
+                    </ng-template>
+                </p-cellEditor>
+            </td>
+
+            <td style="text-align:center">
+                <button *ngIf="!editing" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="Editar(item)" class="p-button-rounded p-button-primary mr-2"></button>
+                <button *ngIf="!editing" pButton pRipple type="button" icon="pi pi-trash" (click)="Borrar(item)" class="p-button-rounded p-button-danger"></button>
+                <button *ngIf="editing" pButton pRipple type="button" pSaveEditableRow icon="pi pi-check" (click)="Guardar()" class="p-button-rounded p-button-success mr-2"></button>
+                <button *ngIf="editing" pButton pRipple type="button" pCancelEditableRow icon="pi pi-times" (click)="Cancelar()" class="p-button-rounded p-button-warning"></button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-dialog [(visible)]="itemDialog" [style]="{width: '450px'}" header="Agregar una Especialidad" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="nombre">Nombre</label>
+            <input type="text" pInputText id="nombre" [(ngModel)]="_item.nombre" required autofocus />
+            <small class="p-error" *ngIf="!_item.nombre">Se requiere el nombre.</small>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-warning" (click)="Cancelar()"></button>
+        <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-success" (click)="Guardar()"></button>
+    </ng-template>
+</p-dialog>

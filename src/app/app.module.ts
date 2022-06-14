@@ -28,6 +28,7 @@ import { LoginComponent } from './componentes/login/login.component';
 import { SpinnerComponent } from './componentes/spinner/spinner.component';
 import { NavBarComponent } from './componentes/nav-bar/nav-bar.component';
 import { TablaSalasComponent } from './componentes/tabla-salas/tabla-salas.component';
+import { TablaEspecialidadesComponent } from './componentes/tabla-especialidades/tabla-especialidades.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,8 @@ import { TablaSalasComponent } from './componentes/tabla-salas/tabla-salas.compo
     LoginComponent,
     SpinnerComponent,
     NavBarComponent,
-    TablaSalasComponent
+    TablaSalasComponent,
+    TablaEspecialidadesComponent
   ],
   imports: [
     BrowserModule,
