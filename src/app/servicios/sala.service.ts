@@ -12,7 +12,15 @@ export class SalaService {
   salas: BehaviorSubject<Sala[]> = new BehaviorSubject<Sala[]>([]);
   salaList: AngularFireList<Sala> = this.db.list<Sala>('/salas', ref => ref.orderByChild("nombre"));
 
-  constructor(private db: AngularFireDatabase, public servSpinner: SpinnerService) { 
+  constructor(private db: AngularFireDatabase, public servSpinner: SpinnerService) {
+    this.CargarDatos();    
+  }
+
+  TraerTodos() {
+    return this.salaList.snapshotChanges();
+  }
+
+  CargarDatos() {
     this.servSpinner.loading = true;
 
     this.TraerTodos().subscribe(
@@ -48,10 +56,6 @@ export class SalaService {
         console.log(this.salas.value);
       }
     );
-  }
-
-  TraerTodos() {
-    return this.salaList.snapshotChanges();
   }
 
   AgregarUno(_sala: Sala) {
