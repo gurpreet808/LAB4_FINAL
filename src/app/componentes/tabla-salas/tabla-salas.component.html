@@ -58,18 +58,18 @@
 
         <div class="field">
             <label for="tipo">Tipo de sala</label>
-            <p-dropdown [options]="opcionesTipoSala" [(ngModel)]="item.tipo" appendTo="body"></p-dropdown>
+            <p-dropdown [options]="opcionesTipoSala" id="tipo" [(ngModel)]="item.tipo" appendTo="body"></p-dropdown>
             <small class="p-error" *ngIf="!item.tipo">Se requiere el tipo de sala.</small>
         </div>
 
         <div class="field-checkbox">
             <label for="en_uso">¿En uso?</label>
-            <p-checkbox class="ml-2" [(ngModel)]="item.en_uso" [binary]=true></p-checkbox>
+            <p-checkbox class="ml-2" id="en_uso" [(ngModel)]="item.en_uso" [binary]=true></p-checkbox>
         </div>
 
         <div class="field">
             <label for="estado">Estado</label>
-            <p-dropdown [options]="opcionesEstadoSala" [(ngModel)]="item.estado" appendTo="body"></p-dropdown>
+            <p-dropdown [options]="opcionesEstadoSala" id="estado" [(ngModel)]="item.estado" appendTo="body"></p-dropdown>
             <small class="p-error" *ngIf="!item.estado">Se requiere el estado de la sala.</small>
         </div>
 
