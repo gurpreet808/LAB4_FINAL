@@ -1,0 +1,125 @@
+<p-table #dt [value]="items()" [rows]="-1" responsiveLayout="scroll" [rowHover]="true" dataKey="id">
+    <ng-template pTemplate="caption">
+        <div class="grid align-items-center justify-content-between">
+            <div class="col-4 md:col-2">
+                <button pButton pRipple label="Nuevo" icon="pi pi-plus" class="p-button-success mr-2" (click)="Nuevo()"></button>
+            </div>
+
+            <div class="col-8 md:col-10" style="text-align: center">
+                <h3 class="m-0">Administrar Usuarios</h3>
+            </div>
+        </div>
+    </ng-template>
+
+    <ng-template pTemplate="header">
+        <tr>
+            <th pSortableColumn="nombre">Nombre
+                <p-sortIcon field="nombre"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="apellido">Apellido
+                <p-sortIcon field="apellido"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="correo">Correo elecrónico
+                <p-sortIcon field="correo"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="clave">Contraseña
+                <p-sortIcon field="clave"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="fechaAlta">Fecha de alta
+                <p-sortIcon field="fechaAlta"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="fechaMod">Fecha de modificación
+                <p-sortIcon field="fechaMod"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="esCliente">¿Es cliente?
+                <p-sortIcon field="esCliente"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="tipoEmpleado">Tipo de cliente
+                <p-sortIcon field="tipoEmpleado"></p-sortIcon>
+            </th>
+
+            <th pSortableColumn="especialidad">Especialidad
+                <p-sortIcon field="especialidad"></p-sortIcon>
+            </th>
+
+            <th class="text-center">Acciones</th>
+        </tr>
+    </ng-template>
+
+    <ng-template pTemplate="body" let-item>
+        <tr>
+            <td>{{item.nombre}}</td>
+            <td>{{item.apellido}}</td>
+            <td>{{item.correo}}</td>
+            <td>{{item.clave}}</td>
+            <td>{{item.fechaAlta | date : 'dd/MM/yyyy HH:mm:ss'}}</td>
+            <td>{{item.fechaMod | date : 'dd/MM/yyyy HH:mm:ss'}}</td>
+            <td>{{item.esCliente}}</td>
+            <td>{{item.tipoEmpleado}}</td>
+            <td>{{item.especialidad | especialidad}}</td>
+
+            <td>
+                <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-primary mr-2 " (click)="Editar(item)"></button>
+                <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-danger" (click)="Borrar(item)"></button>
+            </td>
+        </tr>
+    </ng-template>
+</p-table>
+
+<p-dialog [(visible)]="itemDialog" [style]="{width: '450px'}" header="Detalles de la usuario" [modal]="true" styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div class="field">
+            <label for="nombre">Nombre</label>
+            <input type="text" pInputText id="nombre" [(ngModel)]="item.nombre" required autofocus />
+            <small class="p-error" *ngIf="!item.nombre">Se requiere el nombre.</small>
+        </div>
+
+        <div class="field">
+            <label for="apellido">Apellido</label>
+            <input type="text" pInputText id="apellido" [(ngModel)]="item.apellido" required autofocus />
+            <small class="p-error" *ngIf="!item.apellido">Se requiere el apellido.</small>
+        </div>
+
+        <div class="field">
+            <label for="correo">Correo electrónico</label>
+            <input type="text" pInputText id="correo" [(ngModel)]="item.correo" required autofocus />
+            <small class="p-error" *ngIf="!item.correo">Se requiere el correo electrónico.</small>
+        </div>
+
+        <div class="field">
+            <label for="clave">Contraseña</label>
+            <input type="text" pInputText id="clave" [(ngModel)]="item.clave" required autofocus />
+            <small class="p-error" *ngIf="!item.clave">Se requiere el clave electrónico.</small>
+        </div>
+
+        <div class="field-checkbox">
+            <label for="en_uso">¿Es cliente?</label>
+            <p-checkbox class="ml-2" [(ngModel)]="item.esCliente" [binary]=true></p-checkbox>
+        </div>
+
+        <div class="field">
+            <label for="tipoEmpleado">Tipo de empleado</label>
+            <p-dropdown [options]="opcionesTipoUsuario" id="tipoEmpleado" [(ngModel)]="item.tipoEmpleado" appendTo="body"></p-dropdown>
+            <small class="p-error" *ngIf="!item.tipoEmpleado">Se requiere el tipo de empleado.</small>
+        </div>
+
+        <div class="field" *ngIf="item.tipoEmpleado == 'especialista'">
+            <label for="especialidad">Especialidad</label>
+            <p-dropdown [options]="opcionesEspecialidades" id="especialidad" [(ngModel)]="item.especialidad" appendTo="body"></p-dropdown>
+            <small class="p-error" *ngIf="!item.especialidad">Se requiere el tipo de empleado.</small>
+        </div>
+
+    </ng-template>
+
+    <ng-template pTemplate="footer">
+        <button pButton pRipple label="Cancelar" icon="pi pi-times" class="p-button-warning" (click)="Cancelar()"></button>
+        <button pButton pRipple label="Guardar" icon="pi pi-check" class="p-button-success" (click)="Guardar()"></button>
+    </ng-template>
+</p-dialog>

@@ -29,6 +29,8 @@ import { SpinnerComponent } from './componentes/spinner/spinner.component';
 import { NavBarComponent } from './componentes/nav-bar/nav-bar.component';
 import { TablaSalasComponent } from './componentes/tabla-salas/tabla-salas.component';
 import { TablaEspecialidadesComponent } from './componentes/tabla-especialidades/tabla-especialidades.component';
+import { TablaUsuariosComponent } from './componentes/tabla-usuarios/tabla-usuarios.component';
+import { EspecialidadPipe } from './pipes/especialidad.pipe';
 
 @NgModule({
   declarations: [
@@ -39,7 +41,9 @@ import { TablaEspecialidadesComponent } from './componentes/tabla-especialidades
     SpinnerComponent,
     NavBarComponent,
     TablaSalasComponent,
-    TablaEspecialidadesComponent
+    TablaEspecialidadesComponent,
+    TablaUsuariosComponent,
+    EspecialidadPipe
   ],
   imports: [
     BrowserModule,
